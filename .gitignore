@@ -26,3 +26,33 @@
 *.exe
 *.out
 *.app
+
+#################
+## ignore files 
+##for cocos2d-x project
+#################
+
+#cocosDenshion
+CocosDenshion
+
+#Debug.win32
+Debug.win32
+
+#cocos2dx
+cocos2dx
+extensions
+external
+cocos2d
+
+#proj dirs
+proj.linux
+proj.win8.1-universal
+proj.win32
+proj.android
+proj.android-studio
+proj.ios_mac
+
+#Resources
+#Resources
+.cocos-project.json
+CMakeLists.txt
