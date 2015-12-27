@@ -34,9 +34,13 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
     if(!glview) {
-        glview = GLViewImpl::create("My Game");
+		//glview = GLViewImpl::createWithFullScreen("Puzzle Game");
+		glview = GLViewImpl::create("My Game");
+		glview->setFrameSize(360, 640);//test frame size
         director->setOpenGLView(glview);
     }
+
+	glview->setDesignResolutionSize(1080, 1920, ResolutionPolicy::SHOW_ALL);
 
     // turn on display FPS
     director->setDisplayStats(true);
