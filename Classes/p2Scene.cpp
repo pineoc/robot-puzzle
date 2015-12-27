@@ -1,4 +1,5 @@
-#include "HelloWorldScene.h"
+﻿#include "p2Scene.h"
+#include "p3Scene.h"
 
 //puzzle classes
 #include "puzzle.h"
@@ -9,13 +10,13 @@
 USING_NS_CC;
 using namespace ui;
 
-Scene* HelloWorld::createScene()
+Scene* secondPuzzle::createScene()
 {
     // 'scene' is an autorelease object
    auto scene = Scene::create();
     
     // 'layer' is an autorelease object
-    auto layer = HelloWorld::create();
+    auto layer = secondPuzzle::create();
 
     // add layer as a child to scene
     scene->addChild(layer);
@@ -25,7 +26,7 @@ Scene* HelloWorld::createScene()
 }
 
 // on "init" you need to initialize your instance
-bool HelloWorld::init()
+bool secondPuzzle::init()
 {
     //////////////////////////////
     // 1. super init first
@@ -36,13 +37,13 @@ bool HelloWorld::init()
 
 	goalCount = 6;
 	gameController::getInstance()->initPuzzleCount();
-	schedule(schedule_selector(HelloWorld::checkEnding),0.5f);
+	schedule(schedule_selector(secondPuzzle::checkEnding),0.5f);
     
 	/*background image*/
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    Sprite* backgroundSprite = Sprite::create("background.jpg");
+    Sprite* backgroundSprite = Sprite::create("p2/background.jpg");
 
     // position the sprite on the center of the screen
 	backgroundSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
@@ -50,6 +51,7 @@ bool HelloWorld::init()
     // add the sprite as a child to this layer
 	this->addChild(backgroundSprite, BACKGROUND_Z);
 
+	/*
 	//left leg puzzle
 	{
 		puzzle* pz1 = new puzzle(100.0f, 150.0f, 420.0f, 480.0f, "left_leg.png");
@@ -108,35 +110,38 @@ bool HelloWorld::init()
 		Sprite* ppz3 = pz3->getPartnerPuzzle();
 		this->addChild(spz3);
 		this->addChild(ppz3);
-	}	
+	}
+	*/
+
+	this->setKeypadEnabled(true);
 
     return true;
 }
 
-void HelloWorld::checkEnding(float t){
+void secondPuzzle::checkEnding(float t){
 	int curCount = gameController::getInstance()->getPuzzleCount();
 	if(goalCount == curCount){
 		CCLOG("Ending!");
 		//unschedule check puzzle count
-		this->unschedule(schedule_selector(HelloWorld::checkEnding));
+		this->unschedule(schedule_selector(secondPuzzle::checkEnding));
 
 		//ending effect
-		this->scheduleOnce(schedule_selector(HelloWorld::showCompleteSprite), SHOWCLEARIMAGE_DELAYTIME);
+		this->scheduleOnce(schedule_selector(secondPuzzle::showCompleteSprite), SHOWCLEARIMAGE_DELAYTIME);
 
 		//show ending popup
-		this->scheduleOnce(schedule_selector(HelloWorld::showEndingPopUp), SHOWPOPUPREWARD_DELAYTIME);
+		this->scheduleOnce(schedule_selector(secondPuzzle::showEndingPopUp), SHOWPOPUPREWARD_DELAYTIME);
 	}
 }
 
 //ending effect
-void HelloWorld::showCompleteSprite(float dt){
+void secondPuzzle::showCompleteSprite(float dt){
 	Sprite* spriteComplete = Sprite::create("clear_body.png");
 	spriteComplete->setPosition(Vec2(545.0f, 710.0f));
 	spriteComplete->setZOrder(PARTNER_Z+1);
 	this->addChild(spriteComplete);
 }
 
-void HelloWorld::showEndingPopUp(float dt){
+void secondPuzzle::showEndingPopUp(float dt){
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	//ui test
 	Layout* popLayout = Layout::create();
@@ -150,13 +155,13 @@ void HelloWorld::showEndingPopUp(float dt){
 
 	Button* replayBtn = Button::create("replay.png", "replay_s.png");
 	replayBtn->setPosition(Vec2(visibleSize.width / 2 - 200, visibleSize.height / 2 - 600));
-	replayBtn->addTouchEventListener(CC_CALLBACK_2(HelloWorld::endingPopupBtns, this));
+	replayBtn->addTouchEventListener(CC_CALLBACK_2(secondPuzzle::endingPopupBtns, this));
 	replayBtn->setTag(1);
 	popLayout->addChild(replayBtn, 1);
 
 	Button* nextBtn = Button::create("next.png", "next_s.png");
 	nextBtn->setPosition(Vec2(visibleSize.width / 2 + 200, visibleSize.height / 2 - 600));
-	nextBtn->addTouchEventListener(CC_CALLBACK_2(HelloWorld::endingPopupBtns, this));
+	nextBtn->addTouchEventListener(CC_CALLBACK_2(secondPuzzle::endingPopupBtns, this));
 	nextBtn->setTag(2);
 	popLayout->addChild(nextBtn, 1);
 
@@ -165,7 +170,7 @@ void HelloWorld::showEndingPopUp(float dt){
 	popLayout->addChild(resultSpr, 1);
 }
 
-void HelloWorld::endingPopupBtns(Ref* pSender, Widget::TouchEventType type){
+void secondPuzzle::endingPopupBtns(Ref* pSender, Widget::TouchEventType type){
 	if (Widget::TouchEventType::ENDED == type){
 		Button* b = (Button*)pSender;
 		int tag = b->getTag();
@@ -183,21 +188,21 @@ void HelloWorld::endingPopupBtns(Ref* pSender, Widget::TouchEventType type){
 	}	
 }
 
-void HelloWorld::reGame(){
-	Scene* s = HelloWorld::createScene();
+void secondPuzzle::reGame(){
+	Scene* s = secondPuzzle::createScene();
 	Director::getInstance()->replaceScene(s);
 }
-void HelloWorld::nextGame(){
+void secondPuzzle::nextGame(){
 	//go nextScene
-	//Scene* s = nextScene::createScene();
-	//Director::getInstance()->replaceScene(s);
+	Scene* s = thirdPuzzle::createScene();
+	Director::getInstance()->replaceScene(s);
 }
 
-void HelloWorld::menuCloseCallback(Ref* pSender)
+void secondPuzzle::onKeyReleased(cocos2d::EventKeyboard::KeyCode keycode, cocos2d::Event* e)
 {
-    Director::getInstance()->end();
-
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
-    exit(0);
-#endif
+	if (EventKeyboard::KeyCode::KEY_MENU == keycode ||
+		EventKeyboard::KeyCode::KEY_RIGHT_ARROW == keycode)
+	{
+		nextGame();
+	}
 }
