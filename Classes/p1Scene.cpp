@@ -111,6 +111,7 @@ bool firstPuzzle::init()
 		this->addChild(ppz3);
 	}
 
+	//set key event enable
 	this->setKeypadEnabled(true);
 
     return true;
@@ -140,8 +141,10 @@ void firstPuzzle::showCompleteSprite(float dt){
 }
 
 void firstPuzzle::showEndingPopUp(float dt){
+	//visible size value
 	Size visibleSize = Director::getInstance()->getVisibleSize();
-	//ui test
+	
+	//layout for popup
 	Layout* popLayout = Layout::create();
 	popLayout->setSize(visibleSize);
 	popLayout->setPosition(Vec2());
@@ -151,18 +154,21 @@ void firstPuzzle::showEndingPopUp(float dt){
 	popLayout->setBackGroundColorOpacity(255 * POPUPLAYOUT_OPACITY_PERCENT);
 	this->addChild(popLayout, POPUPLAYOUT_Z);
 
+	//replay button
 	Button* replayBtn = Button::create("replay.png", "replay_s.png");
 	replayBtn->setPosition(Vec2(visibleSize.width / 2 - 200, visibleSize.height / 2 - 600));
 	replayBtn->addTouchEventListener(CC_CALLBACK_2(firstPuzzle::endingPopupBtns, this));
 	replayBtn->setTag(1);
 	popLayout->addChild(replayBtn, 1);
 
+	//next button
 	Button* nextBtn = Button::create("next.png", "next_s.png");
 	nextBtn->setPosition(Vec2(visibleSize.width / 2 + 200, visibleSize.height / 2 - 600));
 	nextBtn->addTouchEventListener(CC_CALLBACK_2(firstPuzzle::endingPopupBtns, this));
 	nextBtn->setTag(2);
 	popLayout->addChild(nextBtn, 1);
 
+	//result sprite of goodjob
 	Sprite* resultSpr = Sprite::create("reward.png");
 	resultSpr->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 100));
 	popLayout->addChild(resultSpr, 1);
@@ -200,7 +206,11 @@ void firstPuzzle::onKeyReleased(cocos2d::EventKeyboard::KeyCode keycode, cocos2d
 {
 	if (EventKeyboard::KeyCode::KEY_MENU == keycode || 
 		EventKeyboard::KeyCode::KEY_RIGHT_ARROW == keycode)
-	{
+	{//menu button
 		nextGame();
+	}
+	if (EventKeyboard::KeyCode::KEY_BACK == keycode)
+	{//back button
+		Director::getInstance()->end();
 	}
 }
