@@ -17,4 +17,8 @@
 //Splash screen delay time
 #define SPLASHSCREEN_DELAYTIME 1.0f
 
+//result layout btns TAG
+#define REGAMEBTN_TAG 1
+#define NEXTBTN_TAG 2
+
 #endif //__DATASETTING_H__
