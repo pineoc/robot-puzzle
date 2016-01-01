@@ -5,6 +5,7 @@
 #include "puzzle.h"
 #include "partner.h"
 #include "gameController.h"
+#include "menuController.h"
 #include "DataSetting.h"
 
 USING_NS_CC;
@@ -50,6 +51,9 @@ bool sixthPuzzle::init()
 
     // add the sprite as a child to this layer
 	this->addChild(backgroundSprite, BACKGROUND_Z);
+
+	menuController* myMenuController = new menuController(6);
+	this->addChild(myMenuController->getMenuLayout(), 1);
 
 	/*
 	//left leg puzzle

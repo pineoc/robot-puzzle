@@ -5,6 +5,8 @@
 using namespace cocos2d;
 using namespace ui;
 
+#define TRANSITION_FADE_TIME 0.5f
+
 class menuController
 {
 private:
@@ -32,6 +34,10 @@ private:
 	Button* leftBtn;
 	Button* rightBtn;
 
+	//home, option btns
+	Button* homeBtn;
+	Button* optionBtn;
+
 public:
 	//make menu layout
 	menuController(int _sceneNum);
@@ -43,9 +49,6 @@ public:
 
 	//set menuLayout - scrollView position
 	void setScrollViewPosition();
-
-	//set menulayout - position
-	void setMenuLayoutPosition(float x, float y);
 
 	//menu button items listener
 	void btnsListener(Ref* pSender, Widget::TouchEventType type);
