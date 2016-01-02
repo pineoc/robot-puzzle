@@ -21,4 +21,8 @@
 #define REGAMEBTN_TAG 1
 #define NEXTBTN_TAG 2
 
+//puzzle type
+#define NORMAL_PUZZLE 1
+#define CHANGE_PUZZLE 2
+
 #endif //__DATASETTING_H__

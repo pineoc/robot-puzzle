@@ -36,10 +36,17 @@ private:
 	//correct bit
 	bool corrected;
 
+	//puzzle type
+	int myType;
+
+	//sprite image file name
+	string imageName;
+
 public:
 	//constructor(puzzle number, puzzle position, partner position)
     puzzle(float puzzleX, float puzzleY,
-		float partnerX, float partnerY, string imageURI);
+		float partnerX, float partnerY, string imageURI, int puzzleType);
+	~puzzle();
 
 	//create partner
 	void createPartner(Vec2 partnerPosition);
@@ -49,13 +56,16 @@ public:
 	Sprite* getPartnerPuzzle();
 
 	void addEvent();
+	bool compareLocation(Vec2 onTouchBeginLocation);
 	//touch
 	bool onTouchBegan(Touch *touch, Event *unused_event); // 닿은 시점
 	void onTouchMoved(Touch *touch, Event *unused_event); // 드래그
 	void onTouchEnded(Touch *touch, Event *unused_event); // 뗀 시점
 	void onTouchCancelled(Touch *touch, Event *unused_event); // 터치가 취소됨
-	bool compareLocation(Vec2 onTouchBeginLocation);
-	~puzzle();
+	
+	//change sprite puzzle function
+	void changePuzzle();
+
 };
 
 #endif // __PUZZLE_H__

@@ -2,10 +2,15 @@
 #include "DataSetting.h"
 
 puzzle::puzzle(float puzzleX, float puzzleY,
-	float partnerX, float partnerY, string imageURI)
+	float partnerX, float partnerY, string imageURI, int puzzleType)
 {
 	//set corrected bit = false
 	corrected = false;
+
+	//puzzle type
+	myType = puzzleType;
+	//image file name set
+	imageName = imageURI;
 
 	//create spritePuzzle
 	spritePuzzle = Sprite::create(imageURI);
@@ -76,12 +81,13 @@ void puzzle::onTouchMoved(Touch *touch, Event *unused_event){
 		puzzleRect = spritePuzzle->getBoundingBox();
 		partnerRect = pt->getPartner()->getBoundingBox();
 		//conflict
+		CCLOG("pos : %f, %f", touch->getLocation().x, touch->getLocation().y);
 		if(puzzleRect.intersectsRect(partnerRect)){
 			corrected = true;
 			gameController::getInstance()->plusPuzzleCount();
 			Director::getInstance()->getEventDispatcher()->removeEventListenersForTarget(spritePuzzle);
 			spritePuzzle->setPosition(pt->getPartner()->getPosition());
-			//CCLOG("pos : %f, %f", touch->getLocation().x, touch->getLocation().y);
+			changePuzzle();
 		}else{
 			corrected = false;
 		}
@@ -104,4 +110,17 @@ void puzzle::onTouchCancelled(Touch *touch, Event *unused_event){
 		spritePuzzle->setPosition(createPosition);
 	}
 	touched = false;
+}
+
+void puzzle::changePuzzle()
+{
+	if (CHANGE_PUZZLE == myType)
+	{
+		Texture2D* texture = Director::getInstance()->getTextureCache()->addImage(imageName.insert(3,"result_"));
+		Size textureSize = texture->getContentSize();
+		Size spriteSize = spritePuzzle->getContentSize();
+		spritePuzzle->setTexture(texture);
+		spritePuzzle->setScaleX(textureSize.width / spriteSize.width);
+		spritePuzzle->setScaleY(textureSize.height / spriteSize.height);
+	}
 }

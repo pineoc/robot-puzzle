@@ -57,7 +57,7 @@ bool firstPuzzle::init()
 
 	//left leg puzzle
 	{
-		puzzle* pz1 = new puzzle(100.0f, 150.0f, 420.0f, 480.0f, "p1/left_leg.png");
+		puzzle* pz1 = new puzzle(100.0f, 150.0f, 420.0f, 480.0f, "p1/left_leg.png", NORMAL_PUZZLE);
 		pz1->addEvent();
 		Sprite* spz1 = pz1->getPuzzle();
 		Sprite* ppz1 = pz1->getPartnerPuzzle();
@@ -67,7 +67,7 @@ bool firstPuzzle::init()
 	
 	//right leg puzzle
 	{
-		puzzle* pz2 = new puzzle(250.0f, 150.0f, 668.0f, 486.0f, "p1/right_leg.png");
+		puzzle* pz2 = new puzzle(250.0f, 150.0f, 668.0f, 486.0f, "p1/right_leg.png", NORMAL_PUZZLE);
 		pz2->addEvent();
 		Sprite* spz2 = pz2->getPuzzle();
 		Sprite* ppz2 = pz2->getPartnerPuzzle();
@@ -77,7 +77,7 @@ bool firstPuzzle::init()
 
 	//middle leg puzzle
 	{
-		puzzle* pz3 = new puzzle(420.0f, 150.0f, 540.0f, 630.0f, "p1/middle_leg.png");
+		puzzle* pz3 = new puzzle(420.0f, 150.0f, 540.0f, 630.0f, "p1/middle_leg.png", NORMAL_PUZZLE);
 		pz3->addEvent();
 		Sprite* spz3 = pz3->getPuzzle();
 		Sprite* ppz3 = pz3->getPartnerPuzzle();
@@ -87,7 +87,7 @@ bool firstPuzzle::init()
 	
 	//backbone puzzle
 	{
-		puzzle* pz3 = new puzzle(545.0f, 170.0f, 545.0f, 867.0f, "p1/backbone.png");
+		puzzle* pz3 = new puzzle(545.0f, 170.0f, 545.0f, 867.0f, "p1/backbone.png", NORMAL_PUZZLE);
 		pz3->addEvent();
 		Sprite* spz3 = pz3->getPuzzle();
 		Sprite* ppz3 = pz3->getPartnerPuzzle();
@@ -97,7 +97,7 @@ bool firstPuzzle::init()
 
 	//left arm puzzle
 	{
-		puzzle* pz3 = new puzzle(700.0f, 150.0f, 378.0f, 810.0f, "p1/left_arm.png");
+		puzzle* pz3 = new puzzle(700.0f, 150.0f, 378.0f, 810.0f, "p1/left_arm.png", NORMAL_PUZZLE);
 		pz3->addEvent();
 		Sprite* spz3 = pz3->getPuzzle();
 		Sprite* ppz3 = pz3->getPartnerPuzzle();
@@ -107,7 +107,7 @@ bool firstPuzzle::init()
 	
 	//right arm puzzle
 	{
-		puzzle* pz3 = new puzzle(935.0f, 150.0f, 707.0f, 810.0f, "p1/right_arm.png");
+		puzzle* pz3 = new puzzle(935.0f, 150.0f, 707.0f, 810.0f, "p1/right_arm.png", NORMAL_PUZZLE);
 		pz3->addEvent();
 		Sprite* spz3 = pz3->getPuzzle();
 		Sprite* ppz3 = pz3->getPartnerPuzzle();

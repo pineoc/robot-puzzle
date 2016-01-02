@@ -56,7 +56,7 @@ bool seventhPuzzle::init()
 	menuController* myMenuController = new menuController(7);
 	this->addChild(myMenuController->getMenuLayout(), 1);
 
-	
+	/*
 	//arm puzzle
 	{
 		puzzle* pz1 = new puzzle(100.0f, 150.0f, 420.0f, 480.0f, "p7/arm.png");
@@ -107,6 +107,7 @@ bool seventhPuzzle::init()
 		this->addChild(spz5);
 		this->addChild(ppz5);
 	}
+	*/
 	
 	//set back key enable
 	this->setKeypadEnabled(true);
