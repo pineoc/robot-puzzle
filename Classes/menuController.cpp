@@ -44,7 +44,7 @@ menuController::menuController(int _sceneNum)
 	scrollview->setSize(Size(700, 195));
 	scrollview->setInnerContainerSize(Size(1440, 195));
 	scrollview->setTouchEnabled(false);
-	scrollview->setScrollBarEnabled(false);
+	//scrollview->setScrollBarEnabled(false);
 	//for test--------------------
 	scrollview->addEventListener(CC_CALLBACK_2(menuController::scrollEvent, this));
 	//----------------------------
