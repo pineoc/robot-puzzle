@@ -122,5 +122,10 @@ void puzzle::changePuzzle()
 		spritePuzzle->setTexture(texture);
 		spritePuzzle->setScaleX(textureSize.width / spriteSize.width);
 		spritePuzzle->setScaleY(textureSize.height / spriteSize.height);
+		spritePuzzle->setPosition(newPartnerPosition);
 	}
+}
+
+void puzzle::setNewPosition(Vec2 newPosition){
+	newPartnerPosition = newPosition;
 }

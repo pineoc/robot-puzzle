@@ -23,6 +23,7 @@ private:
 
 	//create partner position
 	Vec2 partnerPosition;
+	Vec2 newPartnerPosition;
 
 	//sprite size
 	Size spriteSize;
@@ -50,6 +51,7 @@ public:
 
 	//create partner
 	void createPartner(Vec2 partnerPosition);
+	void setNewPosition(Vec2 newPosition);
 
 	//get puzzle
 	Sprite* getPuzzle();

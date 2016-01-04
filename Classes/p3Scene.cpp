@@ -68,6 +68,7 @@ bool thirdPuzzle::init()
 	//line puzzle
 	{
 		puzzle* pz2 = new puzzle(250.0f, 150.0f, 662.0f, 732.0f, "p3/line.png", CHANGE_PUZZLE);
+		pz2->setNewPosition(Vec2(554.0f, 680.0f));
 		pz2->addEvent();
 		Sprite* spz2 = pz2->getPuzzle();
 		Sprite* ppz2 = pz2->getPartnerPuzzle();
