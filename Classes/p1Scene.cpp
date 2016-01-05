@@ -7,6 +7,7 @@
 #include "gameController.h"
 #include "menuController.h"
 #include "DataSetting.h"
+#include "gate.h"
 
 USING_NS_CC;
 using namespace ui;
@@ -51,6 +52,16 @@ bool firstPuzzle::init()
 
     // add the sprite as a child to this layer
 	this->addChild(backgroundSprite, BACKGROUND_Z);
+
+	//add opening gate
+	gate* myGate = new gate();
+	myGate->open("home_s.png");
+	Sprite* Rgate = myGate->getRgate();
+	Sprite* Lgate = myGate->getLgate();
+	Sprite* Sletter = myGate->getLetter();
+	this->addChild(Rgate);
+	this->addChild(Lgate);
+	this->addChild(Sletter);
 
 	menuController* myMenuController = new menuController(1);
 	this->addChild(myMenuController->getMenuLayout(), 1);

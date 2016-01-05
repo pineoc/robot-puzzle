@@ -6,6 +6,7 @@
 #define PUZZLE_Z 2
 #define PARTNER_Z 1
 #define POPUPLAYOUT_Z 3
+#define GATELAYOUT_Z 3
 
 //popup layout opacity percent
 #define POPUPLAYOUT_OPACITY_PERCENT 0.6f
@@ -24,5 +25,7 @@
 //puzzle type
 #define NORMAL_PUZZLE 1
 #define CHANGE_PUZZLE 2
+
+//gate speed
 
 #endif //__DATASETTING_H__
