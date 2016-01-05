@@ -1,5 +1,5 @@
 ﻿#include "p6Scene.h"
-#include "p7Scene.h"
+#include "finishScene.h"
 
 //puzzle classes
 #include "puzzle.h"
@@ -198,7 +198,7 @@ void sixthPuzzle::reGame(){
 }
 void sixthPuzzle::nextGame(){
 	//go nextScene
-	Scene* s = seventhPuzzle::createScene();
+	Scene* s = finish::createScene();
 	Director::getInstance()->replaceScene(s);
 }
 

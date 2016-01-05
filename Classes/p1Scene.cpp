@@ -53,6 +53,13 @@ bool firstPuzzle::init()
     // add the sprite as a child to this layer
 	this->addChild(backgroundSprite, BACKGROUND_Z);
 
+	//robot img sprite
+	/*
+	Sprite* robotSpr = Sprite::create("p1/robot.png");
+	robotSpr->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 139.0));
+	this->addChild(robotSpr, ROBOTIMG_Z);
+	*/
+	
 	//add opening gate
 	gate* myGate = new gate();
 	myGate->open("home_s.png");
@@ -63,6 +70,7 @@ bool firstPuzzle::init()
 	this->addChild(Lgate);
 	this->addChild(Sletter);
 
+	//menu controller add
 	menuController* myMenuController = new menuController(1);
 	this->addChild(myMenuController->getMenuLayout(), 1);
 

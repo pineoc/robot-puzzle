@@ -3,10 +3,11 @@
 
 // sprite z value
 #define BACKGROUND_Z 0
-#define PUZZLE_Z 2
-#define PARTNER_Z 1
-#define POPUPLAYOUT_Z 3
-#define GATELAYOUT_Z 3
+#define ROBOTIMG_Z 1
+#define PUZZLE_Z 3
+#define PARTNER_Z 2
+#define POPUPLAYOUT_Z 20
+#define GATELAYOUT_Z 10
 
 //popup layout opacity percent
 #define POPUPLAYOUT_OPACITY_PERCENT 0.6f
