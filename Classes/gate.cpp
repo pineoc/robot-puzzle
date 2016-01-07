@@ -15,6 +15,17 @@ void gate::open(string letterURI)
 	imageLetter = letterURI;
 	createGate();
 	createLetter();
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+
+	MoveBy* leftOpen = MoveBy::create(2.0, Vec2(visibleSize.width/2, 0));
+	gateLeft->runAction(leftOpen);
+
+	MoveBy* rightOpen = MoveBy::create(2.0, Vec2(-visibleSize.width/2, 0));
+	gateRight->runAction(rightOpen);
+
+//	spriteLetter->setOpacity(0);
+	FadeOut *letterFade = FadeOut::create(2.0f);
+	spriteLetter->runAction(letterFade);
 }
 
 void gate::createGate()
