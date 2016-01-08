@@ -39,8 +39,26 @@ bool AppDelegate::applicationDidFinishLaunching() {
 		glview->setFrameSize(360, 640);//test frame size
         director->setOpenGLView(glview);
     }
+	//for multi platform
+	auto frameRatio = glview->getFrameSize().height / glview->getFrameSize().width;
 
-	glview->setDesignResolutionSize(1080, 1920, ResolutionPolicy::SHOW_ALL);
+	if (abs(frameRatio - 1.33) < 0.01)
+	{
+		CCLOG("iPad");
+		glview->setDesignResolutionSize(1536, 2048, ResolutionPolicy::SHOW_ALL);
+	}
+	if (abs(frameRatio - 1.77) < 0.01)
+	{
+		CCLOG("phone");
+		glview->setDesignResolutionSize(1080, 1920, ResolutionPolicy::SHOW_ALL);
+	}
+	if (abs(frameRatio - 1.5) < 0.01)
+	{
+		CCLOG("iPhone 4");
+		glview->setDesignResolutionSize(1080, 1920, ResolutionPolicy::SHOW_ALL);
+	}
+
+	
 
     // turn on display FPS
     director->setDisplayStats(true);
