@@ -54,12 +54,16 @@ bool firstPuzzle::init()
 	this->addChild(backgroundSprite, BACKGROUND_Z);
 
 	//robot img sprite
-	/*
-	Sprite* robotSpr = Sprite::create("p1/robot.png");
-	robotSpr->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 139.0));
+/*	Sprite* robotSpr = Sprite::create("p1/robot.png");
+	robotSpr->setPosition(Vec2(visibleSize.width / 2 + 5.0, visibleSize.height / 2 - 139.0));
 	this->addChild(robotSpr, ROBOTIMG_Z);
-	*/
-	
+*/
+
+
+	//center location
+	float w = visibleSize.width/2;
+	float h = visibleSize.height/2;
+
 	//add opening gate
 	gate* myGate = new gate();
 	myGate->open("home_s.png");
@@ -72,7 +76,7 @@ bool firstPuzzle::init()
 
 	//left leg puzzle
 	{
-		puzzle* pz1 = new puzzle(100.0f, 150.0f, 420.0f, 480.0f, "p1/left_leg.png", NORMAL_PUZZLE);
+		puzzle* pz1 = new puzzle(100.0f, 150.0f, w-117.0f, h-474.0f, "p1/left_leg.png", NORMAL_PUZZLE);
 		pz1->addEvent();
 		Sprite* spz1 = pz1->getPuzzle();
 		Sprite* ppz1 = pz1->getPartnerPuzzle();
@@ -82,7 +86,7 @@ bool firstPuzzle::init()
 	
 	//right leg puzzle
 	{
-		puzzle* pz2 = new puzzle(250.0f, 150.0f, 668.0f, 486.0f, "p1/right_leg.png", NORMAL_PUZZLE);
+		puzzle* pz2 = new puzzle(250.0f, 150.0f, w+128.0f, h-474.0f, "p1/right_leg.png", NORMAL_PUZZLE);
 		pz2->addEvent();
 		Sprite* spz2 = pz2->getPuzzle();
 		Sprite* ppz2 = pz2->getPartnerPuzzle();
@@ -92,7 +96,7 @@ bool firstPuzzle::init()
 
 	//middle leg puzzle
 	{
-		puzzle* pz3 = new puzzle(420.0f, 150.0f, 540.0f, 630.0f, "p1/middle_leg.png", NORMAL_PUZZLE);
+		puzzle* pz3 = new puzzle(420.0f, 150.0f, w, h-330.0f, "p1/middle_leg.png", NORMAL_PUZZLE);
 		pz3->addEvent();
 		Sprite* spz3 = pz3->getPuzzle();
 		Sprite* ppz3 = pz3->getPartnerPuzzle();
@@ -102,7 +106,7 @@ bool firstPuzzle::init()
 	
 	//backbone puzzle
 	{
-		puzzle* pz3 = new puzzle(545.0f, 170.0f, 545.0f, 867.0f, "p1/backbone.png", NORMAL_PUZZLE);
+		puzzle* pz3 = new puzzle(545.0f, 170.0f, w+5, h-93.0f, "p1/backbone.png", NORMAL_PUZZLE);
 		pz3->addEvent();
 		Sprite* spz3 = pz3->getPuzzle();
 		Sprite* ppz3 = pz3->getPartnerPuzzle();
@@ -112,7 +116,7 @@ bool firstPuzzle::init()
 
 	//left arm puzzle
 	{
-		puzzle* pz3 = new puzzle(700.0f, 150.0f, 378.0f, 810.0f, "p1/left_arm.png", NORMAL_PUZZLE);
+		puzzle* pz3 = new puzzle(700.0f, 150.0f, w-162.0f, h-150.0f, "p1/left_arm.png", NORMAL_PUZZLE);
 		pz3->addEvent();
 		Sprite* spz3 = pz3->getPuzzle();
 		Sprite* ppz3 = pz3->getPartnerPuzzle();
@@ -122,7 +126,7 @@ bool firstPuzzle::init()
 	
 	//right arm puzzle
 	{
-		puzzle* pz3 = new puzzle(935.0f, 150.0f, 707.0f, 810.0f, "p1/right_arm.png", NORMAL_PUZZLE);
+		puzzle* pz3 = new puzzle(935.0f, 150.0f, w+167.0f, h-150.0f, "p1/right_arm.png", NORMAL_PUZZLE);
 		pz3->addEvent();
 		Sprite* spz3 = pz3->getPuzzle();
 		Sprite* ppz3 = pz3->getPartnerPuzzle();

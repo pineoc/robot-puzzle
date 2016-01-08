@@ -67,7 +67,7 @@ bool puzzle::compareLocation(Vec2 onTouchBeginLocation){
 //touch start - compare
 bool puzzle::onTouchBegan(Touch *touch, Event *unused_event){
 	puzzleRect = spritePuzzle->getBoundingBox();
-	partnerRect = pt->getPartner()->getBoundingBox();
+	partnerRect = utils::getCascadeBoundingBox(pt->getPartner());
 	if(corrected == false){
 		if(compareLocation(touch->getLocation()))
 		{ touched = true; return true; }

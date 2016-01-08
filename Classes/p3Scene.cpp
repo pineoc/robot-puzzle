@@ -36,7 +36,7 @@ bool thirdPuzzle::init()
         return false;
     }
 
-	goalCount = 3;
+	goalCount = 2;
 	gameController::getInstance()->initPuzzleCount();
 	schedule(schedule_selector(thirdPuzzle::checkEnding),0.5f);
     
@@ -52,12 +52,16 @@ bool thirdPuzzle::init()
     // add the sprite as a child to this layer
 	this->addChild(backgroundSprite, BACKGROUND_Z);
 
+	//center location
+	float w = visibleSize.width/2;
+	float h = visibleSize.height/2;
+
 	menuController* myMenuController = new menuController(3);
 	this->addChild(myMenuController->getMenuLayout(), 1);
 
 	//battery puzzle
 	{
-		puzzle* pz1 = new puzzle(100.0f, 150.0f, 662.0f, 732.0f, "p3/battery.png", NORMAL_PUZZLE);
+		puzzle* pz1 = new puzzle(420.0f, 150.0f, w+122.0f, h-228.0f, "p3/battery.png", NORMAL_PUZZLE);
 		pz1->addEvent();
 		Sprite* spz1 = pz1->getPuzzle();
 		Sprite* ppz1 = pz1->getPartnerPuzzle();
@@ -67,8 +71,8 @@ bool thirdPuzzle::init()
 	
 	//line puzzle
 	{
-		puzzle* pz2 = new puzzle(250.0f, 150.0f, 662.0f, 732.0f, "p3/line.png", CHANGE_PUZZLE);
-		pz2->setNewPosition(Vec2(554.0f, 680.0f));
+		puzzle* pz2 = new puzzle(725.0f, 150.0f, w+122.0f, h-228.0f, "p3/line.png", CHANGE_PUZZLE);
+		pz2->setNewPosition(Vec2(w+14.0f, h-280.0f));
 		pz2->addEvent();
 		Sprite* spz2 = pz2->getPuzzle();
 		Sprite* ppz2 = pz2->getPartnerPuzzle();
