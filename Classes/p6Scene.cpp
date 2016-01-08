@@ -36,7 +36,7 @@ bool sixthPuzzle::init()
         return false;
     }
 
-	goalCount = 6;
+	goalCount = 5;
 	gameController::getInstance()->initPuzzleCount();
 	schedule(schedule_selector(sixthPuzzle::checkEnding),0.5f);
     
@@ -55,10 +55,14 @@ bool sixthPuzzle::init()
 	menuController* myMenuController = new menuController(6);
 	this->addChild(myMenuController->getMenuLayout(), 1);
 
-	/*
-	//left leg puzzle
+	//center location
+	float w = visibleSize.width / 2;
+	float h = visibleSize.height / 2;
+
+	
+	//arm puzzle
 	{
-		puzzle* pz1 = new puzzle(100.0f, 150.0f, 420.0f, 480.0f, "left_leg.png");
+		puzzle* pz1 = new puzzle(100.0f, 150.0f, w + 6.0f, h - 150.0f, "p6/arm.png", NORMAL_PUZZLE);
 		pz1->addEvent();
 		Sprite* spz1 = pz1->getPuzzle();
 		Sprite* ppz1 = pz1->getPartnerPuzzle();
@@ -66,9 +70,10 @@ bool sixthPuzzle::init()
 		this->addChild(ppz1);
 	}
 	
-	//right leg puzzle
+	//body puzzle
 	{
-		puzzle* pz2 = new puzzle(250.0f, 150.0f, 668.0f, 486.0f, "right_leg.png");
+		puzzle* pz2 = new puzzle(250.0f, 150.0f, w + 6.0f, h - 174.0f, "p6/body.png", CHANGE_PUZZLE);
+		pz2->setNewPosition(Vec2(w - 15.0f, h - 175.0f));
 		pz2->addEvent();
 		Sprite* spz2 = pz2->getPuzzle();
 		Sprite* ppz2 = pz2->getPartnerPuzzle();
@@ -76,9 +81,9 @@ bool sixthPuzzle::init()
 		this->addChild(ppz2);
 	}
 
-	//middle leg puzzle
+	//face puzzle
 	{
-		puzzle* pz3 = new puzzle(420.0f, 150.0f, 540.0f, 630.0f, "middle_leg.png");
+		puzzle* pz3 = new puzzle(420.0f, 150.0f, w + 6.0f, h + 130.0f, "p6/face.png", NORMAL_PUZZLE);
 		pz3->addEvent();
 		Sprite* spz3 = pz3->getPuzzle();
 		Sprite* ppz3 = pz3->getPartnerPuzzle();
@@ -86,36 +91,27 @@ bool sixthPuzzle::init()
 		this->addChild(ppz3);
 	}
 	
-	//backbone puzzle
+	//head puzzle
 	{
-		puzzle* pz3 = new puzzle(545.0f, 170.0f, 545.0f, 867.0f, "backbone.png");
-		pz3->addEvent();
-		Sprite* spz3 = pz3->getPuzzle();
-		Sprite* ppz3 = pz3->getPartnerPuzzle();
-		this->addChild(spz3);
-		this->addChild(ppz3);
+		puzzle* pz4 = new puzzle(545.0f, 170.0f, w + 6.0f, h + 255.0f, "p6/head.png", NORMAL_PUZZLE);
+		pz4->addEvent();
+		Sprite* spz4 = pz4->getPuzzle();
+		Sprite* ppz4 = pz4->getPartnerPuzzle();
+		this->addChild(spz4);
+		this->addChild(ppz4);
 	}
 
-	//left arm puzzle
+	//leg puzzle
 	{
-		puzzle* pz3 = new puzzle(700.0f, 150.0f, 378.0f, 810.0f, "left_arm.png");
-		pz3->addEvent();
-		Sprite* spz3 = pz3->getPuzzle();
-		Sprite* ppz3 = pz3->getPartnerPuzzle();
-		this->addChild(spz3);
-		this->addChild(ppz3);
+		puzzle* pz5 = new puzzle(700.0f, 150.0f, w + 8, h - 506, "p6/leg.png", NORMAL_PUZZLE);
+		pz5->addEvent();
+		Sprite* spz5 = pz5->getPuzzle();
+		Sprite* ppz5 = pz5->getPartnerPuzzle();
+		this->addChild(spz5);
+		this->addChild(ppz5);
 	}
 	
-	//right arm puzzle
-	{
-		puzzle* pz3 = new puzzle(935.0f, 150.0f, 707.0f, 810.0f, "right_arm.png");
-		pz3->addEvent();
-		Sprite* spz3 = pz3->getPuzzle();
-		Sprite* ppz3 = pz3->getPartnerPuzzle();
-		this->addChild(spz3);
-		this->addChild(ppz3);
-	}
-	*/
+	
 
 	this->setKeypadEnabled(true);
 
