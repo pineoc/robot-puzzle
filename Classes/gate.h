@@ -19,25 +19,16 @@ public:
 	void open(string letterURI);
 	
 	//get sprite
-	Sprite* getRgate();
-	Sprite* getLgate();
 	Sprite* getLetter();
 
 private:
-	//gate sprite
-	Sprite* gateRight;
-	Sprite* gateLeft;
-
 	//letter sprite
 	Sprite* spriteLetter;
 
 	//positions
-	Vec2 gateRightPos;
-	Vec2 gateLeftPos;
 	Vec2 letterPos;
 
 	//create sprite
-	void createGate();
 	void createLetter();
 	
 };

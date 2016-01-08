@@ -63,11 +63,7 @@ bool firstPuzzle::init()
 	//add opening gate
 	gate* myGate = new gate();
 	myGate->open("home_s.png");
-	Sprite* Rgate = myGate->getRgate();
-	Sprite* Lgate = myGate->getLgate();
 	Sprite* Sletter = myGate->getLetter();
-	this->addChild(Rgate);
-	this->addChild(Lgate);
 	this->addChild(Sletter);
 
 	//menu controller add
