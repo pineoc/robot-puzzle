@@ -36,7 +36,7 @@ bool fifthPuzzle::init()
         return false;
     }
 
-	goalCount = 6;
+	goalCount = 3;
 	gameController::getInstance()->initPuzzleCount();
 	schedule(schedule_selector(fifthPuzzle::checkEnding),0.5f);
     
@@ -55,10 +55,13 @@ bool fifthPuzzle::init()
 	menuController* myMenuController = new menuController(5);
 	this->addChild(myMenuController->getMenuLayout(), 1);
 
-	/*
-	//left leg puzzle
+	//center location
+	float w = visibleSize.width/2;
+	float h = visibleSize.height/2;
+
+	//eye puzzle
 	{
-		puzzle* pz1 = new puzzle(100.0f, 150.0f, 420.0f, 480.0f, "left_leg.png");
+		puzzle* pz1 = new puzzle(100.0f, 150.0f, 420.0f, 480.0f, "p5/eye.png", NORMAL_PUZZLE);
 		pz1->addEvent();
 		Sprite* spz1 = pz1->getPuzzle();
 		Sprite* ppz1 = pz1->getPartnerPuzzle();
@@ -66,9 +69,9 @@ bool fifthPuzzle::init()
 		this->addChild(ppz1);
 	}
 	
-	//right leg puzzle
+	//head puzzle
 	{
-		puzzle* pz2 = new puzzle(250.0f, 150.0f, 668.0f, 486.0f, "right_leg.png");
+		puzzle* pz2 = new puzzle(250.0f, 150.0f, 668.0f, 486.0f, "p5/head.png", NORMAL_PUZZLE);
 		pz2->addEvent();
 		Sprite* spz2 = pz2->getPuzzle();
 		Sprite* ppz2 = pz2->getPartnerPuzzle();
@@ -76,46 +79,16 @@ bool fifthPuzzle::init()
 		this->addChild(ppz2);
 	}
 
-	//middle leg puzzle
-	{
-		puzzle* pz3 = new puzzle(420.0f, 150.0f, 540.0f, 630.0f, "middle_leg.png");
-		pz3->addEvent();
-		Sprite* spz3 = pz3->getPuzzle();
-		Sprite* ppz3 = pz3->getPartnerPuzzle();
-		this->addChild(spz3);
-		this->addChild(ppz3);
-	}
 	
-	//backbone puzzle
+	//mouth puzzle
 	{
-		puzzle* pz3 = new puzzle(545.0f, 170.0f, 545.0f, 867.0f, "backbone.png");
+		puzzle* pz3 = new puzzle(545.0f, 170.0f, 545.0f, 867.0f, "p5/mouth.png", NORMAL_PUZZLE);
 		pz3->addEvent();
 		Sprite* spz3 = pz3->getPuzzle();
 		Sprite* ppz3 = pz3->getPartnerPuzzle();
 		this->addChild(spz3);
 		this->addChild(ppz3);
 	}
-
-	//left arm puzzle
-	{
-		puzzle* pz3 = new puzzle(700.0f, 150.0f, 378.0f, 810.0f, "left_arm.png");
-		pz3->addEvent();
-		Sprite* spz3 = pz3->getPuzzle();
-		Sprite* ppz3 = pz3->getPartnerPuzzle();
-		this->addChild(spz3);
-		this->addChild(ppz3);
-	}
-	
-	//right arm puzzle
-	{
-		puzzle* pz3 = new puzzle(935.0f, 150.0f, 707.0f, 810.0f, "right_arm.png");
-		pz3->addEvent();
-		Sprite* spz3 = pz3->getPuzzle();
-		Sprite* ppz3 = pz3->getPartnerPuzzle();
-		this->addChild(spz3);
-		this->addChild(ppz3);
-	}
-	*/
 
 	this->setKeypadEnabled(true);
 
@@ -139,7 +112,7 @@ void fifthPuzzle::checkEnding(float t){
 
 //ending effect
 void fifthPuzzle::showCompleteSprite(float dt){
-	Sprite* spriteComplete = Sprite::create("clear_body.png");
+	Sprite* spriteComplete = Sprite::create("p5/result.png");
 	spriteComplete->setPosition(Vec2(545.0f, 710.0f));
 	spriteComplete->setZOrder(PARTNER_Z+1);
 	this->addChild(spriteComplete);
