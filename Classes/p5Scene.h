@@ -4,7 +4,7 @@
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 
-class fifthPuzzle : public cocos2d::Layer
+class fifthPuzzle : public cocos2d::LayerColor
 {
 public:
 	//count puzzle

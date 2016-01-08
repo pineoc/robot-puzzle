@@ -31,7 +31,7 @@ bool thirdPuzzle::init()
 {
     //////////////////////////////
     // 1. super init first
-    if ( !Layer::init() )
+    if (!LayerColor::initWithColor(SCENE3_COLOR))
     {
         return false;
     }
@@ -102,9 +102,10 @@ void thirdPuzzle::checkEnding(float t){
 
 //ending effect
 void thirdPuzzle::showCompleteSprite(float dt){
+	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Sprite* spriteComplete = Sprite::create("p3/result.png");
-	spriteComplete->setPosition(Vec2(545.0f, 710.0f));
-	spriteComplete->setZOrder(PARTNER_Z+1);
+	spriteComplete->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 240.0f));
+	spriteComplete->setZOrder(PARTNER_Z + 1);
 	this->addChild(spriteComplete);
 }
 

@@ -29,4 +29,12 @@
 
 //gate speed
 
+//scene color
+#define SCENE1_COLOR Color4B(60, 180, 118, 255)
+#define SCENE2_COLOR Color4B(204, 82, 43, 255)
+#define SCENE3_COLOR Color4B(255, 193, 12, 255)
+#define SCENE4_COLOR Color4B(45, 207, 254, 255)
+#define SCENE5_COLOR Color4B(254, 237, 145, 255)
+#define SCENE6_COLOR Color4B(217, 111, 247, 255)
+
 #endif //__DATASETTING_H__

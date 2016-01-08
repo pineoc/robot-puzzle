@@ -31,7 +31,7 @@ bool sixthPuzzle::init()
 {
     //////////////////////////////
     // 1. super init first
-    if ( !Layer::init() )
+    if (!LayerColor::initWithColor(SCENE6_COLOR))
     {
         return false;
     }
@@ -135,9 +135,10 @@ void sixthPuzzle::checkEnding(float t){
 
 //ending effect
 void sixthPuzzle::showCompleteSprite(float dt){
-	Sprite* spriteComplete = Sprite::create("clear_body.png");
-	spriteComplete->setPosition(Vec2(545.0f, 710.0f));
-	spriteComplete->setZOrder(PARTNER_Z+1);
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+	Sprite* spriteComplete = Sprite::create("p6/result.png");
+	spriteComplete->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 240.0f));
+	spriteComplete->setZOrder(PARTNER_Z + 1);
 	this->addChild(spriteComplete);
 }
 

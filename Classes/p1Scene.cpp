@@ -32,7 +32,7 @@ bool firstPuzzle::init()
 {
     //////////////////////////////
     // 1. super init first
-    if ( !Layer::init() )
+    if ( !LayerColor::initWithColor(SCENE1_COLOR) )
     {
         return false;
     }
@@ -157,8 +157,9 @@ void firstPuzzle::checkEnding(float t){
 
 //ending effect
 void firstPuzzle::showCompleteSprite(float dt){
+	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Sprite* spriteComplete = Sprite::create("p1/result.png");
-	spriteComplete->setPosition(Vec2(540.0f, 718.0f));
+	spriteComplete->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 240.0f));
 	spriteComplete->setZOrder(PARTNER_Z+1);
 	this->addChild(spriteComplete);
 }
