@@ -1,6 +1,8 @@
 
 #include "menuController.h"
 
+#include "splashScene.h"
+#include "optionScene.h"
 #include "p1Scene.h"
 #include "p2Scene.h"
 #include "p3Scene.h"
@@ -43,10 +45,7 @@ menuController::menuController(int _sceneNum)
 	scrollview->setSize(Size(700, 195));
 	scrollview->setInnerContainerSize(Size(1440, 195));
 	scrollview->setTouchEnabled(false);
-	//scrollview->setScrollBarEnabled(false);
-	//for test--------------------
-	scrollview->addEventListener(CC_CALLBACK_2(menuController::scrollEvent, this));
-	//----------------------------
+	scrollview->setScrollBarEnabled(false);
 	baseLayout->addChild(scrollview, 1);
 
 	//home, option btns setup
@@ -184,7 +183,7 @@ void menuController::setScrollViewPosition()
 		break;
 	case 6:
 		scrollview->jumpToPercentHorizontal(100.0f);
-		btn1->setEnabled(false);
+		btn1->setEnabled(true);
 		btn2->setEnabled(true);
 		btn3->setEnabled(true);
 		btn4->setEnabled(true);
@@ -250,20 +249,19 @@ void menuController::btnsListener(Ref* pSender, Widget::TouchEventType type)
 			scrollview->scrollToPercentHorizontal(100.0f, 1.0f, true);
 			break;
 		case 20://home btn
-			//TODO: replace to home scene
-
+		{
+			Scene* s = TransitionFade::create(TRANSITION_FADE_TIME, Splash::createScene());
+			Director::getInstance()->replaceScene(s);
+		}
 			break;
 		case 21://option btn
-			//TODO: pushScene to option scene
-
+		{
+			Scene* s = TransitionFade::create(TRANSITION_FADE_TIME, option::createScene());
+			Director::getInstance()->pushScene(s);
+		}
 			break;
 		default:
 			break;
 		}
 	}
-}
-
-void menuController::scrollEvent(Ref* pSender, ScrollView::EventType type)
-{
-	CCLOG("scroll percent : %f", scrollview->getPositionPercent().x);
 }

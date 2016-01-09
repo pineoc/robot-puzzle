@@ -29,6 +29,9 @@
 
 //gate speed
 
+//SCENE TRANSITION FADE SPEED
+#define TRANSITION_FADE_TIME 0.5f
+
 //scene color
 #define SCENE1_COLOR Color4B(60, 180, 118, 255)
 #define SCENE2_COLOR Color4B(204, 82, 43, 255)

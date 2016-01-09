@@ -1,12 +1,10 @@
-﻿#ifndef __SPLASH_H__
-#define __SPLASH_H__
+﻿#ifndef __OPTION_H__
+#define __OPTION_H__
 
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 
-#define STARTBTN_FADEIN_TIME 0.25f
-#define STARTBTN_FADEOUT_TIME 1.5f
-class Splash : public cocos2d::Layer
+class option : public cocos2d::LayerColor
 {
 public:
 	//count puzzle
@@ -17,13 +15,14 @@ public:
     static cocos2d::Scene* createScene();
 
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
-    virtual bool init();
-    
-	void goToGameBtnListener(cocos2d::Ref* pSender, cocos2d::ui::Widget::TouchEventType type);
+    virtual bool init();    
+
+	//key touch event listener
+	void onKeyReleased(cocos2d::EventKeyboard::KeyCode keycode, cocos2d::Event* e);
 
     // implement the "static create()" method manually
-    CREATE_FUNC(Splash);
+    CREATE_FUNC(option);
 
 };
 
-#endif // __SPLASH_H__
+#endif // __OPTION_H__

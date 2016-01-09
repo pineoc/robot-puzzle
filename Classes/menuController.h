@@ -52,8 +52,6 @@ public:
 
 	//menu button items listener
 	void btnsListener(Ref* pSender, Widget::TouchEventType type);
-	//scrollEvent
-	void scrollEvent(Ref* pSender, ScrollView::EventType type);
 
 };
 

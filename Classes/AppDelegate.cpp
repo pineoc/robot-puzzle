@@ -36,7 +36,8 @@ bool AppDelegate::applicationDidFinishLaunching() {
     if(!glview) {
 		//glview = GLViewImpl::createWithFullScreen("Puzzle Game");
 		glview = GLViewImpl::create("My Game");
-		glview->setFrameSize(360, 640);//test frame size
+		//glview->setFrameSize(384, 512);//ipad test frame size
+		glview->setFrameSize(360, 640);
         director->setOpenGLView(glview);
     }
 	//for multi platform

@@ -1,7 +1,7 @@
 ﻿#include "splashScene.h"
 #include "p1Scene.h"
 
-//puzzle classes
+//data settings header
 #include "DataSetting.h"
 
 USING_NS_CC;
@@ -44,15 +44,27 @@ bool Splash::init()
 	// add the sprite as a child to this layer
 	this->addChild(backgroundSprite, BACKGROUND_Z);
 
-	//schedule once
-	this->scheduleOnce(schedule_selector(Splash::goToGame), SPLASHSCREEN_DELAYTIME);
+	Button* goGameBtn = Button::create("start.png", "start_s.png", "start_s.png");
+	goGameBtn->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+	goGameBtn->addTouchEventListener(CC_CALLBACK_2(Splash::goToGameBtnListener, this));
+	this->addChild(goGameBtn, 3);
+
+	FadeTo* act1 = FadeTo::create(STARTBTN_FADEOUT_TIME, 255 * 0.3);
+	FadeIn* act2 = FadeIn::create(STARTBTN_FADEIN_TIME);
+	Sequence* actS = Sequence::createWithTwoActions(act1, act2);
+	RepeatForever* actR = RepeatForever::create(actS);
+	goGameBtn->runAction(actR);
 
 	return true;
 }
 
-void Splash::goToGame(float dt) 
+void Splash::goToGameBtnListener(Ref* pSender, cocos2d::ui::Widget::TouchEventType type)
 {
-	//TODO: transition effect
-	Scene* s = firstPuzzle::createScene();
-	Director::getInstance()->replaceScene(s);
+	if (Widget::TouchEventType::ENDED == type)
+	{
+		Button* btn = (Button*)pSender;
+		btn->setEnabled(false);
+		Scene* s = TransitionFade::create(TRANSITION_FADE_TIME, firstPuzzle::createScene());
+		Director::getInstance()->replaceScene(s);
+	}
 }
