@@ -36,7 +36,7 @@ bool thirdPuzzle::init()
         return false;
     }
 
-	goalCount = 2;
+	goalCount = 3;
 	gameController::getInstance()->initPuzzleCount();
 	schedule(schedule_selector(thirdPuzzle::checkEnding),0.5f);
     
@@ -61,24 +61,34 @@ bool thirdPuzzle::init()
 
 	//battery puzzle
 	{
-		puzzle* pz1 = new puzzle(420.0f, 150.0f, w+122.0f, h-228.0f, "p3/battery.png", NORMAL_PUZZLE);
+		puzzle* pz1 = new puzzle(w-170.0f, h-810.0f, w+128.0f, h-228.0f, "p3/battery.png", NORMAL_PUZZLE);
 		pz1->addEvent();
 		Sprite* spz1 = pz1->getPuzzle();
 		Sprite* ppz1 = pz1->getPartnerPuzzle();
 		this->addChild(spz1);
 		this->addChild(ppz1);
 	}
-	
-	//line puzzle
+
+	//battery puzzle
 	{
-		puzzle* pz2 = new puzzle(725.0f, 150.0f, w+122.0f, h-228.0f, "p3/line.png", CHANGE_PUZZLE);
-		pz2->setNewPosition(Vec2(w+14.0f, h-280.0f));
-		pz2->addEvent();
-		Sprite* spz2 = pz2->getPuzzle();
-		Sprite* ppz2 = pz2->getPartnerPuzzle();
-		this->addChild(spz2);
-		this->addChild(ppz2);
+		puzzle* pz1 = new puzzle(w, h-810.0f, w+128.0f, h-228.0f, "p3/battery.png", NORMAL_PUZZLE);
+		pz1->addEvent();
+		Sprite* spz1 = pz1->getPuzzle();
+		Sprite* ppz1 = pz1->getPartnerPuzzle();
+		this->addChild(spz1);
+		this->addChild(ppz1);
 	}
+
+	//battery puzzle
+	{
+		puzzle* pz1 = new puzzle(w+170.0f, h-810.0f, w+128.0f, h-228.0f, "p3/battery.png", NORMAL_PUZZLE);
+		pz1->addEvent();
+		Sprite* spz1 = pz1->getPuzzle();
+		Sprite* ppz1 = pz1->getPartnerPuzzle();
+		this->addChild(spz1);
+		this->addChild(ppz1);
+	}
+
 
 	this->setKeypadEnabled(true);
 
