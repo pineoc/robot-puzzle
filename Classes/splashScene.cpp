@@ -44,6 +44,23 @@ bool Splash::init()
 	// add the sprite as a child to this layer
 	this->addChild(backgroundSprite, BACKGROUND_Z);
 
+	//eye sprite
+	Sprite* eyeSpr = Sprite::create("splash/eye.png");
+	eyeSpr->setAnchorPoint(Vec2(1.0, 0.0));
+	eyeSpr->setPosition(Vec2(visibleSize.width, visibleSize.height / 2 + 110 ));
+	this->addChild(eyeSpr, 3);
+
+	{
+		FadeTo* act1 = FadeTo::create(EYE_FADEOUT_TIME, 255 * 0.3);
+		FadeIn* act2 = FadeIn::create(EYE_FADEIN_TIME);
+		Sequence* actS = Sequence::createWithTwoActions(act1, act2);
+		RepeatForever* actR = RepeatForever::create(actS);
+		eyeSpr->runAction(actR);
+	}
+	
+	//eye sprite will have lighting effect
+	
+
 	Button* goGameBtn = Button::create("start.png", "start_s.png", "start_s.png");
 	goGameBtn->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	goGameBtn->addTouchEventListener(CC_CALLBACK_2(Splash::goToGameBtnListener, this));

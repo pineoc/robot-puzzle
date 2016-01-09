@@ -6,6 +6,10 @@
 
 #define STARTBTN_FADEIN_TIME 0.25f
 #define STARTBTN_FADEOUT_TIME 1.5f
+
+#define EYE_FADEIN_TIME 0.1f
+#define EYE_FADEOUT_TIME 0.5f
+
 class Splash : public cocos2d::Layer
 {
 public:
