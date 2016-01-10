@@ -61,7 +61,7 @@ bool Splash::init()
 	//eye sprite will have lighting effect
 	
 
-	Button* goGameBtn = Button::create("start.png", "start_s.png", "start_s.png");
+	Button* goGameBtn = Button::create("splash/start.png", "splash/start_s.png", "splash/start_s.png");
 	goGameBtn->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 	goGameBtn->addTouchEventListener(CC_CALLBACK_2(Splash::goToGameBtnListener, this));
 	this->addChild(goGameBtn, 3);
