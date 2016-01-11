@@ -45,19 +45,13 @@ bool firstPuzzle::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    Sprite* backgroundSprite = Sprite::create("p1/background.jpg");
+    Sprite* robot = Sprite::create("p1/robot.png");
 
     // position the sprite on the center of the screen
-	backgroundSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+	robot->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y - 250));
 
     // add the sprite as a child to this layer
-	this->addChild(backgroundSprite, BACKGROUND_Z);
-
-	//robot img sprite
-/*	Sprite* robotSpr = Sprite::create("p1/robot.png");
-	robotSpr->setPosition(Vec2(visibleSize.width / 2 + 5.0, visibleSize.height / 2 - 139.0));
-	this->addChild(robotSpr, ROBOTIMG_Z);
-*/
+	this->addChild(robot, BACKGROUND_Z);
 
 
 	//center location

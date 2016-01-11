@@ -44,13 +44,13 @@ bool thirdPuzzle::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    Sprite* backgroundSprite = Sprite::create("p3/background.jpg");
+	Sprite* robot = Sprite::create("p3/robot.png");
 
-    // position the sprite on the center of the screen
-	backgroundSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+	// position the sprite on the center of the screen
+	robot->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y - 250));
 
-    // add the sprite as a child to this layer
-	this->addChild(backgroundSprite, BACKGROUND_Z);
+	// add the sprite as a child to this layer
+	this->addChild(robot, BACKGROUND_Z);
 
 	//center location
 	float w = visibleSize.width/2;

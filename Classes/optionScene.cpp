@@ -34,13 +34,17 @@ bool option::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    Sprite* backgroundSprite = Sprite::create();
+    Sprite* backgroundSprite = Sprite::create("option/option_back.jpg");
 
     // position the sprite on the center of the screen
 	backgroundSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 
     // add the sprite as a child to this layer
 	this->addChild(backgroundSprite, BACKGROUND_Z);
+
+	//sound on/off btn
+
+	//effect on/off btn
 
 	//set key event enable
 	this->setKeypadEnabled(true);

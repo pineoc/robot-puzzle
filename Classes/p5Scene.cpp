@@ -44,13 +44,13 @@ bool fifthPuzzle::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    Sprite* backgroundSprite = Sprite::create("p5/background.jpg");
+	Sprite* robot = Sprite::create("p5/robot.png");
 
-    // position the sprite on the center of the screen
-	backgroundSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+	// position the sprite on the center of the screen
+	robot->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y - 250));
 
-    // add the sprite as a child to this layer
-	this->addChild(backgroundSprite, BACKGROUND_Z);
+	// add the sprite as a child to this layer
+	this->addChild(robot, BACKGROUND_Z);
 
 	menuController* myMenuController = new menuController(5);
 	this->addChild(myMenuController->getMenuLayout(), 1);
