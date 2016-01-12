@@ -7,6 +7,7 @@
 #include "gameController.h"
 #include "menuController.h"
 #include "DataSetting.h"
+#include "gate.h"
 
 USING_NS_CC;
 using namespace ui;
@@ -58,6 +59,16 @@ bool fifthPuzzle::init()
 	//center location
 	float w = visibleSize.width/2;
 	float h = visibleSize.height/2;
+
+	/*add opening gate*/
+	gate* myGate = new gate();
+	//back ground
+	myGate->createBackGr();
+	myGate->addEvent();
+	this->addChild(myGate->getBackGround());
+	
+	myGate->setImage("p5_text.png");
+	myGate->createLetter();
 
 	//left eye sprite
 	{

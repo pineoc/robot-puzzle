@@ -28,6 +28,12 @@ void gate::createBackGr()
 	layoutBackGr->setBackGroundColor(Color3B::BLACK);
 	layoutBackGr->setBackGroundColorOpacity(255 * POPUPLAYOUT_OPACITY_PERCENT);
 	layoutBackGr->setZOrder(GATELAYOUT_Z);
+
+	DelayTime* delay = DelayTime::create(5.0f);
+	CallFunc* remove = CallFunc::create(CC_CALLBACK_0(gate::deleteLayout,this));
+	Sequence* sequece = Sequence::create(delay, remove, NULL);
+
+	layoutBackGr->runAction(sequece);
 }
 
 void gate::createLetter()
@@ -35,7 +41,8 @@ void gate::createLetter()
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	//letter
 	spriteLetter = Sprite::create(imageLetter);
-	letterPos = Vec2(visibleSize.width/2, (visibleSize.height*3)/4);
+	spriteLetter->setAnchorPoint(Vec2(0.5, 1.0));
+	letterPos = Vec2(visibleSize.width/2, visibleSize.height);
 	spriteLetter->setPosition(letterPos);
 	layoutBackGr->addChild(spriteLetter,1);
 }
@@ -77,29 +84,33 @@ void gate::onTouchMoved(Touch *touch, Event *unused_event) // 드래그
 
 void gate::onTouchEnded(Touch *touch, Event *unused_event) // 뗀 시점
 {
-	//letter move
-	Size visibleSize = Director::getInstance()->getVisibleSize();
-	MoveTo* moveLetter = MoveTo::create(2.0, Point(visibleSize.width/2, visibleSize.height + 300.0f));
-	spriteLetter->runAction(moveLetter);
-
-	//touch disabled
-	Director::getInstance()->getEventDispatcher()->removeEventListenersForTarget(layoutBackGr);
-	FadeOut* fadeout = FadeOut::create(2.0);
-	layoutBackGr->runAction(fadeout);
+	deleteLayout();
 }
 
 void gate::onTouchCancelled(Touch *touch, Event *unused_event) // 터치가 취소됨
 {}
 
-void gate::deleteLayout(float t)
+void gate::deleteLayout()
 {
 	//letter move
 	Size visibleSize = Director::getInstance()->getVisibleSize();
-	MoveTo* moveLetter = MoveTo::create(2.0, Point(visibleSize.width/2, visibleSize.height + 300.0f));
+	MoveTo* moveLetter = MoveTo::create(1.0, Point(visibleSize.width/2, visibleSize.height + 600.0f));
 	spriteLetter->runAction(moveLetter);
 
 	//touch disabled
 	Director::getInstance()->getEventDispatcher()->removeEventListenersForTarget(layoutBackGr);
-	FadeOut* fadeout = FadeOut::create(2.0);
-	layoutBackGr->runAction(fadeout);
+	FadeOut* fadeout = FadeOut::create(1.0);
+
+
+	//remove layout
+	CallFunc* remove = CallFunc::create(CC_CALLBACK_0(gate::removeLayout,this));
+	Sequence* sequece = Sequence::create(fadeout, remove, NULL);
+
+	layoutBackGr->runAction(sequece);
+
+}
+
+void  gate::removeLayout()
+{
+	layoutBackGr->removeFromParent();
 }

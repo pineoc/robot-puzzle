@@ -36,7 +36,8 @@ public:
 	void onTouchCancelled(Touch *touch, Event *unused_event); // 터치가 취소됨
 
 	//delete scheduler
-	void deleteLayout(float t);
+	void deleteLayout();
+	void removeLayout();
 private:
 	//letter sprite
 	Sprite* spriteLetter;

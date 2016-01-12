@@ -9,6 +9,7 @@
 #include "DataSetting.h"
 #include <cstdlib>
 #include <ctime>
+#include "gate.h"
 
 USING_NS_CC;
 using namespace ui;
@@ -63,6 +64,16 @@ bool secondPuzzle::init()
 	//center location
 	float w = visibleSize.width/2;
 	float h = visibleSize.height/2;
+
+	/*add opening gate*/
+	gate* myGate = new gate();
+	//back ground
+	myGate->createBackGr();
+	myGate->addEvent();
+	this->addChild(myGate->getBackGround());
+	
+	myGate->setImage("p2_text.png");
+	myGate->createLetter();
 
 	menuController* myMenuController = new menuController(2);
 	this->addChild(myMenuController->getMenuLayout(), 1);

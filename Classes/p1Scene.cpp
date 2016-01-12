@@ -58,14 +58,14 @@ bool firstPuzzle::init()
 	float w = visibleSize.width/2;
 	float h = visibleSize.height/2;
 
-	//add opening gate
+	/*add opening gate*/
 	gate* myGate = new gate();
 	//back ground
 	myGate->createBackGr();
 	myGate->addEvent();
 	this->addChild(myGate->getBackGround());
 	
-	myGate->setImage("menu1.png");
+	myGate->setImage("p1_text.png");
 	myGate->createLetter();
 
 	//menu controller add
