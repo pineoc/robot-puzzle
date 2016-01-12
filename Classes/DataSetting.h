@@ -10,7 +10,7 @@
 #define GATELAYOUT_Z 10
 
 //popup layout opacity percent
-#define POPUPLAYOUT_OPACITY_PERCENT 0.6f
+#define POPUPLAYOUT_OPACITY_PERCENT 0.75f
 
 //game logic values
 #define SHOWCLEARIMAGE_DELAYTIME 0.5f

@@ -37,7 +37,7 @@ bool sixthPuzzle::init()
         return false;
     }
 
-	goalCount = 5;
+	goalCount = 4;
 	gameController::getInstance()->initPuzzleCount();
 	schedule(schedule_selector(sixthPuzzle::checkEnding),0.5f);
     
@@ -72,7 +72,7 @@ bool sixthPuzzle::init()
 	
 	//arm puzzle
 	{
-		puzzle* pz1 = new puzzle(100.0f, 150.0f, w + 6.0f, h - 150.0f, "p6/arm.png", NORMAL_PUZZLE);
+		puzzle* pz1 = new puzzle(100.0f, 280.0f, w, h - 5.0f, "p6/arm.png", NORMAL_PUZZLE);
 		pz1->addEvent();
 		Sprite* spz1 = pz1->getPuzzle();
 		Sprite* ppz1 = pz1->getPartnerPuzzle();
@@ -82,18 +82,23 @@ bool sixthPuzzle::init()
 	
 	//body puzzle
 	{
-		puzzle* pz2 = new puzzle(250.0f, 150.0f, w + 6.0f, h - 174.0f, "p6/body.png", CHANGE_PUZZLE);
+		/*
+		puzzle* pz2 = new puzzle(250.0f, 280.0f, w, h - 174.0f, "p6/body.png", CHANGE_PUZZLE);
 		pz2->setNewPosition(Vec2(w - 15.0f, h - 175.0f));
 		pz2->addEvent();
 		Sprite* spz2 = pz2->getPuzzle();
 		Sprite* ppz2 = pz2->getPartnerPuzzle();
 		this->addChild(spz2);
 		this->addChild(ppz2);
+		*/
+		Sprite* body = Sprite::create("p6/result_body.png");
+		body->setPosition(Vec2(w - 20.0f, h - 30.0f));
+		this->addChild(body, 3);
 	}
 
 	//face puzzle
 	{
-		puzzle* pz3 = new puzzle(420.0f, 150.0f, w + 6.0f, h + 130.0f, "p6/face.png", NORMAL_PUZZLE);
+		puzzle* pz3 = new puzzle(420.0f, 280.0f, w, h + 275.0f, "p6/face.png", NORMAL_PUZZLE);
 		pz3->addEvent();
 		Sprite* spz3 = pz3->getPuzzle();
 		Sprite* ppz3 = pz3->getPartnerPuzzle();
@@ -103,7 +108,7 @@ bool sixthPuzzle::init()
 	
 	//head puzzle
 	{
-		puzzle* pz4 = new puzzle(545.0f, 170.0f, w + 6.0f, h + 255.0f, "p6/head.png", NORMAL_PUZZLE);
+		puzzle* pz4 = new puzzle(545.0f, 280.0f, w, h + 400.0f, "p6/head.png", NORMAL_PUZZLE);
 		pz4->addEvent();
 		Sprite* spz4 = pz4->getPuzzle();
 		Sprite* ppz4 = pz4->getPartnerPuzzle();
@@ -113,7 +118,7 @@ bool sixthPuzzle::init()
 
 	//leg puzzle
 	{
-		puzzle* pz5 = new puzzle(700.0f, 150.0f, w + 8, h - 506, "p6/leg.png", NORMAL_PUZZLE);
+		puzzle* pz5 = new puzzle(850.0f, 180.0f, w, h - 360.0f, "p6/leg.png", NORMAL_PUZZLE);
 		pz5->addEvent();
 		Sprite* spz5 = pz5->getPuzzle();
 		Sprite* ppz5 = pz5->getPartnerPuzzle();
@@ -121,8 +126,6 @@ bool sixthPuzzle::init()
 		this->addChild(ppz5);
 	}
 	
-	
-
 	this->setKeypadEnabled(true);
 
     return true;
@@ -147,7 +150,7 @@ void sixthPuzzle::checkEnding(float t){
 void sixthPuzzle::showCompleteSprite(float dt){
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Sprite* spriteComplete = Sprite::create("p6/result.png");
-	spriteComplete->setPosition(Vec2(visibleSize.width / 2 + 5.0f, visibleSize.height / 2 - 137.5f));
+	spriteComplete->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 5.0f));
 	spriteComplete->setZOrder(PARTNER_Z + 1);
 	this->addChild(spriteComplete);
 }
