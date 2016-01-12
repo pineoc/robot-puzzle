@@ -14,7 +14,7 @@
 
 //game logic values
 #define SHOWCLEARIMAGE_DELAYTIME 0.5f
-#define SHOWPOPUPREWARD_DELAYTIME 1.5f
+#define SHOWPOPUPREWARD_DELAYTIME 3.5f
 
 //Splash screen delay time
 #define SPLASHSCREEN_DELAYTIME 1.0f

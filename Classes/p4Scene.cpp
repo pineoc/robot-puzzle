@@ -72,7 +72,7 @@ bool fourthPuzzle::init()
 
 	//left foot puzzle
 	{
-		puzzle* pz1 = new puzzle(120.0f, 150.0f, w - 120.0f, h - 580.0f, "p4/left_foot.png", NORMAL_PUZZLE);
+		puzzle* pz1 = new puzzle(w-360.0f, 280.0f, w - 129.0f, h - 438.0f, "p4/left_foot.png", NORMAL_PUZZLE);
 		pz1->addEvent();
 		Sprite* spz1 = pz1->getPuzzle();
 		Sprite* ppz1 = pz1->getPartnerPuzzle();
@@ -82,7 +82,7 @@ bool fourthPuzzle::init()
 
 	//back puzzle
 	{
-		puzzle* pz2 = new puzzle(260.0f, 150.0f, w + 3.0f, h - 260.0f, "p4/back.png", NORMAL_PUZZLE);
+		puzzle* pz2 = new puzzle(w-190.0f, 280.0f, w - 3.0f, h - 117.0f, "p4/back.png", NORMAL_PUZZLE);
 		pz2->addEvent();
 		Sprite* spz2 = pz2->getPuzzle();
 		Sprite* ppz2 = pz2->getPartnerPuzzle();
@@ -90,9 +90,9 @@ bool fourthPuzzle::init()
 		this->addChild(ppz2);
 	}
 
-	//left_hand puzzle
+	//right_hand puzzle
 	{
-		puzzle* pz3 = new puzzle(430.0f, 150.0f, w - 170.0f, h - 300.0f, "p4/left_hand.png", NORMAL_PUZZLE);
+		puzzle* pz3 = new puzzle(w+5.0f, 280.0f, w - 174.0f, h - 153.0f, "p4/right_hand.png", NORMAL_PUZZLE);
 		pz3->addEvent();
 		Sprite* spz3 = pz3->getPuzzle();
 		Sprite* ppz3 = pz3->getPartnerPuzzle();
@@ -102,7 +102,7 @@ bool fourthPuzzle::init()
 
 	//right_foot puzzle
 	{
-		puzzle* pz3 = new puzzle(600.0f, 170.0f, w + 131.0f, h - 585.0f, "p4/right_foot.png", NORMAL_PUZZLE);
+		puzzle* pz3 = new puzzle(w+200.0f, 280.0f, w + 125.0f, h - 438.0f, "p4/right_foot.png", NORMAL_PUZZLE);
 		pz3->addEvent();
 		Sprite* spz3 = pz3->getPuzzle();
 		Sprite* ppz3 = pz3->getPartnerPuzzle();
@@ -110,9 +110,9 @@ bool fourthPuzzle::init()
 		this->addChild(ppz3);
 	}
 
-	//right_hand puzzle
+	//left_hand puzzle
 	{
-		puzzle* pz3 = new puzzle(720.0f, 150.0f, w + 182.0f, h -300.0f, "p4/right_hand.png", NORMAL_PUZZLE);
+		puzzle* pz3 = new puzzle(w+380.0f, 280.0f, w + 170.0f, h -156.0f, "p4/left_hand.png", NORMAL_PUZZLE);
 		pz3->addEvent();
 		Sprite* spz3 = pz3->getPuzzle();
 		Sprite* ppz3 = pz3->getPartnerPuzzle();
@@ -144,7 +144,7 @@ void fourthPuzzle::checkEnding(float t){
 void fourthPuzzle::showCompleteSprite(float dt){
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Sprite* spriteComplete = Sprite::create("p4/result.png");
-	spriteComplete->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 240.0f));
+	spriteComplete->setPosition(Vec2(visibleSize.width / 2 - 6.0f, visibleSize.height / 2 - 102.0f));
 	spriteComplete->setZOrder(PARTNER_Z + 1);
 	this->addChild(spriteComplete);
 }

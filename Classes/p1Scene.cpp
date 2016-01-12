@@ -74,7 +74,7 @@ bool firstPuzzle::init()
 
 	//left leg puzzle
 	{
-		puzzle* pz1 = new puzzle(100.0f, 150.0f, w-117.0f, h-474.0f, "p1/left_leg.png", NORMAL_PUZZLE);
+		puzzle* pz1 = new puzzle(w-440.0f, 250.0f, w-126.0f, h-336.0f, "p1/left_leg.png", NORMAL_PUZZLE);
 		pz1->addEvent();
 		Sprite* spz1 = pz1->getPuzzle();
 		Sprite* ppz1 = pz1->getPartnerPuzzle();
@@ -84,7 +84,7 @@ bool firstPuzzle::init()
 	
 	//right leg puzzle
 	{
-		puzzle* pz2 = new puzzle(250.0f, 150.0f, w+128.0f, h-474.0f, "p1/right_leg.png", NORMAL_PUZZLE);
+		puzzle* pz2 = new puzzle(w-290.0f, 250.0f, w+128.0f, h-336.0f, "p1/right_leg.png", NORMAL_PUZZLE);
 		pz2->addEvent();
 		Sprite* spz2 = pz2->getPuzzle();
 		Sprite* ppz2 = pz2->getPartnerPuzzle();
@@ -94,7 +94,7 @@ bool firstPuzzle::init()
 
 	//middle leg puzzle
 	{
-		puzzle* pz3 = new puzzle(420.0f, 150.0f, w, h-330.0f, "p1/middle_leg.png", NORMAL_PUZZLE);
+		puzzle* pz3 = new puzzle(w-120.0f, 250.0f, w, h-192.0f, "p1/middle_leg.png", NORMAL_PUZZLE);
 		pz3->addEvent();
 		Sprite* spz3 = pz3->getPuzzle();
 		Sprite* ppz3 = pz3->getPartnerPuzzle();
@@ -104,7 +104,7 @@ bool firstPuzzle::init()
 	
 	//backbone puzzle
 	{
-		puzzle* pz3 = new puzzle(545.0f, 170.0f, w+5, h-93.0f, "p1/backbone.png", NORMAL_PUZZLE);
+		puzzle* pz3 = new puzzle(w+5.0f, 250.0f, w+3, h+51.0f, "p1/backbone.png", NORMAL_PUZZLE);
 		pz3->addEvent();
 		Sprite* spz3 = pz3->getPuzzle();
 		Sprite* ppz3 = pz3->getPartnerPuzzle();
@@ -114,7 +114,7 @@ bool firstPuzzle::init()
 
 	//left arm puzzle
 	{
-		puzzle* pz3 = new puzzle(700.0f, 150.0f, w-162.0f, h-150.0f, "p1/left_arm.png", NORMAL_PUZZLE);
+		puzzle* pz3 = new puzzle(w+160.0f, 250.0f, w-168.0f, h-15.0f, "p1/left_arm.png", NORMAL_PUZZLE);
 		pz3->addEvent();
 		Sprite* spz3 = pz3->getPuzzle();
 		Sprite* ppz3 = pz3->getPartnerPuzzle();
@@ -122,9 +122,9 @@ bool firstPuzzle::init()
 		this->addChild(ppz3);
 	}
 	
-	//right arm puzzle
+	//right arm puzzle 
 	{
-		puzzle* pz3 = new puzzle(935.0f, 150.0f, w+167.0f, h-150.0f, "p1/right_arm.png", NORMAL_PUZZLE);
+		puzzle* pz3 = new puzzle(w+395.0f, 250.0f, w+167.0f, h-15.0f, "p1/right_arm.png", NORMAL_PUZZLE);
 		pz3->addEvent();
 		Sprite* spz3 = pz3->getPuzzle();
 		Sprite* ppz3 = pz3->getPartnerPuzzle();
@@ -157,9 +157,12 @@ void firstPuzzle::checkEnding(float t){
 void firstPuzzle::showCompleteSprite(float dt){
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Sprite* spriteComplete = Sprite::create("p1/result.png");
-	spriteComplete->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 240.0f));
+	spriteComplete->setPosition(Vec2(visibleSize.width / 2-3.0f, visibleSize.height / 2 -102.0f));
 	spriteComplete->setZOrder(PARTNER_Z+1);
 	this->addChild(spriteComplete);
+
+	FadeIn* fadein = FadeIn::create(3.0);
+	spriteComplete->runAction(fadein);
 }
 
 void firstPuzzle::showEndingPopUp(float dt){

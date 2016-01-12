@@ -70,9 +70,9 @@ bool thirdPuzzle::init()
 	menuController* myMenuController = new menuController(3);
 	this->addChild(myMenuController->getMenuLayout(), 1);
 
-	//battery puzzle
+	//box puzzle
 	{
-		puzzle* pz1 = new puzzle(w-170.0f, h-810.0f, w+128.0f, h-228.0f, "p3/battery.png", NORMAL_PUZZLE);
+		puzzle* pz1 = new puzzle(w-170.0f, 250.0f, w+116.0f, h-84.0f, "p3/box.png", NORMAL_PUZZLE);
 		pz1->addEvent();
 		Sprite* spz1 = pz1->getPuzzle();
 		Sprite* ppz1 = pz1->getPartnerPuzzle();
@@ -80,9 +80,9 @@ bool thirdPuzzle::init()
 		this->addChild(ppz1);
 	}
 
-	//battery puzzle
+	//b2 puzzle
 	{
-		puzzle* pz1 = new puzzle(w, h-810.0f, w+128.0f, h-228.0f, "p3/battery.png", NORMAL_PUZZLE);
+		puzzle* pz1 = new puzzle(w, 250.0f, w+155.0f, h-84.0f, "p3/b2.png", NORMAL_PUZZLE);
 		pz1->addEvent();
 		Sprite* spz1 = pz1->getPuzzle();
 		Sprite* ppz1 = pz1->getPartnerPuzzle();
@@ -90,9 +90,9 @@ bool thirdPuzzle::init()
 		this->addChild(ppz1);
 	}
 
-	//battery puzzle
+	//b1 puzzle
 	{
-		puzzle* pz1 = new puzzle(w+170.0f, h-810.0f, w+128.0f, h-228.0f, "p3/battery.png", NORMAL_PUZZLE);
+		puzzle* pz1 = new puzzle(w+170.0f, 250.0f, w+74.0f, h-84.0f, "p3/b1.png", NORMAL_PUZZLE);
 		pz1->addEvent();
 		Sprite* spz1 = pz1->getPuzzle();
 		Sprite* ppz1 = pz1->getPartnerPuzzle();
@@ -125,7 +125,7 @@ void thirdPuzzle::checkEnding(float t){
 void thirdPuzzle::showCompleteSprite(float dt){
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Sprite* spriteComplete = Sprite::create("p3/result.png");
-	spriteComplete->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 240.0f));
+	spriteComplete->setPosition(Vec2(visibleSize.width / 2 - 6.0f, visibleSize.height / 2 - 102.0f));
 	spriteComplete->setZOrder(PARTNER_Z + 1);
 	this->addChild(spriteComplete);
 }

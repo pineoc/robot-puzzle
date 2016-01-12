@@ -44,7 +44,7 @@ bool secondPuzzle::init()
 	//num==1 : right arm, left hand
 	//num==0 : left arm, right hand
 	srand((unsigned int)time(NULL));
-	int num = rand()%2;
+	int num = CCRANDOM_0_1();
 
 	gameController::getInstance()->initPuzzleCount();
 	schedule(schedule_selector(secondPuzzle::checkEnding),0.5f);
@@ -83,7 +83,7 @@ bool secondPuzzle::init()
 	if(num == 0)	//num==0 : left arm, right hand
 	{
 		//left arm puzzle
-		puzzle* pz1 = new puzzle(150.0f, 150.0f, w-150.0f, h-48.0f, "p2/left_arm.png", NORMAL_PUZZLE);
+		puzzle* pz1 = new puzzle(w-390.0f, 250.0f, w-174.0f, h+92.0f, "p2/left_arm.png", NORMAL_PUZZLE);
 		pz1->addEvent();
 		Sprite* spz1 = pz1->getPuzzle();
 		Sprite* ppz1 = pz1->getPartnerPuzzle();
@@ -91,17 +91,26 @@ bool secondPuzzle::init()
 		this->addChild(ppz1);
 
 		//right hand puzzle
-		puzzle* pz2 = new puzzle(320.0f, 150.0f, w+266.0f, h-216.0f, "p2/right_hand.png", NORMAL_PUZZLE);
+		puzzle* pz2 = new puzzle(w-220.0f, 250.0f, w+257.0f, h-72.0f, "p2/right_hand.png", NORMAL_PUZZLE);
 		pz2->addEvent();
 		Sprite* spz2 = pz2->getPuzzle();
 		Sprite* ppz2 = pz2->getPartnerPuzzle();
 		this->addChild(spz2);
 		this->addChild(ppz2);
 
+		//set other images
+		Sprite* p1 = Sprite::create("p2/right_arm.png");
+		p1->setPosition(Vec2(w+179.0f, h+92.0f));
+		this->addChild(p1);
+
+		Sprite* p2 = Sprite::create("p2/left_hand.png");
+		p2->setPosition(Vec2(w-255.0f, h-72.0f));
+		this->addChild(p2);
+
 		
 	}else{ //num==1 : right arm, left hand
 		//right arm puzzle
-		puzzle* pz4 = new puzzle(150.0f, 150.0f, w+162.0f, h-48.0f, "p2/right_arm.png", NORMAL_PUZZLE);
+		puzzle* pz4 = new puzzle(w-390.0f, 250.0f, w+179.0f, h+92.0f, "p2/right_arm.png", NORMAL_PUZZLE);
 		pz4->addEvent();
 		Sprite* spz4 = pz4->getPuzzle();
 		Sprite* ppz4 = pz4->getPartnerPuzzle();
@@ -109,17 +118,26 @@ bool secondPuzzle::init()
 		this->addChild(ppz4);
 
 		//left hand puzzle
-		puzzle* pz5 = new puzzle(320.0f, 150.0f, w-249.0f, h-216.0f, "p2/left_hand.png", NORMAL_PUZZLE);
+		puzzle* pz5 = new puzzle(w-220.0f, 250.0f, w-255.0f, h-72.0f, "p2/left_hand.png", NORMAL_PUZZLE);
 		pz5->addEvent();
 		Sprite* spz5 = pz5->getPuzzle();
 		Sprite* ppz5 = pz5->getPartnerPuzzle();
 		this->addChild(spz5);
 		this->addChild(ppz5);
+
+		//set other images
+		Sprite* p1 = Sprite::create("p2/left_arm.png");
+		p1->setPosition(Vec2(w-174.0f, h+92.0f));
+		this->addChild(p1);
+
+		Sprite* p2 = Sprite::create("p2/right_hand.png");
+		p2->setPosition(Vec2(w+257.0f, h-72.0f));
+		this->addChild(p2);
 	}
 
 	//middle puzzle
 	{
-		puzzle* pz3 = new puzzle(510.0f, 150.0f, w+3.0f, h-357.0f, "p2/middle.png", NORMAL_PUZZLE);
+		puzzle* pz3 = new puzzle(w-30.0f, 250.0f, w-3.0f, h-213.0f, "p2/middle.png", NORMAL_PUZZLE);
 		pz3->addEvent();
 		Sprite* spz3 = pz3->getPuzzle();
 		Sprite* ppz3 = pz3->getPartnerPuzzle();
@@ -129,7 +147,7 @@ bool secondPuzzle::init()
 	
 	//neck puzzle
 	{
-		puzzle* pz6 = new puzzle(690.0f, 150.0f, w+9.0f, h+12.0f, "p2/neck.png", NORMAL_PUZZLE);
+		puzzle* pz6 = new puzzle(w+150.0f, 250.0f, w+3.0f, h+155.0f, "p2/neck.png", NORMAL_PUZZLE);
 		pz6->addEvent();
 		Sprite* spz6 = pz6->getPuzzle();
 		Sprite* ppz6 = pz6->getPartnerPuzzle();
@@ -139,7 +157,7 @@ bool secondPuzzle::init()
 
 	//foot puzzle
 	{
-		puzzle* pz7 = new puzzle(888.0f, 150.0f, w+12.0f, h-551.0f, "p2/foot.png", NORMAL_PUZZLE);
+		puzzle* pz7 = new puzzle(w+348.0f, 250.0f, w+6.0f, h-411.0f, "p2/foot.png", NORMAL_PUZZLE);
 		pz7->addEvent();
 		Sprite* spz7 = pz7->getPuzzle();
 		Sprite* ppz7 = pz7->getPartnerPuzzle(); 
@@ -171,7 +189,7 @@ void secondPuzzle::checkEnding(float t){
 void secondPuzzle::showCompleteSprite(float dt){
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Sprite* spriteComplete = Sprite::create("p2/result.png");
-	spriteComplete->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 240.0f));
+	spriteComplete->setPosition(Vec2(visibleSize.width / 2 - 6.0f, visibleSize.height / 2 - 102.0f));
 	spriteComplete->setZOrder(PARTNER_Z + 1);
 	this->addChild(spriteComplete);
 }

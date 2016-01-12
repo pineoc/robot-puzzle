@@ -94,8 +94,9 @@ void gate::deleteLayout()
 {
 	//letter move
 	Size visibleSize = Director::getInstance()->getVisibleSize();
-	MoveTo* moveLetter = MoveTo::create(1.0, Point(visibleSize.width/2, visibleSize.height + 600.0f));
-	spriteLetter->runAction(moveLetter);
+	MoveTo* moveUpLetter = MoveTo::create(1.0, Point(visibleSize.width/2, visibleSize.height + 600.0f));
+	EaseBackIn* easeLetter = EaseBackIn::create(moveUpLetter);
+	spriteLetter->runAction(easeLetter);
 
 	//touch disabled
 	Director::getInstance()->getEventDispatcher()->removeEventListenersForTarget(layoutBackGr);

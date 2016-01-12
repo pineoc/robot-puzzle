@@ -73,13 +73,13 @@ bool fifthPuzzle::init()
 	//left eye sprite
 	{
 		Sprite* eye = Sprite::create("p5/eye.png");
-		eye->setPosition(Vec2(w - 150.0f, h - 120.0f));
+		eye->setPosition(Vec2(w - 156.0f, h+146.0f));
 		this->addChild(eye, PUZZLE_Z);
 	}
 
 	//right eye puzzle
 	{
-		puzzle* pz1 = new puzzle(100.0f, 150.0f, w + 155.0f, h - 120.0f, "p5/eye.png", NORMAL_PUZZLE);
+		puzzle* pz1 = new puzzle(w-400.0f, 280.0f, w + 156.0f, h+146.0f, "p5/eye.png", NORMAL_PUZZLE);
 		pz1->addEvent();
 		Sprite* spz1 = pz1->getPuzzle();
 		Sprite* ppz1 = pz1->getPartnerPuzzle();
@@ -89,7 +89,7 @@ bool fifthPuzzle::init()
 	
 	//head puzzle
 	{
-		puzzle* pz2 = new puzzle(250.0f, 150.0f, w + 9.0f, h + 36.0f, "p5/head.png", NORMAL_PUZZLE);
+		puzzle* pz2 = new puzzle(w-150.0f, 280.0f, w + 12.0f, h + 305.5f, "p5/head.png", NORMAL_PUZZLE);
 		pz2->addEvent();
 		Sprite* spz2 = pz2->getPuzzle();
 		Sprite* ppz2 = pz2->getPartnerPuzzle();
@@ -100,7 +100,7 @@ bool fifthPuzzle::init()
 	
 	//mouth puzzle
 	{
-		puzzle* pz3 = new puzzle(545.0f, 170.0f, w + 5.0f, h - 305.0f, "p5/mouth.png", NORMAL_PUZZLE);
+		puzzle* pz3 = new puzzle(w+280.0f, 280.0f, w, h - 39.0f, "p5/mouth.png", NORMAL_PUZZLE);
 		pz3->addEvent();
 		Sprite* spz3 = pz3->getPuzzle();
 		Sprite* ppz3 = pz3->getPartnerPuzzle();
@@ -132,7 +132,7 @@ void fifthPuzzle::checkEnding(float t){
 void fifthPuzzle::showCompleteSprite(float dt){
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Sprite* spriteComplete = Sprite::create("p5/result.png");
-	spriteComplete->setPosition(Vec2(visibleSize.width / 2 + 5.0f, visibleSize.height / 2 - 140.0f));
+	spriteComplete->setPosition(Vec2(visibleSize.width / 2 , visibleSize.height / 2 + 128.0f));
 	spriteComplete->setZOrder(PARTNER_Z + 1);
 	this->addChild(spriteComplete);
 }
