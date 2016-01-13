@@ -196,6 +196,15 @@ void secondPuzzle::showCompleteSprite(float dt) {
 
 	FadeIn* fadein = FadeIn::create(2);
 	spriteComplete->runAction(fadein);
+
+		//particle
+	ParticleSystem* finishParticle = ParticleExplosion::create();
+	finishParticle->retain();
+	finishParticle->setTexture(Director::getInstance()->getTextureCache()->addImage("fire.png"));
+	finishParticle->setAnchorPoint(Vec2(0.5, 0.5));
+	finishParticle->setPosition(Vec2(spriteComplete->getContentSize().width/2, spriteComplete->getContentSize().height/2));
+	finishParticle->setScale(8);
+	spriteComplete->addChild(finishParticle);
 }
 
 void secondPuzzle::showEndingPopUp(float dt) {
