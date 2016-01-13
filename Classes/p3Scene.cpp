@@ -127,7 +127,11 @@ void thirdPuzzle::showCompleteSprite(float dt){
 	Sprite* spriteComplete = Sprite::create("p3/result.png");
 	spriteComplete->setPosition(Vec2(visibleSize.width / 2 - 6.0f, visibleSize.height / 2 - 102.0f));
 	spriteComplete->setZOrder(PARTNER_Z + 1);
+	spriteComplete->setOpacity(0);
 	this->addChild(spriteComplete);
+
+	FadeIn* fadein = FadeIn::create(2);
+	spriteComplete->runAction(fadein);
 }
 
 void thirdPuzzle::showEndingPopUp(float dt){
