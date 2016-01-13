@@ -168,10 +168,15 @@ void firstPuzzle::showCompleteSprite(float dt){
 	//particle
 	ParticleSystem* finishParticle = ParticleExplosion::create();
 	finishParticle->retain();
-	finishParticle->setTexture(Director::getInstance()->getTextureCache()->addImage("fire.png"));
+	finishParticle->setTexture(Director::getInstance()->getTextureCache()->addImage("star.png"));
 	finishParticle->setAnchorPoint(Vec2(0.5, 0.5));
 	finishParticle->setPosition(Vec2(spriteComplete->getContentSize().width/2, spriteComplete->getContentSize().height/2));
-	finishParticle->setScale(8);
+	finishParticle->setScale(5);
+	//finishParticle->setDuration(1.0f);
+	//speed settings
+	finishParticle->setSpeed(60.0f);
+	finishParticle->setSpeedVar(100.0f);//speed various
+	finishParticle->setLife(1.0f);
 	spriteComplete->addChild(finishParticle);
 }
 
