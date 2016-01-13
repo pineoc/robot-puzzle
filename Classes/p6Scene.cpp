@@ -159,7 +159,7 @@ void sixthPuzzle::showCompleteSprite(float dt){
 	spriteComplete->runAction(fadein);
 
 	//particle
-	ParticleSystem* finishParticle = ParticleExplosion::create();
+	ParticleSystem* finishParticle = ParticleSmoke::create();
 	finishParticle->retain();
 	finishParticle->setTexture(Director::getInstance()->getTextureCache()->addImage("fire.png"));
 	finishParticle->setAnchorPoint(Vec2(0.5, 0.5));

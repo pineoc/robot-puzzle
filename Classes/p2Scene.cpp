@@ -197,8 +197,8 @@ void secondPuzzle::showCompleteSprite(float dt) {
 	FadeIn* fadein = FadeIn::create(2);
 	spriteComplete->runAction(fadein);
 
-		//particle
-	ParticleSystem* finishParticle = ParticleExplosion::create();
+	//particle
+	ParticleSystem* finishParticle = ParticleFire::create();
 	finishParticle->retain();
 	finishParticle->setTexture(Director::getInstance()->getTextureCache()->addImage("fire.png"));
 	finishParticle->setAnchorPoint(Vec2(0.5, 0.5));
