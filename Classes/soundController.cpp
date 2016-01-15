@@ -77,20 +77,37 @@ void soundController::puzzleCorrect()
 	}
 }
 //game opening scene
-void soundController::gameOpening()
+void soundController::gameOpening(int num)
 {
 	if (UserDefault::getInstance()->getBoolForKey("sound") == false)
 		return;
 	auto audio = SimpleAudioEngine::getInstance();
 	isKorea = UserDefault::getInstance()->getBoolForKey("kor");
 
-	if (isKorea)
+	switch (num)
 	{
-		audio->playEffect("");
+	case 1:
+		if (isKorea)
+			audio->playEffect("sound/op1.mp3");
+		else
+			audio->playEffect("sound/op1.mp3");
+		break;
+	case 2:
+		if (isKorea)
+			audio->playEffect("sound/op2.mp3");
+		else
+			audio->playEffect("sound/op2.mp3");
+		break;
+	case 3:
+		if (isKorea)
+			audio->playEffect("sound/op3.mp3");
+		else
+			audio->playEffect("sound/op3.mp3");
+		break;
+	default:
+		break;
 	}
-	else
-	{
-	}
+	
 }
 //game ending scene
 void soundController::gameEnding()
@@ -101,12 +118,9 @@ void soundController::gameEnding()
 	isKorea = UserDefault::getInstance()->getBoolForKey("kor");
 
 	if (isKorea)
-	{
-		audio->playEffect("");
-	}
+		audio->playEffect("sound/");
 	else
-	{
-	}
+		audio->playEffect("sound/");
 }
 //puzzle opening door
 void soundController::doorOpen()

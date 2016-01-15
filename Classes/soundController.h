@@ -25,7 +25,7 @@ public:
 	//puzzle - correct location
 	void puzzleCorrect();
 	//game opening scene
-	void gameOpening();
+	void gameOpening(int num);
 	//game ending scene
 	void gameEnding();
 	//puzzle opening door
