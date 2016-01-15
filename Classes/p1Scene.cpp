@@ -45,30 +45,28 @@ bool firstPuzzle::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    Sprite* backgroundSprite = Sprite::create("p1/background.jpg");
+    Sprite* robot = Sprite::create("p1/robot.png");
 
     // position the sprite on the center of the screen
-	backgroundSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+	robot->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y - 250));
 
     // add the sprite as a child to this layer
-	this->addChild(backgroundSprite, BACKGROUND_Z);
-
-	//robot img sprite
-/*	Sprite* robotSpr = Sprite::create("p1/robot.png");
-	robotSpr->setPosition(Vec2(visibleSize.width / 2 + 5.0, visibleSize.height / 2 - 139.0));
-	this->addChild(robotSpr, ROBOTIMG_Z);
-*/
+	this->addChild(robot, BACKGROUND_Z);
 
 
 	//center location
 	float w = visibleSize.width/2;
 	float h = visibleSize.height/2;
 
-	//add opening gate
+	/*add opening gate*/
 	gate* myGate = new gate();
-	myGate->open("home_s.png");
-	Sprite* Sletter = myGate->getLetter();
-	this->addChild(Sletter);
+	//back ground
+	myGate->createBackGr();
+	myGate->addEvent();
+	this->addChild(myGate->getBackGround());
+	
+	myGate->setImage("p1_text.png");
+	myGate->createLetter();
 
 	//menu controller add
 	menuController* myMenuController = new menuController(1);
@@ -76,7 +74,7 @@ bool firstPuzzle::init()
 
 	//left leg puzzle
 	{
-		puzzle* pz1 = new puzzle(100.0f, 150.0f, w-117.0f, h-474.0f, "p1/left_leg.png", NORMAL_PUZZLE);
+		puzzle* pz1 = new puzzle(w-440.0f, 250.0f, w-126.0f, h-336.0f, "p1/left_leg.png", NORMAL_PUZZLE);
 		pz1->addEvent();
 		Sprite* spz1 = pz1->getPuzzle();
 		Sprite* ppz1 = pz1->getPartnerPuzzle();
@@ -86,7 +84,7 @@ bool firstPuzzle::init()
 	
 	//right leg puzzle
 	{
-		puzzle* pz2 = new puzzle(250.0f, 150.0f, w+128.0f, h-474.0f, "p1/right_leg.png", NORMAL_PUZZLE);
+		puzzle* pz2 = new puzzle(w-290.0f, 250.0f, w+128.0f, h-336.0f, "p1/right_leg.png", NORMAL_PUZZLE);
 		pz2->addEvent();
 		Sprite* spz2 = pz2->getPuzzle();
 		Sprite* ppz2 = pz2->getPartnerPuzzle();
@@ -96,7 +94,7 @@ bool firstPuzzle::init()
 
 	//middle leg puzzle
 	{
-		puzzle* pz3 = new puzzle(420.0f, 150.0f, w, h-330.0f, "p1/middle_leg.png", NORMAL_PUZZLE);
+		puzzle* pz3 = new puzzle(w-120.0f, 250.0f, w, h-192.0f, "p1/middle_leg.png", NORMAL_PUZZLE);
 		pz3->addEvent();
 		Sprite* spz3 = pz3->getPuzzle();
 		Sprite* ppz3 = pz3->getPartnerPuzzle();
@@ -106,7 +104,7 @@ bool firstPuzzle::init()
 	
 	//backbone puzzle
 	{
-		puzzle* pz3 = new puzzle(545.0f, 170.0f, w+5, h-93.0f, "p1/backbone.png", NORMAL_PUZZLE);
+		puzzle* pz3 = new puzzle(w+5.0f, 250.0f, w+3, h+51.0f, "p1/backbone.png", NORMAL_PUZZLE);
 		pz3->addEvent();
 		Sprite* spz3 = pz3->getPuzzle();
 		Sprite* ppz3 = pz3->getPartnerPuzzle();
@@ -116,7 +114,7 @@ bool firstPuzzle::init()
 
 	//left arm puzzle
 	{
-		puzzle* pz3 = new puzzle(700.0f, 150.0f, w-162.0f, h-150.0f, "p1/left_arm.png", NORMAL_PUZZLE);
+		puzzle* pz3 = new puzzle(w+160.0f, 250.0f, w-168.0f, h-15.0f, "p1/left_arm.png", NORMAL_PUZZLE);
 		pz3->addEvent();
 		Sprite* spz3 = pz3->getPuzzle();
 		Sprite* ppz3 = pz3->getPartnerPuzzle();
@@ -124,9 +122,9 @@ bool firstPuzzle::init()
 		this->addChild(ppz3);
 	}
 	
-	//right arm puzzle
+	//right arm puzzle 
 	{
-		puzzle* pz3 = new puzzle(935.0f, 150.0f, w+167.0f, h-150.0f, "p1/right_arm.png", NORMAL_PUZZLE);
+		puzzle* pz3 = new puzzle(w+395.0f, 250.0f, w+167.0f, h-15.0f, "p1/right_arm.png", NORMAL_PUZZLE);
 		pz3->addEvent();
 		Sprite* spz3 = pz3->getPuzzle();
 		Sprite* ppz3 = pz3->getPartnerPuzzle();
@@ -159,9 +157,27 @@ void firstPuzzle::checkEnding(float t){
 void firstPuzzle::showCompleteSprite(float dt){
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Sprite* spriteComplete = Sprite::create("p1/result.png");
-	spriteComplete->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 240.0f));
+	spriteComplete->setPosition(Vec2(visibleSize.width / 2-3.0f, visibleSize.height / 2 -102.0f));
 	spriteComplete->setZOrder(PARTNER_Z+1);
+	spriteComplete->setOpacity(0);
 	this->addChild(spriteComplete);
+
+	FadeIn* fadein = FadeIn::create(2);
+	spriteComplete->runAction(fadein);
+
+	//particle
+	ParticleSystem* finishParticle = ParticleExplosion::create();
+	finishParticle->retain();
+	finishParticle->setTexture(Director::getInstance()->getTextureCache()->addImage("star.png"));
+	finishParticle->setAnchorPoint(Vec2(0.5, 0.5));
+	finishParticle->setPosition(Vec2(spriteComplete->getContentSize().width/2, spriteComplete->getContentSize().height/2));
+	finishParticle->setScale(5);
+	//finishParticle->setDuration(1.0f);
+	//speed settings
+	finishParticle->setSpeed(60.0f);
+	finishParticle->setSpeedVar(100.0f);//speed various
+	finishParticle->setLife(1.0f);
+	spriteComplete->addChild(finishParticle);
 }
 
 void firstPuzzle::showEndingPopUp(float dt){

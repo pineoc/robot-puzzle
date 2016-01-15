@@ -7,6 +7,7 @@
 #include "gameController.h"
 #include "menuController.h"
 #include "DataSetting.h"
+#include "gate.h"
 
 USING_NS_CC;
 using namespace ui;
@@ -44,13 +45,13 @@ bool fifthPuzzle::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    Sprite* backgroundSprite = Sprite::create("p5/background.jpg");
+	Sprite* robot = Sprite::create("p5/robot.png");
 
-    // position the sprite on the center of the screen
-	backgroundSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+	// position the sprite on the center of the screen
+	robot->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y - 250));
 
-    // add the sprite as a child to this layer
-	this->addChild(backgroundSprite, BACKGROUND_Z);
+	// add the sprite as a child to this layer
+	this->addChild(robot, BACKGROUND_Z);
 
 	menuController* myMenuController = new menuController(5);
 	this->addChild(myMenuController->getMenuLayout(), 1);
@@ -59,16 +60,26 @@ bool fifthPuzzle::init()
 	float w = visibleSize.width/2;
 	float h = visibleSize.height/2;
 
+	/*add opening gate*/
+	gate* myGate = new gate();
+	//back ground
+	myGate->createBackGr();
+	myGate->addEvent();
+	this->addChild(myGate->getBackGround());
+	
+	myGate->setImage("p5_text.png");
+	myGate->createLetter();
+
 	//left eye sprite
 	{
 		Sprite* eye = Sprite::create("p5/eye.png");
-		eye->setPosition(Vec2(w - 150.0f, h - 120.0f));
+		eye->setPosition(Vec2(w - 156.0f, h+146.0f));
 		this->addChild(eye, PUZZLE_Z);
 	}
 
 	//right eye puzzle
 	{
-		puzzle* pz1 = new puzzle(100.0f, 150.0f, w + 155.0f, h - 120.0f, "p5/eye.png", NORMAL_PUZZLE);
+		puzzle* pz1 = new puzzle(w-400.0f, 280.0f, w + 156.0f, h+146.0f, "p5/eye.png", NORMAL_PUZZLE);
 		pz1->addEvent();
 		Sprite* spz1 = pz1->getPuzzle();
 		Sprite* ppz1 = pz1->getPartnerPuzzle();
@@ -78,7 +89,7 @@ bool fifthPuzzle::init()
 	
 	//head puzzle
 	{
-		puzzle* pz2 = new puzzle(250.0f, 150.0f, w + 9.0f, h + 36.0f, "p5/head.png", NORMAL_PUZZLE);
+		puzzle* pz2 = new puzzle(w-150.0f, 280.0f, w + 12.0f, h + 305.5f, "p5/head.png", NORMAL_PUZZLE);
 		pz2->addEvent();
 		Sprite* spz2 = pz2->getPuzzle();
 		Sprite* ppz2 = pz2->getPartnerPuzzle();
@@ -89,7 +100,7 @@ bool fifthPuzzle::init()
 	
 	//mouth puzzle
 	{
-		puzzle* pz3 = new puzzle(545.0f, 170.0f, w + 5.0f, h - 305.0f, "p5/mouth.png", NORMAL_PUZZLE);
+		puzzle* pz3 = new puzzle(w+280.0f, 280.0f, w, h - 39.0f, "p5/mouth.png", NORMAL_PUZZLE);
 		pz3->addEvent();
 		Sprite* spz3 = pz3->getPuzzle();
 		Sprite* ppz3 = pz3->getPartnerPuzzle();
@@ -121,9 +132,22 @@ void fifthPuzzle::checkEnding(float t){
 void fifthPuzzle::showCompleteSprite(float dt){
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Sprite* spriteComplete = Sprite::create("p5/result.png");
-	spriteComplete->setPosition(Vec2(visibleSize.width / 2 + 5.0f, visibleSize.height / 2 - 140.0f));
+	spriteComplete->setPosition(Vec2(visibleSize.width / 2 , visibleSize.height / 2 + 128.0f));
 	spriteComplete->setZOrder(PARTNER_Z + 1);
+	spriteComplete->setOpacity(0);
 	this->addChild(spriteComplete);
+
+	FadeIn* fadein = FadeIn::create(2);
+	spriteComplete->runAction(fadein);
+
+	//particle
+	ParticleSystem* finishParticle = ParticleGalaxy::create();
+	finishParticle->retain();
+	finishParticle->setTexture(Director::getInstance()->getTextureCache()->addImage("fire.png"));
+	finishParticle->setAnchorPoint(Vec2(0.5, 0.5));
+	finishParticle->setPosition(Vec2(spriteComplete->getContentSize().width/2, spriteComplete->getContentSize().height/2));
+	finishParticle->setScale(8);
+	spriteComplete->addChild(finishParticle);
 }
 
 void fifthPuzzle::showEndingPopUp(float dt){

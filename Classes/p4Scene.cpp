@@ -7,6 +7,7 @@
 #include "gameController.h"
 #include "menuController.h"
 #include "DataSetting.h"
+#include "gate.h"
 
 USING_NS_CC;
 using namespace ui;
@@ -44,13 +45,13 @@ bool fourthPuzzle::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    Sprite* backgroundSprite = Sprite::create("p4/background.jpg");
+	Sprite* robot = Sprite::create("p4/robot.png");
 
-    // position the sprite on the center of the screen
-	backgroundSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+	// position the sprite on the center of the screen
+	robot->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y - 250));
 
-    // add the sprite as a child to this layer
-	this->addChild(backgroundSprite, BACKGROUND_Z);
+	// add the sprite as a child to this layer
+	this->addChild(robot, BACKGROUND_Z);
 
 	menuController* myMenuController = new menuController(4);
 	this->addChild(myMenuController->getMenuLayout(), 1);
@@ -59,9 +60,19 @@ bool fourthPuzzle::init()
 	float w = visibleSize.width/2;
 	float h = visibleSize.height/2;
 
+	/*add opening gate*/
+	gate* myGate = new gate();
+	//back ground
+	myGate->createBackGr();
+	myGate->addEvent();
+	this->addChild(myGate->getBackGround());
+	
+	myGate->setImage("p4_text.png");
+	myGate->createLetter();
+
 	//left foot puzzle
 	{
-		puzzle* pz1 = new puzzle(120.0f, 150.0f, w - 120.0f, h - 580.0f, "p4/left_foot.png", NORMAL_PUZZLE);
+		puzzle* pz1 = new puzzle(w-360.0f, 280.0f, w - 129.0f, h - 438.0f, "p4/left_foot.png", NORMAL_PUZZLE);
 		pz1->addEvent();
 		Sprite* spz1 = pz1->getPuzzle();
 		Sprite* ppz1 = pz1->getPartnerPuzzle();
@@ -71,7 +82,7 @@ bool fourthPuzzle::init()
 
 	//back puzzle
 	{
-		puzzle* pz2 = new puzzle(260.0f, 150.0f, w + 3.0f, h - 260.0f, "p4/back.png", NORMAL_PUZZLE);
+		puzzle* pz2 = new puzzle(w-190.0f, 280.0f, w - 3.0f, h - 117.0f, "p4/back.png", NORMAL_PUZZLE);
 		pz2->addEvent();
 		Sprite* spz2 = pz2->getPuzzle();
 		Sprite* ppz2 = pz2->getPartnerPuzzle();
@@ -79,9 +90,9 @@ bool fourthPuzzle::init()
 		this->addChild(ppz2);
 	}
 
-	//left_hand puzzle
+	//right_hand puzzle
 	{
-		puzzle* pz3 = new puzzle(430.0f, 150.0f, w - 170.0f, h - 300.0f, "p4/left_hand.png", NORMAL_PUZZLE);
+		puzzle* pz3 = new puzzle(w+5.0f, 280.0f, w - 174.0f, h - 153.0f, "p4/right_hand.png", NORMAL_PUZZLE);
 		pz3->addEvent();
 		Sprite* spz3 = pz3->getPuzzle();
 		Sprite* ppz3 = pz3->getPartnerPuzzle();
@@ -91,7 +102,7 @@ bool fourthPuzzle::init()
 
 	//right_foot puzzle
 	{
-		puzzle* pz3 = new puzzle(600.0f, 170.0f, w + 131.0f, h - 585.0f, "p4/right_foot.png", NORMAL_PUZZLE);
+		puzzle* pz3 = new puzzle(w+200.0f, 280.0f, w + 125.0f, h - 438.0f, "p4/right_foot.png", NORMAL_PUZZLE);
 		pz3->addEvent();
 		Sprite* spz3 = pz3->getPuzzle();
 		Sprite* ppz3 = pz3->getPartnerPuzzle();
@@ -99,9 +110,9 @@ bool fourthPuzzle::init()
 		this->addChild(ppz3);
 	}
 
-	//right_hand puzzle
+	//left_hand puzzle
 	{
-		puzzle* pz3 = new puzzle(720.0f, 150.0f, w + 182.0f, h -300.0f, "p4/right_hand.png", NORMAL_PUZZLE);
+		puzzle* pz3 = new puzzle(w+380.0f, 280.0f, w + 170.0f, h -156.0f, "p4/left_hand.png", NORMAL_PUZZLE);
 		pz3->addEvent();
 		Sprite* spz3 = pz3->getPuzzle();
 		Sprite* ppz3 = pz3->getPartnerPuzzle();
@@ -133,9 +144,22 @@ void fourthPuzzle::checkEnding(float t){
 void fourthPuzzle::showCompleteSprite(float dt){
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Sprite* spriteComplete = Sprite::create("p4/result.png");
-	spriteComplete->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 240.0f));
+	spriteComplete->setPosition(Vec2(visibleSize.width / 2 - 6.0f, visibleSize.height / 2 - 102.0f));
 	spriteComplete->setZOrder(PARTNER_Z + 1);
+	spriteComplete->setOpacity(0);
 	this->addChild(spriteComplete);
+
+	FadeIn* fadein = FadeIn::create(2);
+	spriteComplete->runAction(fadein);
+
+	//particle
+	ParticleSystem* finishParticle = ParticleFlower::create();
+	finishParticle->retain();
+	finishParticle->setTexture(Director::getInstance()->getTextureCache()->addImage("fire.png"));
+	finishParticle->setAnchorPoint(Vec2(0.5, 0.5));
+	finishParticle->setPosition(Vec2(spriteComplete->getContentSize().width/2, spriteComplete->getContentSize().height/2));
+	finishParticle->setScale(8);
+	spriteComplete->addChild(finishParticle);
 }
 
 void fourthPuzzle::showEndingPopUp(float dt){

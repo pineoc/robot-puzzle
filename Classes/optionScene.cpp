@@ -45,6 +45,10 @@ bool option::init()
     // add the sprite as a child to this layer
 	this->addChild(backgroundSprite, BACKGROUND_Z);
 
+	//sound on/off btn
+
+	//effect on/off btn
+
 	//set key event enable
 	this->setKeypadEnabled(true);
 

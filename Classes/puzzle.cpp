@@ -77,16 +77,23 @@ bool puzzle::onTouchBegan(Touch *touch, Event *unused_event){
 //touch move(drag) - move to current touch location
 void puzzle::onTouchMoved(Touch *touch, Event *unused_event){
 	if(touched){
+		/*run action while it picked up*/
+
+		/*correct puzzles*/
 		spritePuzzle->setPosition(touch->getLocation());
-		puzzleRect = spritePuzzle->getBoundingBox();
 		partnerRect = pt->getPartner()->getBoundingBox();
 		CCLOG("pos : %f, %f", touch->getLocation().x, touch->getLocation().y);
 		//conflict
-		if(puzzleRect.intersectsRect(partnerRect)){
+		if(partnerRect.containsPoint(touch->getLocation())){
+			//puzzle location correct
 			corrected = true;
+			//count correct puzzle
 			gameController::getInstance()->plusPuzzleCount();
+			//remove touch event listener
 			Director::getInstance()->getEventDispatcher()->removeEventListenersForTarget(spritePuzzle);
+			//set new&correct position
 			spritePuzzle->setPosition(pt->getPartner()->getPosition());
+			//change puzzle sprite if it need
 			changePuzzle();
 		}else{
 			corrected = false;

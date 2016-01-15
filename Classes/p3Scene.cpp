@@ -7,6 +7,7 @@
 #include "gameController.h"
 #include "menuController.h"
 #include "DataSetting.h"
+#include "gate.h"
 
 USING_NS_CC;
 using namespace ui;
@@ -44,24 +45,34 @@ bool thirdPuzzle::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    Sprite* backgroundSprite = Sprite::create("p3/background.jpg");
+	Sprite* robot = Sprite::create("p3/robot.png");
 
-    // position the sprite on the center of the screen
-	backgroundSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+	// position the sprite on the center of the screen
+	robot->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y - 250));
 
-    // add the sprite as a child to this layer
-	this->addChild(backgroundSprite, BACKGROUND_Z);
+	// add the sprite as a child to this layer
+	this->addChild(robot, BACKGROUND_Z);
 
 	//center location
 	float w = visibleSize.width/2;
 	float h = visibleSize.height/2;
 
+	/*add opening gate*/
+	gate* myGate = new gate();
+	//back ground
+	myGate->createBackGr();
+	myGate->addEvent();
+	this->addChild(myGate->getBackGround());
+	
+	myGate->setImage("p3_text.png");
+	myGate->createLetter();
+
 	menuController* myMenuController = new menuController(3);
 	this->addChild(myMenuController->getMenuLayout(), 1);
 
-	//battery puzzle
+	//box puzzle
 	{
-		puzzle* pz1 = new puzzle(w-170.0f, h-810.0f, w+128.0f, h-228.0f, "p3/battery.png", NORMAL_PUZZLE);
+		puzzle* pz1 = new puzzle(w-170.0f, 250.0f, w+116.0f, h-84.0f, "p3/box.png", NORMAL_PUZZLE);
 		pz1->addEvent();
 		Sprite* spz1 = pz1->getPuzzle();
 		Sprite* ppz1 = pz1->getPartnerPuzzle();
@@ -69,9 +80,9 @@ bool thirdPuzzle::init()
 		this->addChild(ppz1);
 	}
 
-	//battery puzzle
+	//b2 puzzle
 	{
-		puzzle* pz1 = new puzzle(w, h-810.0f, w+128.0f, h-228.0f, "p3/battery.png", NORMAL_PUZZLE);
+		puzzle* pz1 = new puzzle(w, 250.0f, w+155.0f, h-84.0f, "p3/b2.png", NORMAL_PUZZLE);
 		pz1->addEvent();
 		Sprite* spz1 = pz1->getPuzzle();
 		Sprite* ppz1 = pz1->getPartnerPuzzle();
@@ -79,9 +90,9 @@ bool thirdPuzzle::init()
 		this->addChild(ppz1);
 	}
 
-	//battery puzzle
+	//b1 puzzle
 	{
-		puzzle* pz1 = new puzzle(w+170.0f, h-810.0f, w+128.0f, h-228.0f, "p3/battery.png", NORMAL_PUZZLE);
+		puzzle* pz1 = new puzzle(w+170.0f, 250.0f, w+74.0f, h-84.0f, "p3/b1.png", NORMAL_PUZZLE);
 		pz1->addEvent();
 		Sprite* spz1 = pz1->getPuzzle();
 		Sprite* ppz1 = pz1->getPartnerPuzzle();
@@ -114,9 +125,22 @@ void thirdPuzzle::checkEnding(float t){
 void thirdPuzzle::showCompleteSprite(float dt){
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Sprite* spriteComplete = Sprite::create("p3/result.png");
-	spriteComplete->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 - 240.0f));
+	spriteComplete->setPosition(Vec2(visibleSize.width / 2 - 6.0f, visibleSize.height / 2 - 102.0f));
 	spriteComplete->setZOrder(PARTNER_Z + 1);
+	spriteComplete->setOpacity(0);
 	this->addChild(spriteComplete);
+
+	FadeIn* fadein = FadeIn::create(2);
+	spriteComplete->runAction(fadein);
+
+	//particle
+	ParticleSystem* finishParticle = ParticleFireworks::create();
+	finishParticle->retain();
+	finishParticle->setTexture(Director::getInstance()->getTextureCache()->addImage("fire.png"));
+	finishParticle->setAnchorPoint(Vec2(0.5, 0.5));
+	finishParticle->setPosition(Vec2(spriteComplete->getContentSize().width/2, spriteComplete->getContentSize().height/2));
+	finishParticle->setScale(8);
+	spriteComplete->addChild(finishParticle);
 }
 
 void thirdPuzzle::showEndingPopUp(float dt){

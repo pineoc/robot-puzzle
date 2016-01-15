@@ -7,6 +7,7 @@
 #include "gameController.h"
 #include "menuController.h"
 #include "DataSetting.h"
+#include "gate.h"
 
 USING_NS_CC;
 using namespace ui;
@@ -36,7 +37,7 @@ bool sixthPuzzle::init()
         return false;
     }
 
-	goalCount = 5;
+	goalCount = 4;
 	gameController::getInstance()->initPuzzleCount();
 	schedule(schedule_selector(sixthPuzzle::checkEnding),0.5f);
     
@@ -44,13 +45,13 @@ bool sixthPuzzle::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    Sprite* backgroundSprite = Sprite::create("p6/background.jpg");
+	Sprite* robot = Sprite::create("p6/robot.png");
 
-    // position the sprite on the center of the screen
-	backgroundSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+	// position the sprite on the center of the screen
+	robot->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y - 250));
 
-    // add the sprite as a child to this layer
-	this->addChild(backgroundSprite, BACKGROUND_Z);
+	// add the sprite as a child to this layer
+	this->addChild(robot, BACKGROUND_Z);
 
 	menuController* myMenuController = new menuController(6);
 	this->addChild(myMenuController->getMenuLayout(), 1);
@@ -59,10 +60,19 @@ bool sixthPuzzle::init()
 	float w = visibleSize.width / 2;
 	float h = visibleSize.height / 2;
 
+	/*add opening gate*/
+	gate* myGate = new gate();
+	//back ground
+	myGate->createBackGr();
+	myGate->addEvent();
+	this->addChild(myGate->getBackGround());
+	
+	myGate->setImage("p6_text.png");
+	myGate->createLetter();
 	
 	//arm puzzle
 	{
-		puzzle* pz1 = new puzzle(100.0f, 150.0f, w + 6.0f, h - 150.0f, "p6/arm.png", NORMAL_PUZZLE);
+		puzzle* pz1 = new puzzle(100.0f, 280.0f, w, h - 5.0f, "p6/arm.png", NORMAL_PUZZLE);
 		pz1->addEvent();
 		Sprite* spz1 = pz1->getPuzzle();
 		Sprite* ppz1 = pz1->getPartnerPuzzle();
@@ -72,18 +82,23 @@ bool sixthPuzzle::init()
 	
 	//body puzzle
 	{
-		puzzle* pz2 = new puzzle(250.0f, 150.0f, w + 6.0f, h - 174.0f, "p6/body.png", CHANGE_PUZZLE);
+		/*
+		puzzle* pz2 = new puzzle(250.0f, 280.0f, w, h - 174.0f, "p6/body.png", CHANGE_PUZZLE);
 		pz2->setNewPosition(Vec2(w - 15.0f, h - 175.0f));
 		pz2->addEvent();
 		Sprite* spz2 = pz2->getPuzzle();
 		Sprite* ppz2 = pz2->getPartnerPuzzle();
 		this->addChild(spz2);
 		this->addChild(ppz2);
+		*/
+		Sprite* body = Sprite::create("p6/result_body.png");
+		body->setPosition(Vec2(w - 20.0f, h - 30.0f));
+		this->addChild(body, 3);
 	}
 
 	//face puzzle
 	{
-		puzzle* pz3 = new puzzle(420.0f, 150.0f, w + 6.0f, h + 130.0f, "p6/face.png", NORMAL_PUZZLE);
+		puzzle* pz3 = new puzzle(420.0f, 280.0f, w, h + 275.0f, "p6/face.png", NORMAL_PUZZLE);
 		pz3->addEvent();
 		Sprite* spz3 = pz3->getPuzzle();
 		Sprite* ppz3 = pz3->getPartnerPuzzle();
@@ -93,7 +108,7 @@ bool sixthPuzzle::init()
 	
 	//head puzzle
 	{
-		puzzle* pz4 = new puzzle(545.0f, 170.0f, w + 6.0f, h + 255.0f, "p6/head.png", NORMAL_PUZZLE);
+		puzzle* pz4 = new puzzle(545.0f, 280.0f, w, h + 400.0f, "p6/head.png", NORMAL_PUZZLE);
 		pz4->addEvent();
 		Sprite* spz4 = pz4->getPuzzle();
 		Sprite* ppz4 = pz4->getPartnerPuzzle();
@@ -103,7 +118,7 @@ bool sixthPuzzle::init()
 
 	//leg puzzle
 	{
-		puzzle* pz5 = new puzzle(700.0f, 150.0f, w + 8, h - 506, "p6/leg.png", NORMAL_PUZZLE);
+		puzzle* pz5 = new puzzle(850.0f, 180.0f, w, h - 360.0f, "p6/leg.png", NORMAL_PUZZLE);
 		pz5->addEvent();
 		Sprite* spz5 = pz5->getPuzzle();
 		Sprite* ppz5 = pz5->getPartnerPuzzle();
@@ -111,8 +126,6 @@ bool sixthPuzzle::init()
 		this->addChild(ppz5);
 	}
 	
-	
-
 	this->setKeypadEnabled(true);
 
     return true;
@@ -137,9 +150,22 @@ void sixthPuzzle::checkEnding(float t){
 void sixthPuzzle::showCompleteSprite(float dt){
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Sprite* spriteComplete = Sprite::create("p6/result.png");
-	spriteComplete->setPosition(Vec2(visibleSize.width / 2 + 5.0f, visibleSize.height / 2 - 137.5f));
+	spriteComplete->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 5.0f));
 	spriteComplete->setZOrder(PARTNER_Z + 1);
+	spriteComplete->setOpacity(0);
 	this->addChild(spriteComplete);
+
+	FadeIn* fadein = FadeIn::create(2);
+	spriteComplete->runAction(fadein);
+
+	//particle
+	ParticleSystem* finishParticle = ParticleSmoke::create();
+	finishParticle->retain();
+	finishParticle->setTexture(Director::getInstance()->getTextureCache()->addImage("fire.png"));
+	finishParticle->setAnchorPoint(Vec2(0.5, 0.5));
+	finishParticle->setPosition(Vec2(spriteComplete->getContentSize().width/2, spriteComplete->getContentSize().height/2));
+	finishParticle->setScale(8);
+	spriteComplete->addChild(finishParticle);
 }
 
 void sixthPuzzle::showEndingPopUp(float dt){
