@@ -34,7 +34,10 @@ bool option::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    Sprite* backgroundSprite = Sprite::create();
+	float w = visibleSize.width / 2;
+	float h = visibleSize.height / 2;
+
+    Sprite* backgroundSprite = Sprite::create("option/option_back.jpg");
 
     // position the sprite on the center of the screen
 	backgroundSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
@@ -45,7 +48,13 @@ bool option::init()
 	//set key event enable
 	this->setKeypadEnabled(true);
 
-    return true;
+	/*back button*/
+	backBtn = Button::create("option/back.png", "option/back_click.png");
+	backBtn->setPosition(Vec2(120,visibleSize.height-120));
+	backBtn->addTouchEventListener(CC_CALLBACK_2(option::backBtnsListener,this));
+	this->addChild(backBtn);
+
+	return true;
 }
 
 void option::onKeyReleased(cocos2d::EventKeyboard::KeyCode keycode, cocos2d::Event* e)
@@ -57,3 +66,14 @@ void option::onKeyReleased(cocos2d::EventKeyboard::KeyCode keycode, cocos2d::Eve
 	}
 }
 
+void option::backBtnsListener(Ref* pSender, Widget::TouchEventType type)
+{
+	if (Widget::TouchEventType::ENDED == type)
+		Director::getInstance()->popScene();
+}
+void option::soundBtnsListener(Ref* pSender, Widget::TouchEventType type)
+{}
+void option::effectBtnsListener(Ref* pSender, Widget::TouchEventType type)
+{}
+void option::langBtnsListener(Ref* pSender, Widget::TouchEventType type)
+{}
