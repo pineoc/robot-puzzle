@@ -22,6 +22,8 @@ public:
     // implement the "static create()" method manually
     CREATE_FUNC(option);
 
+	//user default
+	UserDefault* ud;
 private:
 	//back button
 	Button* backBtn;
