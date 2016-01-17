@@ -153,13 +153,20 @@ void fourthPuzzle::showCompleteSprite(float dt){
 	spriteComplete->runAction(fadein);
 
 	//particle
-	ParticleSystem* finishParticle = ParticleFlower::create();
+	ParticleSystem* finishParticle = ParticleFire::create();
 	finishParticle->retain();
+	finishParticle->setZOrder(PARTICLE_Z);
 	finishParticle->setTexture(Director::getInstance()->getTextureCache()->addImage("fire.png"));
 	finishParticle->setAnchorPoint(Vec2(0.5, 0.5));
-	finishParticle->setPosition(Vec2(spriteComplete->getContentSize().width/2, spriteComplete->getContentSize().height/2));
+	Vec2 origin = Director::getInstance()->getVisibleOrigin();
+	finishParticle->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y - 250));
 	finishParticle->setScale(8);
-	spriteComplete->addChild(finishParticle);
+	//finishParticle->setDuration(1.0f);
+	//speed settings
+	finishParticle->setSpeed(60.0f);
+	finishParticle->setSpeedVar(100.0f);//speed various
+	finishParticle->setLife(1.0f);
+	this->addChild(finishParticle);
 }
 
 void fourthPuzzle::showEndingPopUp(float dt){

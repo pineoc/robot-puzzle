@@ -51,7 +51,7 @@ bool firstPuzzle::init()
 	robot->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y - 250));
 
     // add the sprite as a child to this layer
-	this->addChild(robot, BACKGROUND_Z);
+	this->addChild(robot, ROBOTIMG_Z);
 
 
 	//center location
@@ -158,7 +158,7 @@ void firstPuzzle::showCompleteSprite(float dt){
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Sprite* spriteComplete = Sprite::create("p1/result.png");
 	spriteComplete->setPosition(Vec2(visibleSize.width / 2-3.0f, visibleSize.height / 2 -102.0f));
-	spriteComplete->setZOrder(PARTNER_Z+1);
+	spriteComplete->setZOrder(COMPLETE_Z);
 	spriteComplete->setOpacity(0);
 	this->addChild(spriteComplete);
 
@@ -166,18 +166,20 @@ void firstPuzzle::showCompleteSprite(float dt){
 	spriteComplete->runAction(fadein);
 
 	//particle
-	ParticleSystem* finishParticle = ParticleExplosion::create();
+	ParticleSystem* finishParticle = ParticleFire::create();
 	finishParticle->retain();
-	finishParticle->setTexture(Director::getInstance()->getTextureCache()->addImage("star.png"));
+	finishParticle->setZOrder(PARTICLE_Z);
+	finishParticle->setTexture(Director::getInstance()->getTextureCache()->addImage("fire.png"));
 	finishParticle->setAnchorPoint(Vec2(0.5, 0.5));
-	finishParticle->setPosition(Vec2(spriteComplete->getContentSize().width/2, spriteComplete->getContentSize().height/2));
-	finishParticle->setScale(5);
+	Vec2 origin = Director::getInstance()->getVisibleOrigin();
+	finishParticle->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y - 250));
+	finishParticle->setScale(8);
 	//finishParticle->setDuration(1.0f);
 	//speed settings
 	finishParticle->setSpeed(60.0f);
 	finishParticle->setSpeedVar(100.0f);//speed various
 	finishParticle->setLife(1.0f);
-	spriteComplete->addChild(finishParticle);
+	this->addChild(finishParticle);
 }
 
 void firstPuzzle::showEndingPopUp(float dt){

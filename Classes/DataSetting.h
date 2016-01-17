@@ -3,9 +3,11 @@
 
 // sprite z value
 #define BACKGROUND_Z 0
-#define ROBOTIMG_Z 1
-#define PUZZLE_Z 3
-#define PARTNER_Z 2
+#define PARTICLE_Z 1
+#define ROBOTIMG_Z 2
+#define PARTNER_Z 3
+#define PUZZLE_Z 4
+#define COMPLETE_Z 5
 #define POPUPLAYOUT_Z 20
 #define GATELAYOUT_Z 10
 
