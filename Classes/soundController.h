@@ -34,6 +34,8 @@ public:
 	void puzzleNaration(int sceneNum);
 	//ending pop up
 	void popUp(int num);
+	//sound stop
+	void soundStop();
 };
 
 #endif // __SOUNDCONTROLLER_H__

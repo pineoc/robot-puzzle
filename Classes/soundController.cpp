@@ -230,3 +230,7 @@ void soundController::popUp(int num)
 	{
 	}
 }
+
+void soundController::soundStop()
+{
+}

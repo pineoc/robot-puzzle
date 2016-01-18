@@ -110,18 +110,18 @@ bool firstSplash::init()
 		monster->runAction(actResult);
 	}
 	
-	/*
-	Button* goGameBtn = Button::create("splash/start.png", "splash/start_s.png", "splash/start_s.png");
-	goGameBtn->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
-	goGameBtn->addTouchEventListener(CC_CALLBACK_2(firstSplash::goToGameBtnListener, this));
-	this->addChild(goGameBtn, 3);
+	
+	Button* skipBtn = Button::create("splash/start.png", "splash/start_s.png", "splash/start_s.png");
+	skipBtn->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+	skipBtn->addTouchEventListener(CC_CALLBACK_2(firstSplash::skipBtnListener, this));
+	this->addChild(skipBtn, 3);
 
-	FadeTo* act1 = FadeTo::create(STARTBTN_FADEOUT_TIME, 255 * 0.3);
-	FadeIn* act2 = FadeIn::create(STARTBTN_FADEIN_TIME);
+	auto act1 = MoveBy::create(0.5, Vec2(0, 20));
+	auto act2 = act1->reverse();
 	Sequence* actS = Sequence::createWithTwoActions(act1, act2);
 	RepeatForever* actR = RepeatForever::create(actS);
-	goGameBtn->runAction(actR);
-	*/
+	skipBtn->runAction(actR);
+	
 
 	return true;
 }
@@ -131,7 +131,7 @@ void firstSplash::moveEarth()
 	auto act = MoveBy::create(EARTH_MOVE_TIME, Vec2(500, 500));//1.8 sec
 	earth->runAction(act);
 
-	auto act1 = MoveBy::create(MONSTER_MOVE_TIME, Vec2(1800, 0));//1.8 sec
+	auto act1 = MoveBy::create(MONSTER_MOVE_TIME, Vec2(-50, 0));//1.8 sec
 	monster->runAction(act1);
 }
 
@@ -154,6 +154,12 @@ void firstSplash::goSplash()
 {
 	Scene* s = TransitionFade::create(TRANSITION_FADE_TIME, Splash::createScene());
 	Director::getInstance()->replaceScene(s);
+}
+
+void firstSplash::skipBtnListener(cocos2d::Ref * pSender, cocos2d::ui::Widget::TouchEventType type)
+{
+	//goSplash
+	goSplash();
 }
 
 void firstSplash::checkFirstAppStart()

@@ -46,6 +46,8 @@ public:
 
 	void goSplash();
 
+	void skipBtnListener(cocos2d::Ref* pSender, cocos2d::ui::Widget::TouchEventType type);
+
 	void checkFirstAppStart();
 
     // implement the "static create()" method manually
