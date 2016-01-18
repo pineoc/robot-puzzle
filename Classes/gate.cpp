@@ -1,5 +1,6 @@
 #include "gate.h"
-
+#include "soundController.h"
+#include "SimpleAudioEngine.h"
 
 gate::gate(void)
 {
@@ -36,7 +37,7 @@ void gate::createBackGr()
 	layoutBackGr->runAction(sequece);
 }
 
-void gate::createLetter()
+void gate::createLetter(int scene)
 {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	//letter
@@ -45,6 +46,11 @@ void gate::createLetter()
 	letterPos = Vec2(visibleSize.width/2, visibleSize.height);
 	spriteLetter->setPosition(letterPos);
 	layoutBackGr->addChild(spriteLetter,1);
+	UserDefault::getInstance()->getBoolForKey("sound");
+	{ 
+		soundController* sc = new soundController();
+		sc->puzzleNaration(scene);
+	}
 }
 
 Sprite* gate::getLetter()

@@ -23,9 +23,9 @@ void soundController::initAudio()
 	//ending
 
 	//puzzle sound
-	audio->preloadEffect("sound/part_fix_sound.wav");	//pick up
-	audio->preloadEffect("sound/wrong.wav");	//wrong
-	audio->preloadEffect("sound/");	//correct
+	audio->preloadEffect("sound/");						//pick up
+	audio->preloadEffect("sound/wrong.wav");			//wrong
+	audio->preloadEffect("sound/part_fix_sound.wav");	//correct
 	//narations
 	audio->preloadEffect("sound/p1_n.mp3");	//p1Scene
 	audio->preloadEffect("sound/p2_n.mp3");	//p2Scene
@@ -70,7 +70,7 @@ void soundController::puzzleCorrect()
 
 	if (isKorea)
 	{
-		audio->playEffect("");
+		audio->playEffect("sound/part_fix_sound.wav");
 	}
 	else
 	{
@@ -207,7 +207,7 @@ void soundController::puzzleNaration(int sceneNum)
 	}
 }
 //ending pop up
-void soundController::popUp()
+void soundController::popUp(int num)
 {
 	if (UserDefault::getInstance()->getBoolForKey("sound") == false)
 		return;
@@ -216,7 +216,15 @@ void soundController::popUp()
 
 	if (isKorea)
 	{
-		audio->playEffect("");
+		if (num == 1)
+		{
+			audio->playEffect("sound/good_k.mp3");
+		}
+		else
+		{
+			audio->playEffect("sound/welldone_k.mp3");
+		}
+
 	}
 	else
 	{

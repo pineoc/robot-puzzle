@@ -4,13 +4,25 @@
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 
+//puzzle classes
+#include "puzzle.h"
+#include "partner.h"
+#include "gameController.h"
+#include "menuController.h"
+#include "soundController.h"
+#include "SimpleAudioEngine.h"
+#include "DataSetting.h"
+#include "gate.h"
+
+
 class firstPuzzle : public cocos2d::LayerColor
 {
 public:
 	//count puzzle
 	int goalCount;
 
-
+	//sound
+	soundController* sc;
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::Scene* createScene();
 

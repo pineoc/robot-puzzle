@@ -1,13 +1,7 @@
 ﻿#include "p1Scene.h"
 #include "p2Scene.h"
 
-//puzzle classes
-#include "puzzle.h"
-#include "partner.h"
-#include "gameController.h"
-#include "menuController.h"
-#include "DataSetting.h"
-#include "gate.h"
+
 
 USING_NS_CC;
 using namespace ui;
@@ -37,10 +31,11 @@ bool firstPuzzle::init()
         return false;
     }
 
+	//game controller
 	goalCount = 6;
 	gameController::getInstance()->initPuzzleCount();
 	schedule(schedule_selector(firstPuzzle::checkEnding),0.5f);
-    
+    	
 	/*background image*/
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
@@ -52,7 +47,6 @@ bool firstPuzzle::init()
 
     // add the sprite as a child to this layer
 	this->addChild(robot, ROBOTIMG_Z);
-
 
 	//center location
 	float w = visibleSize.width/2;
@@ -66,7 +60,7 @@ bool firstPuzzle::init()
 	this->addChild(myGate->getBackGround());
 	
 	myGate->setImage("p1_text.png");
-	myGate->createLetter();
+	myGate->createLetter(1);
 
 	//menu controller add
 	menuController* myMenuController = new menuController(1);
@@ -214,6 +208,14 @@ void firstPuzzle::showEndingPopUp(float dt){
 	Sprite* resultSpr = Sprite::create("reward.png");
 	resultSpr->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 100));
 	popLayout->addChild(resultSpr, 1);
+
+	//sound
+	if (UserDefault::getInstance()->getBoolForKey("sound"))
+	{
+		int num = cocos2d::RandomHelper::random_int(0,1);
+		soundController *sc = new soundController();
+		sc->popUp(num);
+	}
 }
 
 void firstPuzzle::endingPopupBtns(Ref* pSender, Widget::TouchEventType type){

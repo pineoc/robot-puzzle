@@ -1,5 +1,7 @@
 #include "puzzle.h"
 #include "DataSetting.h"
+#include "soundController.h"
+#include "SimpleAudioEngine.h"
 
 puzzle::puzzle(float puzzleX, float puzzleY,
 	float partnerX, float partnerY, string imageURI, int puzzleType)
@@ -16,7 +18,7 @@ puzzle::puzzle(float puzzleX, float puzzleY,
 	spritePuzzle = Sprite::create(imageURI);
 	spriteSize = spritePuzzle->getContentSize();
 	spritePuzzle->setPosition(Vec2(puzzleX, puzzleY));
-	spritePuzzle->setScale(0.7f);
+	spritePuzzle->setScale(0.9f);
 	spritePuzzle->setZOrder(PUZZLE_Z);//PUZZLE_Z
 
 	createPosition = Vec2(puzzleX,puzzleY);
@@ -95,6 +97,12 @@ void puzzle::onTouchMoved(Touch *touch, Event *unused_event){
 			spritePuzzle->setPosition(pt->getPartner()->getPosition());
 			//change puzzle sprite if it need
 			changePuzzle();
+			//sound
+			if(UserDefault::getInstance()->getBoolForKey("sound"))
+			{
+				soundController * sc = new soundController();
+				sc->puzzleCorrect();
+			}
 		}else{
 			corrected = false;
 		}
@@ -105,16 +113,26 @@ void puzzle::onTouchMoved(Touch *touch, Event *unused_event){
 //touch end - return to created location
 void puzzle::onTouchEnded(Touch *touch, Event *unused_event){
 	if (false == corrected)	{
-		spritePuzzle->setScale(0.7f);
+		spritePuzzle->setScale(0.9f);
 		spritePuzzle->setPosition(createPosition);
+		if (UserDefault::getInstance()->getBoolForKey("sound"))
+		{
+			soundController *sc = new soundController();
+			sc->puzzleWrong();
+		}
 	}	
 	touched = false;
 }
 
 void puzzle::onTouchCancelled(Touch *touch, Event *unused_event){
 	if (false == corrected)	{
-		spritePuzzle->setScale(0.7f);
+		spritePuzzle->setScale(0.9f);
 		spritePuzzle->setPosition(createPosition);
+		if (UserDefault::getInstance()->getBoolForKey("sound"))
+		{
+			soundController *sc = new soundController();
+			sc->puzzleWrong();
+		}
 	}
 	touched = false;
 }

@@ -25,7 +25,7 @@ public:
 	Layout* getBackGround();
 
 	//create
-	void createLetter();
+	void createLetter(int scene);
 	void createBackGr();
 
 	//touch Event

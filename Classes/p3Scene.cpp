@@ -9,6 +9,9 @@
 #include "DataSetting.h"
 #include "gate.h"
 
+#include "soundController.h"
+#include "SimpleAudioEngine.h"
+
 USING_NS_CC;
 using namespace ui;
 
@@ -65,7 +68,7 @@ bool thirdPuzzle::init()
 	this->addChild(myGate->getBackGround());
 	
 	myGate->setImage("p3_text.png");
-	myGate->createLetter();
+	myGate->createLetter(3);
 
 	menuController* myMenuController = new menuController(3);
 	this->addChild(myMenuController->getMenuLayout(), 1);

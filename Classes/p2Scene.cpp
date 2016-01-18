@@ -11,6 +11,9 @@
 #include <ctime>
 #include "gate.h"
 
+#include "soundController.h"
+#include "SimpleAudioEngine.h"
+
 USING_NS_CC;
 using namespace ui;
 
@@ -44,7 +47,7 @@ bool secondPuzzle::init()
 	//num==1 : right arm, left hand
 	//num==0 : left arm, right hand
 	srand((unsigned int)time(NULL));
-	int num = CCRANDOM_0_1();
+	int num = cocos2d::RandomHelper::random_int(0, 1);
 
 	gameController::getInstance()->initPuzzleCount();
 	schedule(schedule_selector(secondPuzzle::checkEnding), 0.5f);
@@ -73,7 +76,7 @@ bool secondPuzzle::init()
 	this->addChild(myGate->getBackGround());
 
 	myGate->setImage("p2_text.png");
-	myGate->createLetter();
+	myGate->createLetter(2);
 
 	menuController* myMenuController = new menuController(2);
 	this->addChild(myMenuController->getMenuLayout(), 1);
@@ -250,6 +253,14 @@ void secondPuzzle::showEndingPopUp(float dt) {
 	Sprite* resultSpr = Sprite::create("reward.png");
 	resultSpr->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 100));
 	popLayout->addChild(resultSpr, 1);
+
+	//sound
+	if (UserDefault::getInstance()->getBoolForKey("sound"))
+	{
+		int num = cocos2d::RandomHelper::random_int(0, 1);
+		soundController *sc = new soundController();
+		sc->popUp(num);
+	}
 }
 
 void secondPuzzle::endingPopupBtns(Ref* pSender, Widget::TouchEventType type) {

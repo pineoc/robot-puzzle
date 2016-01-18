@@ -1,5 +1,5 @@
-#ifndef __PUZZLE_H__
-#define __PUZZLE_H__
+#ifndef __SOUNDCONTROLLER_H__
+#define __SOUNDCONTROLLER_H__
 
 #include "cocos2d.h"
 #include <string>
@@ -33,7 +33,7 @@ public:
 	//puzzle naration
 	void puzzleNaration(int sceneNum);
 	//ending pop up
-	void popUp();
+	void popUp(int num);
 };
 
-#endif // __PUZZLE_H__
+#endif // __SOUNDCONTROLLER_H__

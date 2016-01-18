@@ -9,6 +9,9 @@
 #include "DataSetting.h"
 #include "gate.h"
 
+#include "soundController.h"
+#include "SimpleAudioEngine.h"
+
 USING_NS_CC;
 using namespace ui;
 
@@ -68,7 +71,7 @@ bool fourthPuzzle::init()
 	this->addChild(myGate->getBackGround());
 	
 	myGate->setImage("p4_text.png");
-	myGate->createLetter();
+	myGate->createLetter(4);
 
 	//left foot puzzle
 	{
@@ -196,6 +199,14 @@ void fourthPuzzle::showEndingPopUp(float dt){
 	Sprite* resultSpr = Sprite::create("reward.png");
 	resultSpr->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 100));
 	popLayout->addChild(resultSpr, 1);
+
+	//sound
+	if (UserDefault::getInstance()->getBoolForKey("sound"))
+	{
+		int num = cocos2d::RandomHelper::random_int(0, 1);
+		soundController *sc = new soundController();
+		sc->popUp(num);
+	}
 }
 
 void fourthPuzzle::endingPopupBtns(Ref* pSender, Widget::TouchEventType type){
