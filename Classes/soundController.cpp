@@ -233,4 +233,5 @@ void soundController::popUp(int num)
 
 void soundController::soundStop()
 {
+	SimpleAudioEngine::getInstance()->pauseAllEffects();
 }

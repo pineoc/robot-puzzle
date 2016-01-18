@@ -45,17 +45,17 @@ bool Splash::init()
 	this->addChild(backgroundSprite, BACKGROUND_Z);
 
 	//eye sprite
-	Sprite* eyeSpr = Sprite::create("splash/eye.png");
-	eyeSpr->setAnchorPoint(Vec2(1.0, 0.0));
-	eyeSpr->setPosition(Vec2(visibleSize.width, visibleSize.height / 2 + 110 ));
-	this->addChild(eyeSpr, 3);
+	Sprite* faceSpr = Sprite::create("splash/face.png");
+	faceSpr->setAnchorPoint(Vec2(1.0, 0.0));
+	faceSpr->setPosition(Vec2(visibleSize.width, visibleSize.height / 2 - 163));
+	this->addChild(faceSpr, 3);
 
 	{
 		FadeTo* act1 = FadeTo::create(EYE_FADEOUT_TIME, 255 * 0.3);
 		FadeIn* act2 = FadeIn::create(EYE_FADEIN_TIME);
 		Sequence* actS = Sequence::createWithTwoActions(act1, act2);
 		RepeatForever* actR = RepeatForever::create(actS);
-		eyeSpr->runAction(actR);
+		faceSpr->runAction(actR);
 	}
 	
 	//eye sprite will have lighting effect
@@ -66,11 +66,13 @@ bool Splash::init()
 	goGameBtn->addTouchEventListener(CC_CALLBACK_2(Splash::goToGameBtnListener, this));
 	this->addChild(goGameBtn, 3);
 
-	FadeTo* act1 = FadeTo::create(STARTBTN_FADEOUT_TIME, 255 * 0.3);
-	FadeIn* act2 = FadeIn::create(STARTBTN_FADEIN_TIME);
-	Sequence* actS = Sequence::createWithTwoActions(act1, act2);
-	RepeatForever* actR = RepeatForever::create(actS);
-	goGameBtn->runAction(actR);
+	{
+		auto act1 = ScaleTo::create(EYE_SCALEDOWN_TIME, 0.8);
+		auto act2 = ScaleTo::create(EYE_SCALEUP_TIME, 1.0);
+		Sequence* actS = Sequence::createWithTwoActions(act1, act2);
+		RepeatForever* actR = RepeatForever::create(actS);
+		goGameBtn->runAction(actR);
+	}
 
 	return true;
 }

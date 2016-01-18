@@ -42,6 +42,9 @@ bool firstSplash::init()
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
+	double w = visibleSize.width;
+	double h = visibleSize.height;
+
 	Sprite* backgroundSprite = Sprite::create("splash/splash1.png");
 
 	// position the sprite on the center of the screen
@@ -56,16 +59,29 @@ bool firstSplash::init()
 		backgroundSprite->runAction(Sequence::createWithTwoActions(act0, act1));
 	}
 
+	for (int i = 0; i < 30; i++)
+	{
+		Sprite* star = Sprite::create("fire.png");
+		star->setPosition(Vec2(RandomHelper::random_real(0.0, w), RandomHelper::random_real(0.0, h)));
+		star->setScale(RandomHelper::random_real(0.5, 1.0));
+		this->addChild(star);
+
+		auto act1 = FadeOut::create(RandomHelper::random_real(0.7, 1.0));
+		auto act2 = FadeIn::create(RandomHelper::random_real(0.7, 1.0));
+		auto actS = Sequence::createWithTwoActions(act1, act2);
+		star->runAction(RepeatForever::create(actS));
+	}
+
 
 	monster = Sprite::create("splash/monster.png");
 	monster->setAnchorPoint(Vec2(1.0, 1.0));
 	monster->setPosition(Vec2(visibleSize.width + 500, visibleSize.height + 200));
-	this->addChild(monster, 1);
+	this->addChild(monster, 2);
 
 	earth = Sprite::create("splash/earth.png");
 	earth->setAnchorPoint(Vec2(0.0, 0.0));
 	earth->setPosition(Vec2(-600, -600));
-	this->addChild(earth, 1);
+	this->addChild(earth, 2);
 
 	{
 		//wait for first splash
@@ -111,12 +127,12 @@ bool firstSplash::init()
 	}
 	
 	
-	Button* skipBtn = Button::create("splash/start.png", "splash/start_s.png", "splash/start_s.png");
-	skipBtn->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+	Button* skipBtn = Button::create("splash/skip.png");
+	skipBtn->setPosition(Vec2(visibleSize.width - 200, 200));
 	skipBtn->addTouchEventListener(CC_CALLBACK_2(firstSplash::skipBtnListener, this));
 	this->addChild(skipBtn, 3);
 
-	auto act1 = MoveBy::create(0.5, Vec2(0, 20));
+	auto act1 = MoveBy::create(0.5, Vec2(0, 10));
 	auto act2 = act1->reverse();
 	Sequence* actS = Sequence::createWithTwoActions(act1, act2);
 	RepeatForever* actR = RepeatForever::create(actS);
@@ -159,6 +175,7 @@ void firstSplash::goSplash()
 void firstSplash::skipBtnListener(cocos2d::Ref * pSender, cocos2d::ui::Widget::TouchEventType type)
 {
 	//goSplash
+	sc->soundStop();
 	goSplash();
 }
 

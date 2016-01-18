@@ -35,13 +35,22 @@ bool finish::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    Sprite* backgroundSprite = Sprite::create("splash/background.jpg");
+    Sprite* backgroundSprite = Sprite::create("finish/finish.jpg");
 
     // position the sprite on the center of the screen
-	backgroundSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+	backgroundSprite->setPosition(Vec2(0, visibleSize.height));
+	backgroundSprite->setAnchorPoint(Vec2(0, 1.0));
 
     // add the sprite as a child to this layer
 	this->addChild(backgroundSprite, BACKGROUND_Z);
+
+	{
+		auto act1 = EaseSineInOut::create(MoveBy::create(2.0f, Vec2(visibleSize.width - backgroundSprite->getContentSize().width, 0)));
+		auto act2 = EaseSineInOut::create(MoveTo::create(2.0f, Vec2(0, visibleSize.height)));
+		auto act3 = EaseSineInOut::create(MoveTo::create(1.0f, Vec2(-backgroundSprite->getContentSize().width / 3 + 100, visibleSize.height)));
+		auto actS = Sequence::create(act1, act2, act3, NULL);
+		backgroundSprite->runAction(actS);
+	}
 
     return true;
 }
