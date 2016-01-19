@@ -1,4 +1,5 @@
 ﻿#include "finishScene.h"
+#include "soundController.h"
 
 //puzzle classes
 #include "DataSetting.h"
@@ -51,6 +52,9 @@ bool finish::init()
 		auto actS = Sequence::create(act1, act2, act3, NULL);
 		backgroundSprite->runAction(actS);
 	}
+
+	soundController *sc = new soundController();
+	sc->gameEnding();
 
     return true;
 }

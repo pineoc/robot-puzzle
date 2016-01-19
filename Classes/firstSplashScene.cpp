@@ -175,6 +175,7 @@ void firstSplash::goSplash()
 void firstSplash::skipBtnListener(cocos2d::Ref * pSender, cocos2d::ui::Widget::TouchEventType type)
 {
 	//goSplash
+	this->stopAllActions();
 	sc->soundStop();
 	goSplash();
 }

@@ -112,7 +112,6 @@ bool thirdPuzzle::init()
 void thirdPuzzle::checkEnding(float t){
 	int curCount = gameController::getInstance()->getPuzzleCount();
 	if(goalCount == curCount){
-		CCLOG("Ending!");
 		//unschedule check puzzle count
 		this->unschedule(schedule_selector(thirdPuzzle::checkEnding));
 
@@ -180,6 +179,14 @@ void thirdPuzzle::showEndingPopUp(float dt){
 	Sprite* resultSpr = Sprite::create("reward.png");
 	resultSpr->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 100));
 	popLayout->addChild(resultSpr, 1);
+
+	//sound
+	if (UserDefault::getInstance()->getBoolForKey("sound"))
+	{
+		int num = cocos2d::RandomHelper::random_int(0, 1);
+		soundController *sc = new soundController();
+		sc->popUp(num);
+	}
 }
 
 void thirdPuzzle::endingPopupBtns(Ref* pSender, Widget::TouchEventType type){

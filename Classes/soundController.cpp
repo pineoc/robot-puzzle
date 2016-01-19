@@ -38,6 +38,10 @@ void soundController::initAudio()
 	//popup
 	audio->preloadEffect("sound/good_k.mp3");	//good
 	audio->preloadEffect("sound/welldone_k.mp3");	//welldone
+	//finishing
+	audio->preloadEffect("sound/ending1.wav"); //ending1
+	audio->preloadEffect("sound/ending2.wav"); //ending2
+
 }
 //puzzle - pick up
 void soundController::puzzlePickUp()
@@ -51,14 +55,7 @@ void soundController::puzzleWrong()
 	auto audio = SimpleAudioEngine::getInstance();
 	isKorea = UserDefault::getInstance()->getBoolForKey("kor");
 
-	if (isKorea)
-	{
-		audio->playEffect("sound/wrong.wav");
-	}
-	else
-	{
-	}
-
+	audio->playEffect("sound/wrong.wav");
 }
 //puzzle - correct location
 void soundController::puzzleCorrect()
@@ -68,13 +65,7 @@ void soundController::puzzleCorrect()
 	auto audio = SimpleAudioEngine::getInstance();
 	isKorea = UserDefault::getInstance()->getBoolForKey("kor");
 
-	if (isKorea)
-	{
-		audio->playEffect("sound/part_fix_sound.wav");
-	}
-	else
-	{
-	}
+	audio->playEffect("sound/part_fix_sound.wav");
 }
 //game opening scene
 void soundController::gameOpening(int num)
@@ -117,10 +108,11 @@ void soundController::gameEnding()
 	auto audio = SimpleAudioEngine::getInstance();
 	isKorea = UserDefault::getInstance()->getBoolForKey("kor");
 
-	if (isKorea)
-		audio->playEffect("sound/");
+	int num = cocos2d::RandomHelper::random_int(0, 1);
+	if (num)
+		audio->playEffect("sound/ending1.wav");
 	else
-		audio->playEffect("sound/");
+		audio->playEffect("sound/ending2.wav");
 }
 //puzzle opening door
 void soundController::doorOpen()

@@ -104,15 +104,18 @@ void puzzle::onTouchMoved(Touch *touch, Event *unused_event){
 				sc->puzzleCorrect();
 			}
 			//particle
-			ParticleSystem* correctParticle = ParticleExplosion::create();
+			ParticleSystem* correctParticle = ParticleFireworks::create();
 			correctParticle->retain();
 			correctParticle->setZOrder(PUZZLE_Z);
 			correctParticle->setTexture(Director::getInstance()->getTextureCache()->addImage("star.png"));
 			correctParticle->setAnchorPoint(Vec2(0.5, 0.5));
 			correctParticle->setPosition(Vec2(spritePuzzle->getContentSize().width / 2, spritePuzzle->getContentSize().height / 2));
-			correctParticle->setSpeed(100.0f);
-			correctParticle->setSpeedVar(100.0f);
-			correctParticle->setLife(1.0f);
+			correctParticle->setSpeed(45.0f);
+			correctParticle->setSpeedVar(45.0f);
+			correctParticle->setAngleVar(120.0f);
+			correctParticle->setScale(12.0f);
+			correctParticle->setTotalParticles(35);
+			correctParticle->setDuration(0.5f);
 			spritePuzzle->addChild(correctParticle);
 		}else{
 			corrected = false;
