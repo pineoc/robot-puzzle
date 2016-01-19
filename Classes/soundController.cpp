@@ -53,7 +53,7 @@ void soundController::puzzleWrong()
 
 	if (isKorea)
 	{
-		audio->playEffect("");
+		audio->playEffect("sound/wrong.wav");
 	}
 	else
 	{
