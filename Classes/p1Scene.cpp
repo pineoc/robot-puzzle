@@ -31,6 +31,10 @@ bool firstPuzzle::init()
         return false;
     }
 
+	//sound stop for scene init
+	soundController sc;
+	sc.soundStop();
+
 	//game controller
 	goalCount = 6;
 	gameController::getInstance()->initPuzzleCount();

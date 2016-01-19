@@ -42,6 +42,10 @@ bool secondPuzzle::init()
 		return false;
 	}
 
+	//sound stop for scene init
+	soundController sc;
+	sc.soundStop();
+
 	goalCount = 6;
 	//rand number for arm and hand
 	//num==1 : right arm, left hand

@@ -32,6 +32,10 @@ bool Splash::init()
 		return false;
 	}
 
+	//sound stop for scene init
+	soundController sc;
+	sc.soundStop();
+
 	/*background image*/
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();

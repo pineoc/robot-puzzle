@@ -40,6 +40,10 @@ bool fourthPuzzle::init()
         return false;
     }
 
+	//sound stop for scene init
+	soundController sc;
+	sc.soundStop();
+
 	goalCount = 5;
 	gameController::getInstance()->initPuzzleCount();
 	schedule(schedule_selector(fourthPuzzle::checkEnding),0.5f);
