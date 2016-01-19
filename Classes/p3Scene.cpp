@@ -54,7 +54,7 @@ bool thirdPuzzle::init()
 	robot->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y - 250));
 
 	// add the sprite as a child to this layer
-	this->addChild(robot, BACKGROUND_Z);
+	this->addChild(robot, ROBOTIMG_Z);
 
 	//center location
 	float w = visibleSize.width/2;

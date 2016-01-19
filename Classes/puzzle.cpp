@@ -103,6 +103,17 @@ void puzzle::onTouchMoved(Touch *touch, Event *unused_event){
 				soundController * sc = new soundController();
 				sc->puzzleCorrect();
 			}
+			//particle
+			ParticleSystem* correctParticle = ParticleExplosion::create();
+			correctParticle->retain();
+			correctParticle->setZOrder(PUZZLE_Z);
+			correctParticle->setTexture(Director::getInstance()->getTextureCache()->addImage("star.png"));
+			correctParticle->setAnchorPoint(Vec2(0.5, 0.5));
+			correctParticle->setPosition(Vec2(spritePuzzle->getContentSize().width / 2, spritePuzzle->getContentSize().height / 2));
+			correctParticle->setSpeed(100.0f);
+			correctParticle->setSpeedVar(100.0f);
+			correctParticle->setLife(1.0f);
+			spritePuzzle->addChild(correctParticle);
 		}else{
 			corrected = false;
 		}

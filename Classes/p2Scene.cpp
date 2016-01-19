@@ -62,7 +62,7 @@ bool secondPuzzle::init()
 	robot->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y - 250));
 
 	// add the sprite as a child to this layer
-	this->addChild(robot, BACKGROUND_Z);
+	this->addChild(robot, ROBOTIMG_Z);
 
 	//center location
 	float w = visibleSize.width / 2;
@@ -103,17 +103,19 @@ bool secondPuzzle::init()
 
 		//set other images
 		Sprite* p1 = Sprite::create("p2/right_arm.png");
-		p1->setPosition(Vec2(w + 179.0f, h + 92.0f));
+		p1->setPosition(Vec2(w+179.0f, h+92.0f));
+		p1->setZOrder(PUZZLE_Z);
 		this->addChild(p1);
 
 		Sprite* p2 = Sprite::create("p2/left_hand.png");
-		p2->setPosition(Vec2(w - 255.0f, h - 72.0f));
+		p2->setPosition(Vec2(w-255.0f, h-72.0f));
+		p2->setZOrder(PUZZLE_Z);
 		this->addChild(p2);
 
 
 	} else { //num==1 : right arm, left hand
 	   //right arm puzzle
-		puzzle* pz4 = new puzzle(w - 390.0f, 250.0f, w + 179.0f, h + 92.0f, "p2/right_arm.png", NORMAL_PUZZLE);
+		puzzle* pz4 = new puzzle(w-390.0f, 250.0f, w+179.0f, h+92.0f, "p2/right_arm.png", NORMAL_PUZZLE);
 		pz4->addEvent();
 		Sprite* spz4 = pz4->getPuzzle();
 		Sprite* ppz4 = pz4->getPartnerPuzzle();
@@ -121,7 +123,7 @@ bool secondPuzzle::init()
 		this->addChild(ppz4);
 
 		//left hand puzzle
-		puzzle* pz5 = new puzzle(w - 220.0f, 250.0f, w - 255.0f, h - 72.0f, "p2/left_hand.png", NORMAL_PUZZLE);
+		puzzle* pz5 = new puzzle(w-220.0f, 250.0f, w-255.0f, h-72.0f, "p2/left_hand.png", NORMAL_PUZZLE);
 		pz5->addEvent();
 		Sprite* spz5 = pz5->getPuzzle();
 		Sprite* ppz5 = pz5->getPartnerPuzzle();
@@ -130,11 +132,13 @@ bool secondPuzzle::init()
 
 		//set other images
 		Sprite* p1 = Sprite::create("p2/left_arm.png");
-		p1->setPosition(Vec2(w - 174.0f, h + 92.0f));
+		p1->setPosition(Vec2(w-174.0f, h+92.0f));
+		p1->setZOrder(PUZZLE_Z);
 		this->addChild(p1);
 
 		Sprite* p2 = Sprite::create("p2/right_hand.png");
-		p2->setPosition(Vec2(w + 257.0f, h - 72.0f));
+		p2->setPosition(Vec2(w+257.0f, h-72.0f));
+		p2->setZOrder(PUZZLE_Z);
 		this->addChild(p2);
 	}
 
