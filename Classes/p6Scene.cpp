@@ -75,7 +75,7 @@ bool sixthPuzzle::init()
 	
 	//arm puzzle
 	{
-		puzzle* pz1 = new puzzle(100.0f, 280.0f, w, h - 5.0f, "p6/arm.png", NORMAL_PUZZLE);
+		puzzle* pz1 = new puzzle(270.0f, 280.0f, w, h - 5.0f, "p6/arm.png", NORMAL_PUZZLE);
 		pz1->addEvent();
 		Sprite* spz1 = pz1->getPuzzle();
 		Sprite* ppz1 = pz1->getPartnerPuzzle();
@@ -101,7 +101,7 @@ bool sixthPuzzle::init()
 
 	//face puzzle
 	{
-		puzzle* pz3 = new puzzle(420.0f, 280.0f, w, h + 275.0f, "p6/face.png", NORMAL_PUZZLE);
+		puzzle* pz3 = new puzzle(270.0f, 370.0f, w, h + 275.0f, "p6/face.png", NORMAL_PUZZLE);
 		pz3->addEvent();
 		Sprite* spz3 = pz3->getPuzzle();
 		Sprite* ppz3 = pz3->getPartnerPuzzle();
@@ -111,7 +111,7 @@ bool sixthPuzzle::init()
 	
 	//head puzzle
 	{
-		puzzle* pz4 = new puzzle(545.0f, 280.0f, w, h + 400.0f, "p6/head.png", NORMAL_PUZZLE);
+		puzzle* pz4 = new puzzle(850.0f, 370.0f, w, h + 400.0f, "p6/head.png", NORMAL_PUZZLE);
 		pz4->addEvent();
 		Sprite* spz4 = pz4->getPuzzle();
 		Sprite* ppz4 = pz4->getPartnerPuzzle();
@@ -121,7 +121,7 @@ bool sixthPuzzle::init()
 
 	//leg puzzle
 	{
-		puzzle* pz5 = new puzzle(850.0f, 180.0f, w, h - 360.0f, "p6/leg.png", NORMAL_PUZZLE);
+		puzzle* pz5 = new puzzle(810.0f, 140.0f, w, h - 360.0f, "p6/leg.png", NORMAL_PUZZLE);
 		pz5->addEvent();
 		Sprite* spz5 = pz5->getPuzzle();
 		Sprite* ppz5 = pz5->getPartnerPuzzle();

@@ -82,7 +82,7 @@ bool fifthPuzzle::init()
 
 	//right eye puzzle
 	{
-		puzzle* pz1 = new puzzle(w-400.0f, 280.0f, w + 156.0f, h+146.0f, "p5/eye.png", NORMAL_PUZZLE);
+		puzzle* pz1 = new puzzle(w-380.0f, 280.0f, w + 156.0f, h+146.0f, "p5/eye.png", NORMAL_PUZZLE);
 		pz1->addEvent();
 		Sprite* spz1 = pz1->getPuzzle();
 		Sprite* ppz1 = pz1->getPartnerPuzzle();
@@ -92,7 +92,7 @@ bool fifthPuzzle::init()
 	
 	//head puzzle
 	{
-		puzzle* pz2 = new puzzle(w-150.0f, 280.0f, w + 12.0f, h + 305.5f, "p5/head.png", NORMAL_PUZZLE);
+		puzzle* pz2 = new puzzle(w+100.0f, 400.0f, w + 12.0f, h + 305.5f, "p5/head.png", NORMAL_PUZZLE);
 		pz2->addEvent();
 		Sprite* spz2 = pz2->getPuzzle();
 		Sprite* ppz2 = pz2->getPartnerPuzzle();
@@ -103,7 +103,7 @@ bool fifthPuzzle::init()
 	
 	//mouth puzzle
 	{
-		puzzle* pz3 = new puzzle(w+280.0f, 280.0f, w, h - 39.0f, "p5/mouth.png", NORMAL_PUZZLE);
+		puzzle* pz3 = new puzzle(w+100.0f, 200.0f, w, h - 39.0f, "p5/mouth.png", NORMAL_PUZZLE);
 		pz3->addEvent();
 		Sprite* spz3 = pz3->getPuzzle();
 		Sprite* ppz3 = pz3->getPartnerPuzzle();

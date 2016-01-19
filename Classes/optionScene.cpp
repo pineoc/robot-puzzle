@@ -61,21 +61,6 @@ bool option::init()
 	soundBtn->addTouchEventListener(CC_CALLBACK_2(option::soundBtnsListener, this));
 	this->addChild(soundBtn);
 
-	//effect on/off btn
-		//button create
-	effectBtn = Button::create("option/onoff_on.jpg", "option/onoff_off.jpg", "option/onoff_off.jpg");
-		//set image according to user default
-	if (ud->getInstance()->getBoolForKey("effect"))
-	{ effectBtn->loadTextureNormal("option/onoff_on.jpg"); }
-	else
-	{ effectBtn->loadTextureNormal("option/onoff_off.jpg"); }
-		//set position
-	effectBtn->setAnchorPoint(Vec2(0.5, 0.5));
-	effectBtn->setPosition(Vec2(3 * w / 2, h + 100.0f));
-		//add listener
-	effectBtn->addTouchEventListener(CC_CALLBACK_2(option::effectBtnsListener, this));
-	this->addChild(effectBtn);
-
 	//set key event enable
 	this->setKeypadEnabled(true);
 
@@ -121,25 +106,7 @@ void option::soundBtnsListener(Ref* pSender, Widget::TouchEventType type)
 		}
 	}
 }
-void option::effectBtnsListener(Ref* pSender, Widget::TouchEventType type)
-{
-	ud = UserDefault::getInstance();
-	if (Widget::TouchEventType::ENDED == type)
-	{
-		Button* button = (Button*)pSender;
-		if (ud->getBoolForKey("effect") == true)
-		{	//on->off
-			ud->setBoolForKey("effect", false);
-			button->loadTextures("option/onoff_off.jpg", "option/onoff_off.jpg", "option/onoff_on.jpg");
-		}
-		else
-		{	//off->on
-			ud->setBoolForKey("effect", true);
-			button->loadTextures("option/onoff_on.jpg", "option/onoff_on.jpg", "option/onoff_off.jpg");
-		}
-	}
 
-}
 
 void option::langBtnsListener(Ref* pSender, Widget::TouchEventType type)
 {}

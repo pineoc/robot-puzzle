@@ -75,7 +75,7 @@ bool fourthPuzzle::init()
 
 	//left foot puzzle
 	{
-		puzzle* pz1 = new puzzle(w-360.0f, 280.0f, w - 129.0f, h - 438.0f, "p4/left_foot.png", NORMAL_PUZZLE);
+		puzzle* pz1 = new puzzle(w-380.0f, 280.0f, w - 129.0f, h - 438.0f, "p4/left_foot.png", NORMAL_PUZZLE);
 		pz1->addEvent();
 		Sprite* spz1 = pz1->getPuzzle();
 		Sprite* ppz1 = pz1->getPartnerPuzzle();

@@ -30,13 +30,11 @@ private:
 
 	//on-off buttons
 	Button* soundBtn;
-	Button* effectBtn;
 	Button* langBtn;
 
 	//button funcs
 	void backBtnsListener(Ref* pSender, Widget::TouchEventType type);
 	void soundBtnsListener(Ref* pSender, Widget::TouchEventType type);
-	void effectBtnsListener(Ref* pSender, Widget::TouchEventType type);
 	void langBtnsListener(Ref* pSender, Widget::TouchEventType type);
 };
 

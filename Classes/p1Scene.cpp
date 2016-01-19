@@ -68,7 +68,7 @@ bool firstPuzzle::init()
 
 	//left leg puzzle
 	{
-		puzzle* pz1 = new puzzle(w-440.0f, 250.0f, w-126.0f, h-336.0f, "p1/left_leg.png", NORMAL_PUZZLE);
+		puzzle* pz1 = new puzzle(w-450.0f, 250.0f, w-126.0f, h-336.0f, "p1/left_leg.png", NORMAL_PUZZLE);
 		pz1->addEvent();
 		Sprite* spz1 = pz1->getPuzzle();
 		Sprite* ppz1 = pz1->getPartnerPuzzle();
@@ -78,7 +78,7 @@ bool firstPuzzle::init()
 	
 	//right leg puzzle
 	{
-		puzzle* pz2 = new puzzle(w-290.0f, 250.0f, w+128.0f, h-336.0f, "p1/right_leg.png", NORMAL_PUZZLE);
+		puzzle* pz2 = new puzzle(w-310.0f, 250.0f, w+128.0f, h-336.0f, "p1/right_leg.png", NORMAL_PUZZLE);
 		pz2->addEvent();
 		Sprite* spz2 = pz2->getPuzzle();
 		Sprite* ppz2 = pz2->getPartnerPuzzle();
@@ -88,7 +88,7 @@ bool firstPuzzle::init()
 
 	//middle leg puzzle
 	{
-		puzzle* pz3 = new puzzle(w-120.0f, 250.0f, w, h-192.0f, "p1/middle_leg.png", NORMAL_PUZZLE);
+		puzzle* pz3 = new puzzle(w-140.0f, 250.0f, w, h-192.0f, "p1/middle_leg.png", NORMAL_PUZZLE);
 		pz3->addEvent();
 		Sprite* spz3 = pz3->getPuzzle();
 		Sprite* ppz3 = pz3->getPartnerPuzzle();
@@ -98,7 +98,7 @@ bool firstPuzzle::init()
 	
 	//backbone puzzle
 	{
-		puzzle* pz3 = new puzzle(w+5.0f, 250.0f, w+3, h+51.0f, "p1/backbone.png", NORMAL_PUZZLE);
+		puzzle* pz3 = new puzzle(w, 250.0f, w+3, h+51.0f, "p1/backbone.png", NORMAL_PUZZLE);
 		pz3->addEvent();
 		Sprite* spz3 = pz3->getPuzzle();
 		Sprite* ppz3 = pz3->getPartnerPuzzle();
@@ -108,7 +108,7 @@ bool firstPuzzle::init()
 
 	//left arm puzzle
 	{
-		puzzle* pz3 = new puzzle(w+160.0f, 250.0f, w-168.0f, h-15.0f, "p1/left_arm.png", NORMAL_PUZZLE);
+		puzzle* pz3 = new puzzle(w+160.0f, 200.0f, w-168.0f, h-15.0f, "p1/left_arm.png", NORMAL_PUZZLE);
 		pz3->addEvent();
 		Sprite* spz3 = pz3->getPuzzle();
 		Sprite* ppz3 = pz3->getPartnerPuzzle();
@@ -118,7 +118,7 @@ bool firstPuzzle::init()
 	
 	//right arm puzzle 
 	{
-		puzzle* pz3 = new puzzle(w+395.0f, 250.0f, w+167.0f, h-15.0f, "p1/right_arm.png", NORMAL_PUZZLE);
+		puzzle* pz3 = new puzzle(w+395.0f, 300.0f, w+167.0f, h-15.0f, "p1/right_arm.png", NORMAL_PUZZLE);
 		pz3->addEvent();
 		Sprite* spz3 = pz3->getPuzzle();
 		Sprite* ppz3 = pz3->getPartnerPuzzle();
