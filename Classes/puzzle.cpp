@@ -72,14 +72,23 @@ bool puzzle::onTouchBegan(Touch *touch, Event *unused_event){
 	partnerRect = utils::getCascadeBoundingBox(pt->getPartner());
 	if(corrected == false){
 		if(compareLocation(touch->getLocation()))
-		{ touched = true; return true; }
+		{ 
+			touched = true; 
+			/*run action while it picked up*/
+			RotateTo* rotateR = RotateTo::create(0.3f, 20);
+			RotateTo* rotateL = RotateTo::create(0.3f, -20);
+
+			Sequence* rotatePuzzle = Sequence::create(rotateR, rotateL, NULL);
+			repeat = RepeatForever::create(rotatePuzzle);
+			spritePuzzle->runAction(repeat);
+			return true;
+		}
 	}
 	return false;
 }
 //touch move(drag) - move to current touch location
 void puzzle::onTouchMoved(Touch *touch, Event *unused_event){
 	if(touched){
-		/*run action while it picked up*/
 
 		/*correct puzzles*/
 		spritePuzzle->setPosition(touch->getLocation());
@@ -95,6 +104,10 @@ void puzzle::onTouchMoved(Touch *touch, Event *unused_event){
 			Director::getInstance()->getEventDispatcher()->removeEventListenersForTarget(spritePuzzle);
 			//set new&correct position
 			spritePuzzle->setPosition(pt->getPartner()->getPosition());
+			//set puzzle rotate
+			RotateTo* rotateP = RotateTo::create(0.1f, 0);
+			spritePuzzle->runAction(rotateP);
+			spritePuzzle->stopAction(repeat);
 			//change puzzle sprite if it need
 			changePuzzle();
 			//sound
@@ -115,7 +128,7 @@ void puzzle::onTouchMoved(Touch *touch, Event *unused_event){
 			correctParticle->setAngleVar(120.0f);
 			correctParticle->setScale(12.0f);
 			correctParticle->setTotalParticles(35);
-			correctParticle->setDuration(0.5f);
+			correctParticle->setDuration(0.4f);
 			spritePuzzle->addChild(correctParticle);
 		}else{
 			corrected = false;
@@ -134,6 +147,9 @@ void puzzle::onTouchEnded(Touch *touch, Event *unused_event){
 			soundController *sc = new soundController();
 			sc->puzzleWrong();
 		}
+		RotateTo* rotateP = RotateTo::create(0.1f, 0);
+		spritePuzzle->runAction(rotateP);
+		spritePuzzle->stopAction(repeat);
 	}	
 	touched = false;
 }
@@ -147,6 +163,9 @@ void puzzle::onTouchCancelled(Touch *touch, Event *unused_event){
 			soundController *sc = new soundController();
 			sc->puzzleWrong();
 		}
+		RotateTo* rotateP = RotateTo::create(0.1f, 0);
+		spritePuzzle->runAction(rotateP);
+		spritePuzzle->stopAction(repeat);
 	}
 	touched = false;
 }

@@ -13,9 +13,9 @@ class puzzle
 {
 private:
 	partner* pt;
-
 	//puzzle Sprite
 	Sprite* spritePuzzle;
+	RepeatForever* repeat;
 
 	//create puzzle position
 	Vec2 puzzlePosition;
