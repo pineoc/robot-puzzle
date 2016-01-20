@@ -141,7 +141,6 @@ bool sixthPuzzle::init()
 void sixthPuzzle::checkEnding(float t){
 	int curCount = gameController::getInstance()->getPuzzleCount();
 	if(goalCount == curCount){
-		CCLOG("Ending!");
 		//unschedule check puzzle count
 		this->unschedule(schedule_selector(sixthPuzzle::checkEnding));
 

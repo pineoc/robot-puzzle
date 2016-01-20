@@ -1,8 +1,9 @@
 ﻿#include "finishScene.h"
+#include "splashScene.h"
 #include "soundController.h"
 
-//puzzle classes
 #include "DataSetting.h"
+#include "SimpleAudioEngine.h"
 
 USING_NS_CC;
 using namespace ui;
@@ -31,6 +32,8 @@ bool finish::init()
     {
         return false;
     }
+	soundController sc;
+	sc.soundStop();
 
 	/*background image*/
     Size visibleSize = Director::getInstance()->getVisibleSize();
@@ -46,16 +49,45 @@ bool finish::init()
 	this->addChild(backgroundSprite, BACKGROUND_Z);
 
 	{
-		auto act1 = EaseSineInOut::create(MoveBy::create(2.0f, Vec2(visibleSize.width - backgroundSprite->getContentSize().width, 0)));
-		auto act2 = EaseSineInOut::create(MoveTo::create(2.0f, Vec2(0, visibleSize.height)));
-		auto act3 = EaseSineInOut::create(MoveTo::create(1.0f, Vec2(-backgroundSprite->getContentSize().width / 3 + 100, visibleSize.height)));
-		auto actS = Sequence::create(act1, act2, act3, NULL);
+		auto act1 = EaseSineInOut::create(MoveBy::create(3.0f, Vec2(visibleSize.width - backgroundSprite->getContentSize().width, 0)));
+		auto act2 = EaseSineInOut::create(MoveTo::create(3.0f, Vec2(0, visibleSize.height)));
+		auto act3 = EaseSineInOut::create(MoveTo::create(2.0f, Vec2(-backgroundSprite->getContentSize().width / 3 + 100, visibleSize.height)));
+		auto actF = CallFunc::create(CC_CALLBACK_0(finish::showBtn, this));
+		auto actS = Sequence::create(act1, act2, act3, actF, NULL);
 		backgroundSprite->runAction(actS);
 	}
 
-	soundController *sc = new soundController();
-	sc->gameEnding();
+	goHomeBtn = Button::create("finish/goHome.png", "finish/goHome_s.png");
+	goHomeBtn->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+	goHomeBtn->addTouchEventListener(CC_CALLBACK_2(finish::goHomeBtnListener, this));
+	goHomeBtn->setTouchEnabled(false);
+	goHomeBtn->setVisible(false);
+	this->addChild(goHomeBtn, 3);
+
+	{
+		auto act1 = ScaleTo::create(0.3, 0.8);
+		auto act2 = ScaleTo::create(1.5, 1.0);
+		Sequence* actS = Sequence::createWithTwoActions(act1, act2);
+		RepeatForever* actR = RepeatForever::create(actS);
+		goHomeBtn->runAction(actR);
+	}
+
+	sc.gameEnding();
 
     return true;
+}
+
+void finish::showBtn()
+{
+	goHomeBtn->setTouchEnabled(true);
+	goHomeBtn->setVisible(true);
+}
+
+void finish::goHomeBtnListener(cocos2d::Ref * pSender, cocos2d::ui::Widget::TouchEventType type)
+{
+	soundController sc;
+	sc.backgroundSoundStop();
+	Scene* s = TransitionFade::create(TRANSITION_FADE_TIME, Splash::createScene());
+	Director::getInstance()->replaceScene(s);
 }
 

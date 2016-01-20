@@ -78,6 +78,8 @@ bool Splash::init()
 		goGameBtn->runAction(actR);
 	}
 
+	sc.splashSound();
+
 	return true;
 }
 

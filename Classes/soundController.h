@@ -18,6 +18,8 @@ public:
 	~soundController();
 	//init Audio
 	void initAudio();
+	//splashScene
+	void splashSound();
 	//puzzle - pick up
 	void puzzlePickUp();
 	//puzzle - wrong location
@@ -28,6 +30,7 @@ public:
 	void gameOpening(int num);
 	//game ending scene
 	void gameEnding();
+	void gameEndingLoop(float dt);
 	//puzzle opening door
 	void doorOpen();
 	//puzzle naration
@@ -36,6 +39,8 @@ public:
 	void popUp(int num);
 	//sound stop
 	void soundStop();
+	//background sound stop
+	void backgroundSoundStop();
 };
 
 #endif // __SOUNDCONTROLLER_H__
