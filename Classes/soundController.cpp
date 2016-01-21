@@ -60,6 +60,10 @@ void soundController::splashSound()
 //puzzle - pick up
 void soundController::puzzlePickUp()
 {
+	if (UserDefault::getInstance()->getBoolForKey("sound") == false)
+		return;
+	auto audio = SimpleAudioEngine::getInstance();
+
 }
 //puzzle - wrong location
 void soundController::puzzleWrong()
@@ -67,7 +71,6 @@ void soundController::puzzleWrong()
 	if (UserDefault::getInstance()->getBoolForKey("sound") == false)
 		return;
 	auto audio = SimpleAudioEngine::getInstance();
-	isKorea = UserDefault::getInstance()->getBoolForKey("kor");
 
 	audio->playEffect("sound/wrong.wav");
 }
@@ -77,7 +80,6 @@ void soundController::puzzleCorrect()
 	if (UserDefault::getInstance()->getBoolForKey("sound") == false)
 		return;
 	auto audio = SimpleAudioEngine::getInstance();
-	isKorea = UserDefault::getInstance()->getBoolForKey("kor");
 
 	audio->playEffect("sound/part_fix_sound.wav");
 }
@@ -227,10 +229,17 @@ void soundController::popUp(int num)
 		{
 			audio->playEffect("sound/welldone_k.mp3");
 		}
-
 	}
 	else
 	{
+		if (num == 1)
+		{
+			audio->playEffect("sound/good_e.mp3");
+		}
+		else
+		{
+			audio->playEffect("sound/welldone_e.mp3");
+		}
 	}
 }
 

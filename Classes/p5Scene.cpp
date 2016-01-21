@@ -82,14 +82,20 @@ bool fifthPuzzle::init()
 		Sprite* eye = Sprite::create("p5/eye.png");
 		eye->setPosition(Vec2(w - 156.0f, h+146.0f));
 		this->addChild(eye, PUZZLE_Z);
+
+		auto act1 = RotateBy::create(0.5f, 40.0f);
+		auto act2 = act1->clone();
+		auto act3 = RotateTo::create(1.0f, 0.0f);
+		auto actS = Sequence::create(act1, act2, act3, NULL);
+		eye->runAction(RepeatForever::create(actS));
 	}
 
 	//right eye puzzle
 	{
-		puzzle* pz1 = new puzzle(w-380.0f, 280.0f, w + 156.0f, h+146.0f, "p5/eye.png", NORMAL_PUZZLE);
-		pz1->addEvent();
-		Sprite* spz1 = pz1->getPuzzle();
-		Sprite* ppz1 = pz1->getPartnerPuzzle();
+		puzzle* eye2 = new puzzle(w-380.0f, 280.0f, w + 156.0f, h+146.0f, "p5/eye.png", NORMAL_PUZZLE);
+		eye2->addEvent();
+		Sprite* spz1 = eye2->getPuzzle();
+		Sprite* ppz1 = eye2->getPartnerPuzzle();
 		this->addChild(spz1);
 		this->addChild(ppz1);
 	}
