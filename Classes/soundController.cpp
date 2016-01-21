@@ -33,6 +33,7 @@ void soundController::initAudio()
 	audio->preloadEffect("sound/p4_n.mp3");	//p4Scene
 	audio->preloadEffect("sound/p5_n.mp3");	//p5Scene
 	audio->preloadEffect("sound/p6_n.mp3");	//p6Scene
+	audio->preloadEffect("sound/door.wav"); //door open
 	//end effect
 	audio->preloadEffect("sound/");	//each game finish
 	//popup
@@ -134,7 +135,7 @@ void soundController::doorOpen()
 
 	if (isKorea)
 	{
-		audio->playEffect("");
+		audio->playEffect("sound/door.wav");
 	}
 	else
 	{

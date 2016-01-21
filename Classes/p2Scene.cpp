@@ -167,23 +167,23 @@ bool secondPuzzle::init()
 	}
 
 	//left foot puzzle
-	{
+	
 		puzzle* pz7 = new puzzle(w + 288.0f, 250.0f, w - 120.0f, h - 405.0f, "p2/left_foot.png", NORMAL_PUZZLE);
 		pz7->addEvent();
 		Sprite* spz7 = pz7->getPuzzle();
 		Sprite* ppz7 = pz7->getPartnerPuzzle();
 		this->addChild(spz7);
 		this->addChild(ppz7);
-	}
+	
 	//right foot puzzle
-	{
+	
 		puzzle* pz8 = new puzzle(w + 418.0f, 250.0f, w + 135.0f, h - 440.0f, "p2/right_foot.png", NORMAL_PUZZLE);
 		pz8->addEvent();
 		Sprite* spz8 = pz8->getPuzzle();
 		Sprite* ppz8 = pz8->getPartnerPuzzle();
 		this->addChild(spz8);
 		this->addChild(ppz8);
-	}
+	
 
 	this->setKeypadEnabled(true);
 
@@ -207,6 +207,10 @@ void secondPuzzle::checkEnding(float t) {
 
 //ending effect
 void secondPuzzle::showCompleteSprite(float dt) {
+
+	//remove foot image
+	
+
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Sprite* spriteComplete = Sprite::create("p2/result.png");
 	spriteComplete->setPosition(Vec2(visibleSize.width / 2 - 6.0f, visibleSize.height / 2 - 102.0f));

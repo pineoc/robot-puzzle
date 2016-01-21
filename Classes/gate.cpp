@@ -104,6 +104,13 @@ void gate::deleteLayout()
 	EaseBackIn* easeLetter = EaseBackIn::create(moveUpLetter);
 	spriteLetter->runAction(easeLetter);
 
+	//sound door open
+	UserDefault::getInstance()->getBoolForKey("sound");
+	{
+		soundController* sc = new soundController();
+		sc->doorOpen();
+	}
+
 	//touch disabled
 	Director::getInstance()->getEventDispatcher()->removeEventListenersForTarget(layoutBackGr);
 	FadeOut* fadeout = FadeOut::create(1.0);

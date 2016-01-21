@@ -10,7 +10,6 @@ public:
 	//count puzzle
 	int goalCount;
 
-
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::Scene* createScene();
 
@@ -35,6 +34,7 @@ public:
 
     // implement the "static create()" method manually
     CREATE_FUNC(secondPuzzle);
+
 
 };
 
