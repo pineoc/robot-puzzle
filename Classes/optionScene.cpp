@@ -61,6 +61,25 @@ bool option::init()
 	soundBtn->addTouchEventListener(CC_CALLBACK_2(option::soundBtnsListener, this));
 	this->addChild(soundBtn);
 
+	/*launguage kor/eng btn*/
+	//button create
+	langBtn = Button::create("option/onoff_on.jpg", "option/onoff_off.jpg", "option/onoff_off.jpg");
+	//set image according to user default
+	if (ud->getInstance()->getBoolForKey("lang"))
+	{
+		langBtn->loadTextureNormal("option/onoff_on.jpg");
+	}
+	else
+	{
+		langBtn->loadTextureNormal("option/onoff_off.jpg");
+	}
+	//set position
+	langBtn->setAnchorPoint(Vec2(0.5, 0.5));
+	langBtn->setPosition(Vec2(3*w/2, h*4/3+210.0f));
+	//add listener
+	langBtn->addTouchEventListener(CC_CALLBACK_2(option::langBtnsListener, this));
+	this->addChild(langBtn);
+
 	//set key event enable
 	this->setKeypadEnabled(true);
 
@@ -109,4 +128,20 @@ void option::soundBtnsListener(Ref* pSender, Widget::TouchEventType type)
 
 
 void option::langBtnsListener(Ref* pSender, Widget::TouchEventType type)
-{}
+{
+	ud = UserDefault::getInstance();
+	if (Widget::TouchEventType::ENDED == type)
+	{
+		Button* button = (Button*)pSender;
+		if (ud->getBoolForKey("lang") == true)
+		{	//on->off
+			ud->setBoolForKey("lang", false);
+			button->loadTextures("option/onoff_off.jpg", "option/onoff_off.jpg", "option/onoff_on.jpg");
+		}
+		else
+		{	//off->on
+			ud->setBoolForKey("lang", true);
+			button->loadTextures("option/onoff_on.jpg", "option/onoff_on.jpg", "option/onoff_off.jpg");
+		}
+	}
+}
