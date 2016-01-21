@@ -167,21 +167,21 @@ bool secondPuzzle::init()
 	}
 
 	//left foot puzzle
-	
 		puzzle* pz7 = new puzzle(w + 288.0f, 250.0f, w - 120.0f, h - 405.0f, "p2/left_foot.png", NORMAL_PUZZLE);
 		pz7->addEvent();
-		Sprite* spz7 = pz7->getPuzzle();
+		foot1 = Sprite::create();
+		foot1 = pz7->getPuzzle();
 		Sprite* ppz7 = pz7->getPartnerPuzzle();
-		this->addChild(spz7);
+		this->addChild(foot1);
 		this->addChild(ppz7);
 	
-	//right foot puzzle
-	
+	//right foot puzzle	
 		puzzle* pz8 = new puzzle(w + 418.0f, 250.0f, w + 135.0f, h - 440.0f, "p2/right_foot.png", NORMAL_PUZZLE);
 		pz8->addEvent();
-		Sprite* spz8 = pz8->getPuzzle();
+		foot2 = Sprite::create();
+		foot2 = pz8->getPuzzle();
 		Sprite* ppz8 = pz8->getPartnerPuzzle();
-		this->addChild(spz8);
+		this->addChild(foot2);
 		this->addChild(ppz8);
 	
 
@@ -208,9 +208,6 @@ void secondPuzzle::checkEnding(float t) {
 //ending effect
 void secondPuzzle::showCompleteSprite(float dt) {
 
-	//remove foot image
-	
-
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Sprite* spriteComplete = Sprite::create("p2/result.png");
 	spriteComplete->setPosition(Vec2(visibleSize.width / 2 - 6.0f, visibleSize.height / 2 - 102.0f));
@@ -220,6 +217,12 @@ void secondPuzzle::showCompleteSprite(float dt) {
 
 	FadeIn* fadein = FadeIn::create(2);
 	spriteComplete->runAction(fadein);
+
+	FadeOut* foot1Out = FadeOut::create(2);
+	foot1->runAction(foot1Out);
+
+	FadeOut* foot2Out = FadeOut::create(2);
+	foot2->runAction(foot2Out);
 
 	//particle
 	ParticleSystem* finishParticle = ParticleFire::create();
@@ -237,6 +240,7 @@ void secondPuzzle::showCompleteSprite(float dt) {
 	finishParticle->setLife(1.0f);
 	this->addChild(finishParticle);
 }
+
 
 void secondPuzzle::showEndingPopUp(float dt) {
 	Size visibleSize = Director::getInstance()->getVisibleSize();

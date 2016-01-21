@@ -115,7 +115,6 @@ void gate::deleteLayout()
 	Director::getInstance()->getEventDispatcher()->removeEventListenersForTarget(layoutBackGr);
 	FadeOut* fadeout = FadeOut::create(1.0);
 
-
 	//remove layout
 	CallFunc* remove = CallFunc::create(CC_CALLBACK_0(gate::removeLayout,this));
 	Sequence* sequece = Sequence::create(fadeout, remove, NULL);

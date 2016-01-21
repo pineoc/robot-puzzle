@@ -4,11 +4,16 @@
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 
+using namespace cocos2d;
+
 class secondPuzzle : public cocos2d::LayerColor
 {
 public:
 	//count puzzle
 	int goalCount;
+
+	Sprite* foot1;
+	Sprite* foot2;
 
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::Scene* createScene();
