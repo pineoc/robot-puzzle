@@ -19,23 +19,33 @@ public:
 	//key touch event listener
 	void onKeyReleased(cocos2d::EventKeyboard::KeyCode keycode, cocos2d::Event* e);
 
+	//button funcs
+	void backBtnsListener(Ref* pSender, Widget::TouchEventType type);
+	void soundBtnsListener(Ref* pSender, Widget::TouchEventType type);
+	void langBtnsListener(Ref* pSender, Widget::TouchEventType type);
+
+	//label setting
+	void descLabelSetting();
+
     // implement the "static create()" method manually
     CREATE_FUNC(option);
 
 	//user default
 	UserDefault* ud;
 private:
+	LabelTTF* descLabel;
+
 	//back button
 	Button* backBtn;
 
 	//on-off buttons
 	Button* soundBtn;
-	Button* langBtn;
 
-	//button funcs
-	void backBtnsListener(Ref* pSender, Widget::TouchEventType type);
-	void soundBtnsListener(Ref* pSender, Widget::TouchEventType type);
-	void langBtnsListener(Ref* pSender, Widget::TouchEventType type);
+	//language btns
+	Button* langBtn_kor;
+	Button* langBtn_eng;
+
+	
 };
 
 #endif // __OPTION_H__

@@ -17,33 +17,50 @@ void soundController::initAudio()
 	auto audio = SimpleAudioEngine::getInstance();
 
 	//opening
-	audio->preloadEffect("sound/op1.mp3");
-	audio->preloadEffect("sound/op2.mp3");
-	audio->preloadEffect("sound/op3.mp3");
+	audio->preloadEffect("sound/op1_k.mp3");
+	audio->preloadEffect("sound/op2_k.mp3");
+	audio->preloadEffect("sound/op3_k.mp3");
+	audio->preloadEffect("sound/op1_e.mp3");
+	audio->preloadEffect("sound/op2_e.mp3");
+	audio->preloadEffect("sound/op3_e.mp3");
 	//ending
 
 	//puzzle sound
-	audio->preloadEffect("sound/");						//pick up
 	audio->preloadEffect("sound/wrong.wav");			//wrong
-	audio->preloadEffect("sound/part_fix_sound.wav");	//correct
+
 	//narations
-	audio->preloadEffect("sound/p1_n.mp3");	//p1Scene
-	audio->preloadEffect("sound/p2_n.mp3");	//p2Scene
-	audio->preloadEffect("sound/p3_n.mp3");	//p3Scene
-	audio->preloadEffect("sound/p4_n.mp3");	//p4Scene
-	audio->preloadEffect("sound/p5_n.mp3");	//p5Scene
-	audio->preloadEffect("sound/p6_n.mp3");	//p6Scene
+	//korea narations
+	audio->preloadEffect("sound/p1_n_k.mp3");	//p1Scene
+	audio->preloadEffect("sound/p2_n_k.mp3");	//p2Scene
+	audio->preloadEffect("sound/p3_n_k.mp3");	//p3Scene
+	audio->preloadEffect("sound/p4_n_k.mp3");	//p4Scene
+	audio->preloadEffect("sound/p5_n_k.mp3");	//p5Scene
+	audio->preloadEffect("sound/p6_n_k.mp3");	//p6Scene
+	//english narations
+	audio->preloadEffect("sound/p1_n_e.mp3");	//p1Scene
+	audio->preloadEffect("sound/p2_n_e.mp3");	//p2Scene
+	audio->preloadEffect("sound/p3_n_e.mp3");	//p3Scene
+	audio->preloadEffect("sound/p4_n_e.mp3");	//p4Scene
+	audio->preloadEffect("sound/p5_n_e.mp3");	//p5Scene
+	audio->preloadEffect("sound/p6_n_e.mp3");	//p6Scene
+
+	//door open
 	audio->preloadEffect("sound/door.wav"); //door open
 	//end effect
-	audio->preloadEffect("sound/");	//each game finish
-	//popup
+	audio->preloadEffect("sound/tada.mp3");	//each game finish
+
+	//correct eff
 	audio->preloadEffect("sound/good_k.mp3");	//good
-	audio->preloadEffect("sound/welldone_k.mp3");	//welldone
+	audio->preloadEffect("sound/excellent_k.mp3");	//welldone
+	audio->preloadEffect("sound/good_e.mp3");	//good
+	audio->preloadEffect("sound/excellent_e.mp3");	//welldone
+
 	//splashScene sound
-	audio->preloadEffect("sound/start_k.mp3"); //ending1
+	audio->preloadEffect("sound/start_k.mp3");
+	audio->preloadEffect("sound/start_e.mp3");
+
 	//finishing
-	audio->preloadBackgroundMusic("sound/ending1.wav"); //ending1
-	audio->preloadBackgroundMusic("sound/ending2.wav"); //ending2
+	audio->preloadBackgroundMusic("sound/ending.wav"); //ending
 
 }
 void soundController::splashSound()
@@ -55,7 +72,7 @@ void soundController::splashSound()
 	if (isKorea)
 		audio->playEffect("sound/start_k.mp3");
 	else
-		audio->playEffect("");
+		audio->playEffect("sound/start_e.mp3");
 }
 //puzzle - pick up
 void soundController::puzzlePickUp()
@@ -63,7 +80,7 @@ void soundController::puzzlePickUp()
 	if (UserDefault::getInstance()->getBoolForKey("sound") == false)
 		return;
 	auto audio = SimpleAudioEngine::getInstance();
-
+	//no sound
 }
 //puzzle - wrong location
 void soundController::puzzleWrong()
@@ -80,8 +97,15 @@ void soundController::puzzleCorrect()
 	if (UserDefault::getInstance()->getBoolForKey("sound") == false)
 		return;
 	auto audio = SimpleAudioEngine::getInstance();
-
-	audio->playEffect("sound/part_fix_sound.wav");
+	isKorea = UserDefault::getInstance()->getBoolForKey("kor");
+	if (isKorea)
+	{//random good or excellent sound
+		RandomHelper::random_int(0,1) ? audio->playEffect("sound/good_k.mp3") : audio->playEffect("sound/excellent_k.mp3");
+	}
+	else
+	{
+		RandomHelper::random_int(0, 1) ? audio->playEffect("sound/good_e.mp3") : audio->playEffect("sound/excellent_e.mp3");
+	}
 }
 //game opening scene
 void soundController::gameOpening(int num)
@@ -95,26 +119,37 @@ void soundController::gameOpening(int num)
 	{
 	case 1:
 		if (isKorea)
-			audio->playEffect("sound/op1.mp3");
+			audio->playEffect("sound/op1_k.mp3");
 		else
-			audio->playEffect("sound/op1.mp3");
+			audio->playEffect("sound/op1_e.mp3");
 		break;
 	case 2:
 		if (isKorea)
-			audio->playEffect("sound/op2.mp3");
+			audio->playEffect("sound/op2_k.mp3");
 		else
-			audio->playEffect("sound/op2.mp3");
+			audio->playEffect("sound/op2_e.mp3");
 		break;
 	case 3:
 		if (isKorea)
-			audio->playEffect("sound/op3.mp3");
+			audio->playEffect("sound/op3_k.mp3");
 		else
-			audio->playEffect("sound/op3.mp3");
+			audio->playEffect("sound/op3_e.mp3");
 		break;
 	default:
 		break;
 	}
 	
+}
+void soundController::openingEffectSound(int soundIdx)
+{
+	if (soundIdx == 1)
+	{//monster sound
+		SimpleAudioEngine::getInstance()->playEffect("sound/op_monster.mp3");
+	}
+	else if (soundIdx == 2)
+	{//siren sound
+		SimpleAudioEngine::getInstance()->playEffect("sound/op_siren.mp3");
+	}
 }
 //game ending scene
 void soundController::gameEnding()
@@ -133,15 +168,8 @@ void soundController::doorOpen()
 	if (UserDefault::getInstance()->getBoolForKey("sound") == false)
 		return;
 	auto audio = SimpleAudioEngine::getInstance();
-	isKorea = UserDefault::getInstance()->getBoolForKey("kor");
-
-	if (isKorea)
-	{
-		audio->playEffect("sound/door.wav");
-	}
-	else
-	{
-	}
+	
+	audio->playEffect("sound/door.wav");
 }
 //puzzle naration
 void soundController::puzzleNaration(int sceneNum)
@@ -155,57 +183,39 @@ void soundController::puzzleNaration(int sceneNum)
 	{
 	case 1:
 		if (isKorea)
-		{
-			audio->playEffect("sound/p1_n.mp3");
-		}
+			audio->playEffect("sound/p1_n_k.mp3");
 		else
-		{
-		}
+			audio->playEffect("sound/p1_n_e.mp3");
 		break;
 	case 2:
 		if (isKorea)
-		{
-			audio->playEffect("sound/p2_n.mp3");
-		}
+			audio->playEffect("sound/p2_n_k.mp3");
 		else
-		{
-		}
+			audio->playEffect("sound/p2_n_e.mp3");
 		break;
 	case 3:
 		if (isKorea)
-		{
-			audio->playEffect("sound/p3_n.mp3");
-		}
+			audio->playEffect("sound/p3_n_k.mp3");
 		else
-		{
-		}
+			audio->playEffect("sound/p3_n_e.mp3");
 		break;
 	case 4:
 		if (isKorea)
-		{
-			audio->playEffect("sound/p4_n.mp3");
-		}
+			audio->playEffect("sound/p4_n_k.mp3");
 		else
-		{
-		}
+			audio->playEffect("sound/p4_n_e.mp3");
 		break;
 	case 5:
 		if (isKorea)
-		{
-			audio->playEffect("sound/p5_n.mp3");
-		}
+			audio->playEffect("sound/p5_n_k.mp3");
 		else
-		{
-		}
+			audio->playEffect("sound/p5_n_e.mp3");
 		break;
 	case 6:
 		if (isKorea)
-		{
-			audio->playEffect("sound/p6_n.mp3");
-		}
+			audio->playEffect("sound/p6_n_k.mp3");
 		else
-		{
-		}
+			audio->playEffect("sound/p6_n_e.mp3");
 		break;
 	default:
 		break;
@@ -217,30 +227,7 @@ void soundController::popUp(int num)
 	if (UserDefault::getInstance()->getBoolForKey("sound") == false)
 		return;
 	auto audio = SimpleAudioEngine::getInstance();
-	isKorea = UserDefault::getInstance()->getBoolForKey("kor");
-
-	if (isKorea)
-	{
-		if (num == 1)
-		{
-			audio->playEffect("sound/good_k.mp3");
-		}
-		else
-		{
-			audio->playEffect("sound/welldone_k.mp3");
-		}
-	}
-	else
-	{
-		if (num == 1)
-		{
-			audio->playEffect("sound/good_e.mp3");
-		}
-		else
-		{
-			audio->playEffect("sound/welldone_e.mp3");
-		}
-	}
+	audio->playEffect("sound/tada.mp3");
 }
 
 void soundController::soundStop()

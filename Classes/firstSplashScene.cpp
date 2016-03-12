@@ -59,6 +59,7 @@ bool firstSplash::init()
 		backgroundSprite->runAction(Sequence::createWithTwoActions(act0, act1));
 	}
 
+	//make 30 stars
 	for (int i = 0; i < 30; i++)
 	{
 		Sprite* star = Sprite::create("fire.png");

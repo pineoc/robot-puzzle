@@ -62,26 +62,58 @@ bool option::init()
 	this->addChild(soundBtn);
 
 	/*launguage kor/eng btn*/
-	//button create
-	langBtn = Button::create("option/onoff_on.jpg", "option/onoff_off.jpg", "option/onoff_off.jpg");
+	//kor button create
+	langBtn_kor = Button::create("option/btn.jpg");
 	//set image according to user default
-	if (ud->getInstance()->getBoolForKey("lang"))
-	{
-		langBtn->loadTextureNormal("option/onoff_on.jpg");
-	}
+	if (ud->getInstance()->getBoolForKey("kor"))
+		langBtn_kor->loadTextureNormal("option/btn_s.jpg");
 	else
-	{
-		langBtn->loadTextureNormal("option/onoff_off.jpg");
-	}
-	//set position
-	langBtn->setAnchorPoint(Vec2(0.5, 0.5));
-	langBtn->setPosition(Vec2(3*w/2, h*4/3+210.0f));
-	//add listener
-	langBtn->addTouchEventListener(CC_CALLBACK_2(option::langBtnsListener, this));
-	this->addChild(langBtn);
+		langBtn_kor->loadTextureNormal("option/btn.jpg");
 
-	//set key event enable
-	this->setKeypadEnabled(true);
+	{
+		LabelTTF* btnlabel = LabelTTF::create("한국어", "Arial", 30);
+		btnlabel->setColor(Color3B::BLACK);
+		btnlabel->setPosition(Vec2(langBtn_kor->getContentSize().width / 2, langBtn_kor->getContentSize().height / 2));
+		langBtn_kor->addChild(btnlabel);
+	}
+
+	//set position
+	langBtn_kor->setAnchorPoint(Vec2(0.5, 0.5));
+	langBtn_kor->setPosition(Vec2(3 * w / 2 - 100, h * 4/3 + 210.0f));
+	langBtn_kor->setTag(1);
+	//add listener
+	langBtn_kor->addTouchEventListener(CC_CALLBACK_2(option::langBtnsListener, this));
+	this->addChild(langBtn_kor);
+
+	//eng button create
+	langBtn_eng = Button::create("option/btn.jpg");
+	//set image according to user default
+	if (ud->getInstance()->getBoolForKey("kor"))
+		langBtn_eng->loadTextureNormal("option/btn.jpg");
+	else
+		langBtn_eng->loadTextureNormal("option/btn_s.jpg");
+
+	{
+		LabelTTF* btnlabel = LabelTTF::create("English", "Arial", 30);
+		btnlabel->setColor(Color3B::BLACK);
+		btnlabel->setPosition(Vec2(langBtn_eng->getContentSize().width / 2, langBtn_eng->getContentSize().height / 2));
+		langBtn_eng->addChild(btnlabel);
+	}
+
+	//set position
+	langBtn_eng->setAnchorPoint(Vec2(0.5, 0.5));
+	langBtn_eng->setPosition(Vec2(3 * w / 2 + 100, h * 4 / 3 + 210.0f));
+	langBtn_eng->setTag(2);
+	//add listener
+	langBtn_eng->addTouchEventListener(CC_CALLBACK_2(option::langBtnsListener, this));
+	this->addChild(langBtn_eng);
+
+	//describe label
+	descLabel = LabelTTF::create("", "Arial", 40);
+	descLabel->setColor(Color3B::BLACK);
+	descLabel->setPosition(Vec2(w / 2, h / 2));
+	this->addChild(descLabel, 1);
+	descLabelSetting();
 
 	/*back button*/
 	backBtn = Button::create("option/back.png", "option/back_click.png");
@@ -89,13 +121,15 @@ bool option::init()
 	backBtn->addTouchEventListener(CC_CALLBACK_2(option::backBtnsListener,this));
 	this->addChild(backBtn);
 
+	//set key event enable
+	this->setKeypadEnabled(true);
+
 	return true;
 }
 
 void option::onKeyReleased(cocos2d::EventKeyboard::KeyCode keycode, cocos2d::Event* e)
 {
-	if (EventKeyboard::KeyCode::KEY_MENU == keycode ||
-		EventKeyboard::KeyCode::KEY_BACK == keycode)
+	if (EventKeyboard::KeyCode::KEY_BACK == keycode)
 	{//menu button
 		Director::getInstance()->popScene();
 	}
@@ -133,15 +167,41 @@ void option::langBtnsListener(Ref* pSender, Widget::TouchEventType type)
 	if (Widget::TouchEventType::ENDED == type)
 	{
 		Button* button = (Button*)pSender;
-		if (ud->getBoolForKey("lang") == true)
-		{	//on->off
-			ud->setBoolForKey("lang", false);
-			button->loadTextures("option/onoff_off.jpg", "option/onoff_off.jpg", "option/onoff_on.jpg");
+		int tag = button->getTag();
+		switch (tag)
+		{
+		case 1:
+			//kor btn clicked, 
+			ud->setBoolForKey("kor", true);
+			button->loadTextureNormal("option/btn_s.jpg");
+			langBtn_eng->loadTextureNormal("option/btn.jpg");
+			break;
+		case 2:
+			//eng btn clicked,
+			ud->setBoolForKey("kor", false);
+			button->loadTextureNormal("option/btn_s.jpg");
+			langBtn_kor->loadTextureNormal("option/btn.jpg");
+			break;
+		default:
+			break;
 		}
-		else
-		{	//off->on
-			ud->setBoolForKey("lang", true);
-			button->loadTextures("option/onoff_on.jpg", "option/onoff_on.jpg", "option/onoff_off.jpg");
-		}
+		ud->flush();
+		//refresh desclabel
+		descLabelSetting();
 	}
+}
+
+void option::descLabelSetting()
+{
+	if (UserDefault::getInstance()->getBoolForKey("kor"))
+	{
+		std::string str = "장군로봇의 탄생의 비밀은 로봇을 좋아하는 어린이들을 위해 김호남 선생님이 그린 그림책, 로봇박사 테오의 두번째 이야기입니다.\n지구의 수호자, 장군로봇!\n어린이 여러분이 직접 장군로봇을 만들고 우주괴물로 부터 지구를 지켜주세요!";
+		descLabel->setString(str);
+	}
+	else
+	{
+		std::string str = "The Secret of the birth of general Robot’ is Honam Kim’s second story of the Dr. Robot Teo Series.\nGeneral Robot, the guardian of the Earth!\nPlease build general Robot and protect our earth from the space monster!";
+		descLabel->setString(str);
+	}
+
 }

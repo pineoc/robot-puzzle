@@ -18,27 +18,42 @@ public:
 	~soundController();
 	//init Audio
 	void initAudio();
+
+	//opening splash scene sounds
 	//splashScene
 	void splashSound();
-	//puzzle - pick up
-	void puzzlePickUp();
-	//puzzle - wrong location
-	void puzzleWrong();
-	//puzzle - correct location
-	void puzzleCorrect();
 	//game opening scene
 	void gameOpening(int num);
+	//openingEffectSound
+	void openingEffectSound(int soundIdx);
+
+
+	//puzzle - pick up
+	void puzzlePickUp();
+
+	//puzzle - wrong location
+	void puzzleWrong();
+
+	//puzzle - correct location
+	void puzzleCorrect();
+
+	
+
 	//game ending scene
 	void gameEnding();
-	void gameEndingLoop(float dt);
+
 	//puzzle opening door
 	void doorOpen();
+
 	//puzzle naration
 	void puzzleNaration(int sceneNum);
+
 	//ending pop up
 	void popUp(int num);
+
 	//sound stop
 	void soundStop();
+
 	//background sound stop
 	void backgroundSoundStop();
 };
