@@ -34,8 +34,8 @@ bool option::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-	float w = visibleSize.width / 2;
-	float h = visibleSize.height / 2;
+	float w = visibleSize.width;
+	float h = visibleSize.height;
 
 
     Sprite* backgroundSprite = Sprite::create("option/option_back.jpg");
@@ -56,7 +56,7 @@ bool option::init()
 	{ soundBtn->loadTextureNormal("option/onoff_off.jpg"); }
 		//set position
 	soundBtn->setAnchorPoint(Vec2(0.5, 0.5));
-	soundBtn->setPosition(Vec2(3 * w / 2, h * 4 / 3));
+	soundBtn->setPosition(Vec2(3 * w / 4, h * 2 / 3));
 		//add listener
 	soundBtn->addTouchEventListener(CC_CALLBACK_2(option::soundBtnsListener, this));
 	this->addChild(soundBtn);
@@ -79,7 +79,7 @@ bool option::init()
 
 	//set position
 	langBtn_kor->setAnchorPoint(Vec2(0.5, 0.5));
-	langBtn_kor->setPosition(Vec2(3 * w / 2 - 100, h * 4/3 + 210.0f));
+	langBtn_kor->setPosition(Vec2(3 * w / 4 - 100, h * 2 / 3 + 210.0f));
 	langBtn_kor->setTag(1);
 	//add listener
 	langBtn_kor->addTouchEventListener(CC_CALLBACK_2(option::langBtnsListener, this));
@@ -102,22 +102,24 @@ bool option::init()
 
 	//set position
 	langBtn_eng->setAnchorPoint(Vec2(0.5, 0.5));
-	langBtn_eng->setPosition(Vec2(3 * w / 2 + 100, h * 4 / 3 + 210.0f));
+	langBtn_eng->setPosition(Vec2(3 * w / 4 + 100, h * 2 / 3 + 210.0f));
 	langBtn_eng->setTag(2);
 	//add listener
 	langBtn_eng->addTouchEventListener(CC_CALLBACK_2(option::langBtnsListener, this));
 	this->addChild(langBtn_eng);
 
 	//describe label
-	descLabel = LabelTTF::create("", "Arial", 40);
+	descLabel = LabelTTF::create("", "Arial", 30, Size::ZERO, TextHAlignment::LEFT);
 	descLabel->setColor(Color3B::BLACK);
-	descLabel->setPosition(Vec2(w / 2, h / 2));
-	this->addChild(descLabel, 1);
+	descLabel->setPosition(Vec2(w / 2 - 50, h / 2 - 50));
+	descLabel->setAnchorPoint(Vec2(0.5, 0.5));
 	descLabelSetting();
+	this->addChild(descLabel, 1);
+	
 
 	/*back button*/
-	backBtn = Button::create("option/back.png", "option/back_click.png");
-	backBtn->setPosition(Vec2(120,visibleSize.height-120));
+	backBtn = Button::create("option/back.png", "option/back_s.png");
+	backBtn->setPosition(Vec2(120, h - 120));
 	backBtn->addTouchEventListener(CC_CALLBACK_2(option::backBtnsListener,this));
 	this->addChild(backBtn);
 
@@ -157,6 +159,7 @@ void option::soundBtnsListener(Ref* pSender, Widget::TouchEventType type)
 			ud->setBoolForKey("sound", true);
 			button->loadTextures("option/onoff_on.jpg", "option/onoff_on.jpg", "option/onoff_off.jpg");
 		}
+		ud->flush();
 	}
 }
 
@@ -195,12 +198,12 @@ void option::descLabelSetting()
 {
 	if (UserDefault::getInstance()->getBoolForKey("kor"))
 	{
-		std::string str = "장군로봇의 탄생의 비밀은 로봇을 좋아하는 어린이들을 위해 김호남 선생님이 그린 그림책, 로봇박사 테오의 두번째 이야기입니다.\n지구의 수호자, 장군로봇!\n어린이 여러분이 직접 장군로봇을 만들고 우주괴물로 부터 지구를 지켜주세요!";
+		std::string str = "장군로봇의 탄생의 비밀은 로봇을 좋아하는 어린이들을 위해 \n김호남 선생님이 그린 그림책, 로봇박사 테오의 두번째 이야기입니다.\n지구의 수호자, 장군로봇!\n어린이 여러분이 직접 장군로봇을 만들고 \n우주괴물로 부터 지구를 지켜주세요!";
 		descLabel->setString(str);
 	}
 	else
 	{
-		std::string str = "The Secret of the birth of general Robot’ is Honam Kim’s second story of the Dr. Robot Teo Series.\nGeneral Robot, the guardian of the Earth!\nPlease build general Robot and protect our earth from the space monster!";
+		std::string str = "The Secret of the birth of general Robot is\nHonam Kim\'s second story of the Dr. Robot Teo Series.\nGeneral Robot, the guardian of the Earth!\nPlease build general Robot and protect our earth \nfrom the space monster!";
 		descLabel->setString(str);
 	}
 

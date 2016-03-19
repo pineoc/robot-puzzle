@@ -15,6 +15,7 @@ menuController::menuController(int _sceneNum)
 	sceneNum = _sceneNum;
 
 	Size visibleSize = Director::getInstance()->getVisibleSize();
+	bool isKor = UserDefault::getInstance()->getBoolForKey("kor");
 
 	//base layout create & setup
 	baseLayout = Layout::create();
@@ -79,37 +80,56 @@ menuController::menuController(int _sceneNum)
 	baseLayout->addChild(rightBtn, 2);
 
 	//btns setup
-	btn1 = Button::create("menu_1.png", "menu_1_s.png", "menu_1_s.png");
+	
+	if(isKor)
+		btn1 = Button::create("kmenu_1.png", "kmenu_1_s.png", "kmenu_1_s.png");
+	else
+		btn1 = Button::create("emenu_1.png", "emenu_1_s.png", "emenu_1_s.png");
 	btn1->setPosition(Vec2(100, 190.0 / 2));
 	btn1->addTouchEventListener(CC_CALLBACK_2(menuController::btnsListener, this));
 	btn1->setTag(1);
 	scrollview->addChild(btn1, 1);
 
-	btn2 = Button::create("menu_2.png", "menu_2_s.png", "menu_2_s.png");
+	if (isKor)
+		btn2 = Button::create("kmenu_2.png", "kmenu_2_s.png", "kmenu_2_s.png");
+	else
+		btn2 = Button::create("emenu_2.png", "emenu_2_s.png", "emenu_2_s.png");
 	btn2->setPosition(Vec2(345, 190.0 / 2));
 	btn2->addTouchEventListener(CC_CALLBACK_2(menuController::btnsListener, this));
 	btn2->setTag(2);
 	scrollview->addChild(btn2, 1);
 
-	btn3 = Button::create("menu_3.png", "menu_3_s.png", "menu_3_s.png");
+	if (isKor)
+		btn3 = Button::create("kmenu_3.png", "kmenu_3_s.png", "kmenu_3_s.png");
+	else
+		btn3 = Button::create("emenu_3.png", "emenu_3_s.png", "emenu_3_s.png");
 	btn3->setPosition(Vec2(590, 190.0 / 2));
 	btn3->addTouchEventListener(CC_CALLBACK_2(menuController::btnsListener, this));
 	btn3->setTag(3);
 	scrollview->addChild(btn3, 1);
 
-	btn4 = Button::create("menu_4.png", "menu_4_s.png", "menu_4_s.png");
+	if (isKor)
+		btn4 = Button::create("kmenu_4.png", "kmenu_4_s.png", "kmenu_4_s.png");
+	else
+		btn4 = Button::create("emenu_4.png", "emenu_4_s.png", "emenu_4_s.png");
 	btn4->setPosition(Vec2(835, 190.0 / 2));
 	btn4->addTouchEventListener(CC_CALLBACK_2(menuController::btnsListener, this));
 	btn4->setTag(4);
 	scrollview->addChild(btn4, 1);
 
-	btn5 = Button::create("menu_5.png", "menu_5_s.png", "menu_5_s.png");
+	if (isKor)
+		btn5 = Button::create("kmenu_5.png", "kmenu_5_s.png", "kmenu_5_s.png");
+	else
+		btn5 = Button::create("emenu_5.png", "emenu_5_s.png", "emenu_5_s.png");
 	btn5->setPosition(Vec2(1080, 190.0 / 2));
 	btn5->addTouchEventListener(CC_CALLBACK_2(menuController::btnsListener, this));
 	btn5->setTag(5);
 	scrollview->addChild(btn5, 1);
 
-	btn6 = Button::create("menu_6.png", "menu_6_s.png", "menu_6_s.png");
+	if (isKor)
+		btn6 = Button::create("kmenu_6.png", "kmenu_6_s.png", "kmenu_6_s.png");
+	else
+		btn6 = Button::create("emenu_6.png", "emenu_6_s.png", "emenu_6_s.png");
 	btn6->setPosition(Vec2(1325, 190.0 / 2));
 	btn6->addTouchEventListener(CC_CALLBACK_2(menuController::btnsListener, this));
 	btn6->setTag(6);
