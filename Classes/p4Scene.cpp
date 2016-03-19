@@ -1,16 +1,6 @@
 ﻿#include "p4Scene.h"
 #include "p5Scene.h"
 
-//puzzle classes
-#include "puzzle.h"
-#include "partner.h"
-#include "gameController.h"
-#include "menuController.h"
-#include "DataSetting.h"
-#include "gate.h"
-
-#include "soundController.h"
-#include "SimpleAudioEngine.h"
 
 USING_NS_CC;
 using namespace ui;
@@ -177,40 +167,8 @@ void fourthPuzzle::showCompleteSprite(float dt){
 }
 
 void fourthPuzzle::showEndingPopUp(float dt){
-	Size visibleSize = Director::getInstance()->getVisibleSize();
-	//ui test
-	Layout* popLayout = Layout::create();
-	popLayout->setSize(visibleSize);
-	popLayout->setPosition(Vec2());
-	popLayout->setAnchorPoint(Vec2());
-	popLayout->setBackGroundColorType(LayoutBackGroundColorType::SOLID);
-	popLayout->setBackGroundColor(Color3B::BLACK);
-	popLayout->setBackGroundColorOpacity(255 * POPUPLAYOUT_OPACITY_PERCENT);
-	this->addChild(popLayout, POPUPLAYOUT_Z);
-
-	Button* replayBtn = Button::create("replay.png", "replay_s.png");
-	replayBtn->setPosition(Vec2(visibleSize.width / 2 - 200, visibleSize.height / 2 - 600));
-	replayBtn->addTouchEventListener(CC_CALLBACK_2(fourthPuzzle::endingPopupBtns, this));
-	replayBtn->setTag(1);
-	popLayout->addChild(replayBtn, 1);
-
-	Button* nextBtn = Button::create("next.png", "next_s.png");
-	nextBtn->setPosition(Vec2(visibleSize.width / 2 + 200, visibleSize.height / 2 - 600));
-	nextBtn->addTouchEventListener(CC_CALLBACK_2(fourthPuzzle::endingPopupBtns, this));
-	nextBtn->setTag(2);
-	popLayout->addChild(nextBtn, 1);
-
-	Sprite* resultSpr = Sprite::create("reward.png");
-	resultSpr->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 100));
-	popLayout->addChild(resultSpr, 1);
-
-	//sound
-	if (UserDefault::getInstance()->getBoolForKey("sound"))
-	{
-		int num = cocos2d::RandomHelper::random_int(0, 1);
-		soundController *sc = new soundController();
-		sc->popUp(num);
-	}
+	//add to this scene
+	this->addChild(myMenuController->getResultLayout(), POPUPLAYOUT_Z);
 }
 
 void fourthPuzzle::endingPopupBtns(Ref* pSender, Widget::TouchEventType type){

@@ -17,12 +17,14 @@
 
 class firstPuzzle : public cocos2d::LayerColor
 {
-public:
+private:
 	//count puzzle
 	int goalCount;
 
-	//sound
-	soundController* sc;
+	//menuController
+	menuController* myMenuController;
+public:
+	
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::Scene* createScene();
 

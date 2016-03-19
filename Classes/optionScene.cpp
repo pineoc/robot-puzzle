@@ -41,7 +41,7 @@ bool option::init()
     Sprite* backgroundSprite = Sprite::create("option/option_back.jpg");
 
     // position the sprite on the center of the screen
-	backgroundSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+	backgroundSprite->setPosition(Vec2(w / 2 + origin.x, h / 2 + origin.y));
 
     // add the sprite as a child to this layer
 	this->addChild(backgroundSprite, BACKGROUND_Z);
@@ -69,14 +69,12 @@ bool option::init()
 		langBtn_kor->loadTextureNormal("option/btn_s.jpg");
 	else
 		langBtn_kor->loadTextureNormal("option/btn.jpg");
-
 	{
 		LabelTTF* btnlabel = LabelTTF::create("한국어", "Arial", 30);
 		btnlabel->setColor(Color3B::BLACK);
 		btnlabel->setPosition(Vec2(langBtn_kor->getContentSize().width / 2, langBtn_kor->getContentSize().height / 2));
 		langBtn_kor->addChild(btnlabel);
 	}
-
 	//set position
 	langBtn_kor->setAnchorPoint(Vec2(0.5, 0.5));
 	langBtn_kor->setPosition(Vec2(3 * w / 4 - 100, h * 2 / 3 + 210.0f));
@@ -109,7 +107,7 @@ bool option::init()
 	this->addChild(langBtn_eng);
 
 	//describe label
-	descLabel = LabelTTF::create("", "Arial", 30, Size::ZERO, TextHAlignment::LEFT);
+	descLabel = LabelTTF::create("", "Arial", 35, Size::ZERO, TextHAlignment::LEFT);
 	descLabel->setColor(Color3B::BLACK);
 	descLabel->setPosition(Vec2(w / 2 - 50, h / 2 - 50));
 	descLabel->setAnchorPoint(Vec2(0.5, 0.5));

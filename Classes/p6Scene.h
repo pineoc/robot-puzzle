@@ -1,16 +1,27 @@
-﻿#ifndef __SIXTHPUZZLE_H__
-#define __SIXTHPUZZLE_H__
+﻿#pragma once
 
 #include "cocos2d.h"
 #include "ui/CocosGUI.h"
 
+//puzzle classes
+#include "puzzle.h"
+#include "partner.h"
+#include "gameController.h"
+#include "menuController.h"
+#include "soundController.h"
+#include "SimpleAudioEngine.h"
+#include "DataSetting.h"
+#include "gate.h"
+
 class sixthPuzzle : public cocos2d::LayerColor
 {
-public:
+private:
 	//count puzzle
 	int goalCount;
-
-
+	//menuController
+	menuController* myMenuController;
+public:
+	
     // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::Scene* createScene();
 
@@ -37,5 +48,3 @@ public:
     CREATE_FUNC(sixthPuzzle);
 
 };
-
-#endif // __SIXTHPUZZLE_H__

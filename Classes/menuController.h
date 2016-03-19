@@ -13,7 +13,7 @@ private:
 	//scene number
 	int sceneNum;
 	
-	//base Layout
+	//base Layout of menu
 	Layout* baseLayout;
 
 	//layout background
@@ -38,6 +38,9 @@ private:
 	Button* homeBtn;
 	Button* optionBtn;
 
+	//game result layout
+	Layout* resultBaseLayout;
+
 public:
 	//make menu layout
 	menuController(int _sceneNum);
@@ -46,6 +49,11 @@ public:
 
 	//get menuLayout
 	Layout* getMenuLayout();
+
+	//get resultLayout
+	Layout* getResultLayout();
+	void btnListenerResLayout(Ref* pSender, Widget::TouchEventType type);
+	void popUpResultLayout();
 
 	//set menuLayout - scrollView position
 	void setScrollViewPosition();

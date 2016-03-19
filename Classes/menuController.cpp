@@ -1,4 +1,3 @@
-	
 #include "menuController.h"
 
 #include "splashScene.h"
@@ -9,6 +8,8 @@
 #include "p4Scene.h"
 #include "p5Scene.h"
 #include "p6Scene.h"
+#include "finishScene.h"
+#include "soundController.h"
 
 menuController::menuController(int _sceneNum)
 {
@@ -21,12 +22,13 @@ menuController::menuController(int _sceneNum)
 	baseLayout = Layout::create();
 	baseLayout->setAnchorPoint(Vec2(0.5, 0.5));
 	baseLayout->setPosition(Vec2(visibleSize.width / 2, visibleSize.height - 205));
-	baseLayout->setSize(Size(1080, 410));
+	baseLayout->setSize(Size(visibleSize.width, 410));
 
 	//background sprite setup
 	layoutBackgroundSpr = Sprite::create("menu1.png");
 	layoutBackgroundSpr->setAnchorPoint(Vec2());
 	layoutBackgroundSpr->setPosition(Vec2());
+
 	//TODO: animation
 	Vector<SpriteFrame*> animFrames(2);
 	auto frame1 = SpriteFrame::create("menu1.png", Rect(0, 0, 1080, 259));
@@ -137,6 +139,46 @@ menuController::menuController(int _sceneNum)
 
 	//scrollview set percent with scene number
 	setScrollViewPosition();
+
+	//game result popup layout
+	resultBaseLayout = Layout::create();
+	resultBaseLayout->setSize(visibleSize);
+	resultBaseLayout->setPosition(Vec2());
+	resultBaseLayout->setAnchorPoint(Vec2());
+	resultBaseLayout->setBackGroundColorType(LayoutBackGroundColorType::SOLID);
+	resultBaseLayout->setBackGroundColor(Color3B::BLACK);
+	resultBaseLayout->setBackGroundColorOpacity(255 * POPUPLAYOUT_OPACITY_PERCENT);
+	resultBaseLayout->setEnabled(false);
+
+	//replay button
+	Button* replayBtn = Button::create("replay.png", "replay_s.png");
+	replayBtn->setPosition(Vec2(visibleSize.width / 2 - 200, visibleSize.height / 2 - 600));
+	replayBtn->addTouchEventListener(CC_CALLBACK_2(menuController::btnListenerResLayout, this));
+	replayBtn->setTag(1);
+	resultBaseLayout->addChild(replayBtn, 1);
+
+	//next button
+	Button* nextBtn = Button::create("next.png", "next_s.png");
+	nextBtn->setPosition(Vec2(visibleSize.width / 2 + 200, visibleSize.height / 2 - 600));
+	nextBtn->addTouchEventListener(CC_CALLBACK_2(menuController::btnListenerResLayout, this));
+	nextBtn->setTag(2);
+	resultBaseLayout->addChild(nextBtn, 1);
+
+	//result sprite of goodjob
+	if (isKor)
+	{
+		Sprite* resultSpr = Sprite::create("kreward.png");
+		resultSpr->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 100));
+		resultBaseLayout->addChild(resultSpr, 1);
+	}
+	else
+	{
+		char* reward_str_arr[3] = {"ereward1.png", "ereward2.png", "ereward3.png" };
+		Sprite* resultSpr = Sprite::create(reward_str_arr[RandomHelper::random_int(0,2)]);
+		resultSpr->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 100));
+		resultBaseLayout->addChild(resultSpr, 1);
+	}
+	
 }
 
 menuController::~menuController()
@@ -150,6 +192,115 @@ Layout* menuController::getMenuLayout()
 		return baseLayout;
 	else
 		return NULL;
+}
+
+Layout* menuController::getResultLayout()
+{
+	if (resultBaseLayout)
+		return resultBaseLayout;
+	else
+		return NULL;
+}
+
+void menuController::btnListenerResLayout(Ref * pSender, Widget::TouchEventType type)
+{
+	if (Widget::TouchEventType::ENDED == type) {
+		Button* b = (Button*)pSender;
+		int tag = b->getTag();
+		switch (sceneNum)
+		{
+		case 1:
+			//scene1
+			if (1 == tag)
+			{//regame
+				Scene* s = TransitionFade::create(TRANSITION_FADE_TIME, firstPuzzle::createScene());
+				Director::getInstance()->replaceScene(s);
+			}
+			else
+			{//next game
+				Scene* s = TransitionFade::create(TRANSITION_FADE_TIME, secondPuzzle::createScene());
+				Director::getInstance()->replaceScene(s);
+			}
+				break;
+		case 2:
+			//scene2
+			if (1 == tag)
+			{
+				Scene* s = TransitionFade::create(TRANSITION_FADE_TIME, secondPuzzle::createScene());
+				Director::getInstance()->replaceScene(s);
+			}
+			else
+			{
+				Scene* s = TransitionFade::create(TRANSITION_FADE_TIME, thirdPuzzle::createScene());
+				Director::getInstance()->replaceScene(s);
+			}
+			break;
+		case 3:
+			//scene3
+			if (1 == tag)
+			{
+				Scene* s = TransitionFade::create(TRANSITION_FADE_TIME, thirdPuzzle::createScene());
+				Director::getInstance()->replaceScene(s);
+			}
+			else
+			{
+				Scene* s = TransitionFade::create(TRANSITION_FADE_TIME, fourthPuzzle::createScene());
+				Director::getInstance()->replaceScene(s);
+			}
+			break;
+		case 4:
+			//scene4
+			if (1 == tag)
+			{
+				Scene* s = TransitionFade::create(TRANSITION_FADE_TIME, fourthPuzzle::createScene());
+				Director::getInstance()->replaceScene(s);
+			}
+			else
+			{
+				Scene* s = TransitionFade::create(TRANSITION_FADE_TIME, fifthPuzzle::createScene());
+				Director::getInstance()->replaceScene(s);
+			}
+			break;
+		case 5:
+			//scene5
+			if (1 == tag)
+			{
+				Scene* s = TransitionFade::create(TRANSITION_FADE_TIME, fifthPuzzle::createScene());
+				Director::getInstance()->replaceScene(s);
+			}
+			else
+			{
+				Scene* s = TransitionFade::create(TRANSITION_FADE_TIME, sixthPuzzle::createScene());
+				Director::getInstance()->replaceScene(s);
+			}
+			break;
+		case 6:
+			//scene6
+			if (1 == tag)
+			{
+				Scene* s = TransitionFade::create(TRANSITION_FADE_TIME, sixthPuzzle::createScene());
+				Director::getInstance()->replaceScene(s);
+			}
+			else
+			{
+				Scene* s = TransitionFade::create(TRANSITION_FADE_TIME, finish::createScene());
+				Director::getInstance()->replaceScene(s);
+			}
+			break;
+		default:
+			break;
+		}
+	}
+	
+}
+
+void menuController::popUpResultLayout()
+{
+	soundController sc;
+	sc.popUp();
+
+	resultBaseLayout->setZOrder(20);
+	resultBaseLayout->setEnabled(true);
 }
 
 void menuController::setScrollViewPosition()

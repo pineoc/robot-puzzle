@@ -67,8 +67,9 @@ bool firstPuzzle::init()
 	myGate->createLetter(1);
 
 	//menu controller add
-	menuController* myMenuController = new menuController(1);
+	myMenuController = new menuController(1);
 	this->addChild(myMenuController->getMenuLayout(), 1);
+	this->addChild(myMenuController->getResultLayout(), -1);
 
 	//left leg puzzle
 	{
@@ -181,45 +182,8 @@ void firstPuzzle::showCompleteSprite(float dt){
 }
 
 void firstPuzzle::showEndingPopUp(float dt){
-	//visible size value
-	Size visibleSize = Director::getInstance()->getVisibleSize();
-	
-	//layout for popup
-	Layout* popLayout = Layout::create();
-	popLayout->setSize(visibleSize);
-	popLayout->setPosition(Vec2());
-	popLayout->setAnchorPoint(Vec2());
-	popLayout->setBackGroundColorType(LayoutBackGroundColorType::SOLID);
-	popLayout->setBackGroundColor(Color3B::BLACK);
-	popLayout->setBackGroundColorOpacity(255 * POPUPLAYOUT_OPACITY_PERCENT);
-	this->addChild(popLayout, POPUPLAYOUT_Z);
-
-	//replay button
-	Button* replayBtn = Button::create("replay.png", "replay_s.png");
-	replayBtn->setPosition(Vec2(visibleSize.width / 2 - 200, visibleSize.height / 2 - 600));
-	replayBtn->addTouchEventListener(CC_CALLBACK_2(firstPuzzle::endingPopupBtns, this));
-	replayBtn->setTag(1);
-	popLayout->addChild(replayBtn, 1);
-
-	//next button
-	Button* nextBtn = Button::create("next.png", "next_s.png");
-	nextBtn->setPosition(Vec2(visibleSize.width / 2 + 200, visibleSize.height / 2 - 600));
-	nextBtn->addTouchEventListener(CC_CALLBACK_2(firstPuzzle::endingPopupBtns, this));
-	nextBtn->setTag(2);
-	popLayout->addChild(nextBtn, 1);
-
-	//result sprite of goodjob
-	Sprite* resultSpr = Sprite::create("reward.png");
-	resultSpr->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 100));
-	popLayout->addChild(resultSpr, 1);
-
-	//sound
-	if (UserDefault::getInstance()->getBoolForKey("sound"))
-	{
-		int num = cocos2d::RandomHelper::random_int(0,1);
-		soundController *sc = new soundController();
-		sc->popUp(num);
-	}
+	//add to this scene
+	myMenuController->popUpResultLayout();
 }
 
 void firstPuzzle::endingPopupBtns(Ref* pSender, Widget::TouchEventType type){

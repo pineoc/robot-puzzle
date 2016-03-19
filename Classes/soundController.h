@@ -25,8 +25,10 @@ public:
 	//game opening scene
 	void gameOpening(int num);
 	//openingEffectSound
-	void openingEffectSound(int soundIdx);
+	void openingEffectSound(char* soundIdx);
 
+	//game background sound start
+	void startGameBackgroundSound();
 
 	//puzzle - pick up
 	void puzzlePickUp();
@@ -49,7 +51,7 @@ public:
 	void puzzleNaration(int sceneNum);
 
 	//ending pop up
-	void popUp(int num);
+	void popUp();
 
 	//sound stop
 	void soundStop();

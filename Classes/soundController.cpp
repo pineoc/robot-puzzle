@@ -16,6 +16,10 @@ void soundController::initAudio()
 {
 	auto audio = SimpleAudioEngine::getInstance();
 
+	//opening background
+	audio->setBackgroundMusicVolume(0.5);
+	audio->preloadBackgroundMusic("sound/opening_back.wav");
+
 	//opening
 	audio->preloadEffect("sound/op1_k.mp3");
 	audio->preloadEffect("sound/op2_k.mp3");
@@ -23,7 +27,9 @@ void soundController::initAudio()
 	audio->preloadEffect("sound/op1_e.mp3");
 	audio->preloadEffect("sound/op2_e.mp3");
 	audio->preloadEffect("sound/op3_e.mp3");
-	//ending
+	
+	//game background
+	audio->preloadBackgroundMusic("sound/game_back.wav");
 
 	//puzzle sound
 	audio->preloadEffect("sound/wrong.wav");			//wrong
@@ -69,6 +75,10 @@ void soundController::splashSound()
 		return;
 	auto audio = SimpleAudioEngine::getInstance();
 	isKorea = UserDefault::getInstance()->getBoolForKey("kor");
+
+	//stop background sound
+	backgroundSoundStop();
+
 	if (isKorea)
 		audio->playEffect("sound/start_k.mp3");
 	else
@@ -115,6 +125,9 @@ void soundController::gameOpening(int num)
 	auto audio = SimpleAudioEngine::getInstance();
 	isKorea = UserDefault::getInstance()->getBoolForKey("kor");
 
+	//opening background sound start
+	audio->playBackgroundMusic("sound/game_back.wav", true);
+
 	switch (num)
 	{
 	case 1:
@@ -140,16 +153,23 @@ void soundController::gameOpening(int num)
 	}
 	
 }
-void soundController::openingEffectSound(int soundIdx)
+void soundController::openingEffectSound(char* soundName)
 {
-	if (soundIdx == 1)
+	if (soundName == "monster")
 	{//monster sound
 		SimpleAudioEngine::getInstance()->playEffect("sound/op_monster.mp3");
 	}
-	else if (soundIdx == 2)
+	else if (soundName == "siren")
 	{//siren sound
 		SimpleAudioEngine::getInstance()->playEffect("sound/op_siren.mp3");
 	}
+}
+void soundController::startGameBackgroundSound()
+{
+	if (UserDefault::getInstance()->getBoolForKey("sound") == false)
+		return;
+	auto audio = SimpleAudioEngine::getInstance();
+	audio->playBackgroundMusic("sound/game_back.wav", true);
 }
 //game ending scene
 void soundController::gameEnding()
@@ -178,6 +198,8 @@ void soundController::puzzleNaration(int sceneNum)
 		return;
 	auto audio = SimpleAudioEngine::getInstance();
 	isKorea = UserDefault::getInstance()->getBoolForKey("kor");
+
+	startGameBackgroundSound();
 
 	switch (sceneNum)
 	{
@@ -222,7 +244,7 @@ void soundController::puzzleNaration(int sceneNum)
 	}
 }
 //ending pop up
-void soundController::popUp(int num)
+void soundController::popUp()
 {
 	if (UserDefault::getInstance()->getBoolForKey("sound") == false)
 		return;
