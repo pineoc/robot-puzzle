@@ -182,47 +182,11 @@ void firstPuzzle::showCompleteSprite(float dt){
 }
 
 void firstPuzzle::showEndingPopUp(float dt){
-	//add to this scene
+	//popup layout
 	myMenuController->popUpResultLayout();
-}
-
-void firstPuzzle::endingPopupBtns(Ref* pSender, Widget::TouchEventType type){
-	if (Widget::TouchEventType::ENDED == type){
-		Button* b = (Button*)pSender;
-		int tag = b->getTag();
-		switch (tag)
-		{
-		case 1:
-			reGame();
-			break;
-		case 2:
-			nextGame();
-			break;
-		default:
-			break;
-		}
-	}	
-}
-
-void firstPuzzle::reGame(){
-	Scene* s = firstPuzzle::createScene();
-	Director::getInstance()->replaceScene(s);
-}
-void firstPuzzle::nextGame(){
-	//go nextScene
-	Scene* s = secondPuzzle::createScene();
-	Director::getInstance()->replaceScene(s);
 }
 
 void firstPuzzle::onKeyReleased(cocos2d::EventKeyboard::KeyCode keycode, cocos2d::Event* e)
 {
-	if (EventKeyboard::KeyCode::KEY_MENU == keycode || 
-		EventKeyboard::KeyCode::KEY_RIGHT_ARROW == keycode)
-	{//menu button
-		nextGame();
-	}
-	if (EventKeyboard::KeyCode::KEY_BACK == keycode)
-	{//back button
-		Director::getInstance()->end();
-	}
+	
 }

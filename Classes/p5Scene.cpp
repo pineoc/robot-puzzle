@@ -49,8 +49,9 @@ bool fifthPuzzle::init()
 	// add the sprite as a child to this layer
 	this->addChild(robot, ROBOTIMG_Z);
 
-	menuController* myMenuController = new menuController(5);
+	myMenuController = new menuController(5);
 	this->addChild(myMenuController->getMenuLayout(), 1);
+	this->addChild(myMenuController->getResultLayout(), -1);
 
 	//center location
 	float w = visibleSize.width/2;
@@ -160,43 +161,12 @@ void fifthPuzzle::showCompleteSprite(float dt){
 }
 
 void fifthPuzzle::showEndingPopUp(float dt){
-	//add to this scene
-	this->addChild(myMenuController->getResultLayout(), POPUPLAYOUT_Z);
+	//popup layout
+	myMenuController->popUpResultLayout();
 }
 
-void fifthPuzzle::endingPopupBtns(Ref* pSender, Widget::TouchEventType type){
-	if (Widget::TouchEventType::ENDED == type){
-		Button* b = (Button*)pSender;
-		int tag = b->getTag();
-		switch (tag)
-		{
-		case 1:
-			reGame();
-			break;
-		case 2:
-			nextGame();
-			break;
-		default:
-			break;
-		}
-	}	
-}
-
-void fifthPuzzle::reGame(){
-	Scene* s = fifthPuzzle::createScene();
-	Director::getInstance()->replaceScene(s);
-}
-void fifthPuzzle::nextGame(){
-	//go nextScene
-	Scene* s = sixthPuzzle::createScene();
-	Director::getInstance()->replaceScene(s);
-}
 
 void fifthPuzzle::onKeyReleased(cocos2d::EventKeyboard::KeyCode keycode, cocos2d::Event* e)
 {
-	if (EventKeyboard::KeyCode::KEY_MENU == keycode ||
-		EventKeyboard::KeyCode::KEY_RIGHT_ARROW == keycode)
-	{
-		nextGame();
-	}
+	
 }

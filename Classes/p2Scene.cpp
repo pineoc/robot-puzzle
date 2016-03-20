@@ -72,8 +72,9 @@ bool secondPuzzle::init()
 	myGate->setImage("p2_text.png");
 	myGate->createLetter(2);
 
-	menuController* myMenuController = new menuController(2);
+	myMenuController = new menuController(2);
 	this->addChild(myMenuController->getMenuLayout(), 1);
+	this->addChild(myMenuController->getResultLayout(), -1);
 
 
 	//arm puzzle
@@ -234,43 +235,11 @@ void secondPuzzle::showCompleteSprite(float dt) {
 
 
 void secondPuzzle::showEndingPopUp(float dt) {
-	//add to this scene
-	this->addChild(myMenuController->getResultLayout(), POPUPLAYOUT_Z);
-}
-
-void secondPuzzle::endingPopupBtns(Ref* pSender, Widget::TouchEventType type) {
-	if (Widget::TouchEventType::ENDED == type) {
-		Button* b = (Button*)pSender;
-		int tag = b->getTag();
-		switch (tag)
-		{
-		case 1:
-			reGame();
-			break;
-		case 2:
-			nextGame();
-			break;
-		default:
-			break;
-		}
-	}
-}
-
-void secondPuzzle::reGame() {
-	Scene* s = secondPuzzle::createScene();
-	Director::getInstance()->replaceScene(s);
-}
-void secondPuzzle::nextGame() {
-	//go nextScene
-	Scene* s = thirdPuzzle::createScene();
-	Director::getInstance()->replaceScene(s);
+	//popup layout
+	myMenuController->popUpResultLayout();
 }
 
 void secondPuzzle::onKeyReleased(cocos2d::EventKeyboard::KeyCode keycode, cocos2d::Event* e)
 {
-	if (EventKeyboard::KeyCode::KEY_MENU == keycode ||
-		EventKeyboard::KeyCode::KEY_RIGHT_ARROW == keycode)
-	{
-		nextGame();
-	}
+	
 }
