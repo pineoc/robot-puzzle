@@ -35,11 +35,8 @@ public:
 	void showCompleteSprite(float dt);
 	void showEndingPopUp(float dt);
 
-	//functions in endingPopup
-	void endingPopupBtns(cocos2d::Ref* pSender, cocos2d::ui::Widget::TouchEventType type);
-	//regame
-	void reGame();
-	void nextGame();
+	//check language change
+	void checkLanguageChange(float dt);
 
 	//key event listener
 	void onKeyReleased(cocos2d::EventKeyboard::KeyCode keycode, cocos2d::Event* e);

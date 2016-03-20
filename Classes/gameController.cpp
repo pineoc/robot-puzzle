@@ -30,3 +30,13 @@ int gameController::getPuzzleCount(){
 void gameController::initPuzzleCount(){
 	cntPuzzle = 0;
 }
+
+void gameController::setIskor(bool kor)
+{
+	isKor = kor;
+}
+
+bool gameController::getIskor()
+{
+	return isKor;
+}

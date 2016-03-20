@@ -36,6 +36,7 @@ bool thirdPuzzle::init()
 
 	goalCount = 3;
 	gameController::getInstance()->initPuzzleCount();
+	gameController::getInstance()->setIskor(UserDefault::getInstance()->getBoolForKey("kor"));
 	schedule(schedule_selector(thirdPuzzle::checkEnding),0.5f);
     
 	/*background image*/
@@ -61,7 +62,10 @@ bool thirdPuzzle::init()
 	myGate->addEvent();
 	this->addChild(myGate->getBackGround());
 	
-	myGate->setImage("p3_text.png");
+	if (UserDefault::getInstance()->getBoolForKey("kor"))
+		myGate->setImage("p3_text_k.png");
+	else
+		myGate->setImage("p3_text_e.png");
 	myGate->createLetter(3);
 
 	myMenuController = new menuController(3);
@@ -98,6 +102,8 @@ bool thirdPuzzle::init()
 		this->addChild(ppz1);
 	}
 
+	//check for language change
+	this->schedule(schedule_selector(thirdPuzzle::checkLanguageChange), 0.5f);
 
 	this->setKeypadEnabled(true);
 
@@ -150,6 +156,16 @@ void thirdPuzzle::showCompleteSprite(float dt){
 void thirdPuzzle::showEndingPopUp(float dt){
 	//popup layout
 	myMenuController->popUpResultLayout();
+}
+
+void thirdPuzzle::checkLanguageChange(float dt)
+{
+	if (UserDefault::getInstance()->getBoolForKey("kor") != gameController::getInstance()->getIskor())
+	{
+		Scene* s = TransitionFade::create(TRANSITION_FADE_TIME, thirdPuzzle::createScene());
+		Director::getInstance()->replaceScene(s);
+		this->unschedule(schedule_selector(thirdPuzzle::checkLanguageChange));
+	}
 }
 
 void thirdPuzzle::onKeyReleased(cocos2d::EventKeyboard::KeyCode keycode, cocos2d::Event* e)

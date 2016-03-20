@@ -126,7 +126,7 @@ void soundController::gameOpening(int num)
 	isKorea = UserDefault::getInstance()->getBoolForKey("kor");
 
 	//opening background sound start
-	audio->playBackgroundMusic("sound/game_back.wav", true);
+	audio->playBackgroundMusic("sound/opening_back.wav", true);
 
 	switch (num)
 	{

@@ -45,8 +45,9 @@ void gate::createLetter(int scene)
 	spriteLetter->setAnchorPoint(Vec2(0.5, 1.0));
 	letterPos = Vec2(visibleSize.width/2, visibleSize.height);
 	spriteLetter->setPosition(letterPos);
-	layoutBackGr->addChild(spriteLetter,1);
-	UserDefault::getInstance()->getBoolForKey("sound");
+	layoutBackGr->addChild(spriteLetter, 1);
+
+	if(UserDefault::getInstance()->getBoolForKey("sound"))
 	{ 
 		soundController* sc = new soundController();
 		sc->puzzleNaration(scene);

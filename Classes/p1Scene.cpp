@@ -38,7 +38,8 @@ bool firstPuzzle::init()
 	//game controller
 	goalCount = 6;
 	gameController::getInstance()->initPuzzleCount();
-	schedule(schedule_selector(firstPuzzle::checkEnding),0.5f);
+	gameController::getInstance()->setIskor(UserDefault::getInstance()->getBoolForKey("kor"));
+	schedule(schedule_selector(firstPuzzle::checkEnding), 0.5f);
     	
 	/*background image*/
     Size visibleSize = Director::getInstance()->getVisibleSize();
@@ -53,8 +54,8 @@ bool firstPuzzle::init()
 	this->addChild(robot, ROBOTIMG_Z);
 
 	//center location
-	float w = visibleSize.width/2;
-	float h = visibleSize.height/2;
+	float w = visibleSize.width / 2;
+	float h = visibleSize.height / 2;
 
 	/*add opening gate*/
 	gate* myGate = new gate();
@@ -63,7 +64,10 @@ bool firstPuzzle::init()
 	myGate->addEvent();
 	this->addChild(myGate->getBackGround());
 	
-	myGate->setImage("p1_text.png");
+	if (UserDefault::getInstance()->getBoolForKey("kor"))
+		myGate->setImage("p1_text_k.png");
+	else
+		myGate->setImage("p1_text_e.png");
 	myGate->createLetter(1);
 
 	//menu controller add
@@ -131,6 +135,9 @@ bool firstPuzzle::init()
 		this->addChild(ppz3);
 	}
 
+	//check for language change
+	this->schedule(schedule_selector(firstPuzzle::checkLanguageChange), 0.5f);
+
 	//set key event enable
 	this->setKeypadEnabled(true);
 
@@ -184,6 +191,16 @@ void firstPuzzle::showCompleteSprite(float dt){
 void firstPuzzle::showEndingPopUp(float dt){
 	//popup layout
 	myMenuController->popUpResultLayout();
+}
+
+void firstPuzzle::checkLanguageChange(float dt)
+{
+	if (UserDefault::getInstance()->getBoolForKey("kor") != gameController::getInstance()->getIskor())
+	{
+		Scene* s = TransitionFade::create(TRANSITION_FADE_TIME, firstPuzzle::createScene());
+		Director::getInstance()->replaceScene(s);
+		this->unschedule(schedule_selector(firstPuzzle::checkLanguageChange));
+	}
 }
 
 void firstPuzzle::onKeyReleased(cocos2d::EventKeyboard::KeyCode keycode, cocos2d::Event* e)

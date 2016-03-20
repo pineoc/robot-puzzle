@@ -1,5 +1,6 @@
 ﻿#include "optionScene.h"
 
+#include "soundController.h"
 #include "DataSetting.h"
 
 USING_NS_CC;
@@ -29,6 +30,11 @@ bool option::init()
     {
         return false;
     }
+
+	//stop sound in option page
+	soundController sc;
+	sc.soundStop();
+	sc.backgroundSoundStop();
 
 	/*background image*/
     Size visibleSize = Director::getInstance()->getVisibleSize();
@@ -130,7 +136,7 @@ bool option::init()
 void option::onKeyReleased(cocos2d::EventKeyboard::KeyCode keycode, cocos2d::Event* e)
 {
 	if (EventKeyboard::KeyCode::KEY_BACK == keycode)
-	{//menu button
+	{//back button
 		Director::getInstance()->popScene();
 	}
 }
@@ -138,7 +144,10 @@ void option::onKeyReleased(cocos2d::EventKeyboard::KeyCode keycode, cocos2d::Eve
 void option::backBtnsListener(Ref* pSender, Widget::TouchEventType type)
 {	// go to back
 	if (Widget::TouchEventType::ENDED == type)
+	{
 		Director::getInstance()->popScene();
+	}
+		
 }
 
 void option::soundBtnsListener(Ref* pSender, Widget::TouchEventType type)
