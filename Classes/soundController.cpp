@@ -66,7 +66,7 @@ void soundController::initAudio()
 	audio->preloadEffect("sound/start_e.mp3");
 
 	//finishing
-	audio->preloadBackgroundMusic("sound/ending.wav"); //ending
+	audio->preloadBackgroundMusic("sound/ending.mp3"); //ending
 
 }
 void soundController::splashSound()
