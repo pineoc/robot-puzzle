@@ -18,7 +18,7 @@ void soundController::initAudio()
 
 	//opening background
 	audio->setBackgroundMusicVolume(0.5);
-	audio->preloadBackgroundMusic("sound/opening_back.wav");
+	//audio->preloadBackgroundMusic("sound/opening_back.wav");
 
 	//opening
 	audio->preloadEffect("sound/op1_k.mp3");
@@ -126,7 +126,7 @@ void soundController::gameOpening(int num)
 	isKorea = UserDefault::getInstance()->getBoolForKey("kor");
 
 	//opening background sound start
-	audio->playBackgroundMusic("sound/opening_back.wav", true);
+	//udio->playBackgroundMusic("sound/opening_back.wav", true);
 
 	switch (num)
 	{

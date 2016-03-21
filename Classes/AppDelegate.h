@@ -3,6 +3,8 @@
 
 #include "cocos2d.h"
 
+#include "SimpleAudioEngine.h"
+
 /**
 @brief    The cocos2d Application.
 

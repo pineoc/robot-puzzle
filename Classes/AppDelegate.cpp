@@ -2,6 +2,7 @@
 #include "firstSplashScene.h"
 
 USING_NS_CC;
+using namespace CocosDenshion;
 
 AppDelegate::AppDelegate() {
 
@@ -37,7 +38,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 		//glview = GLViewImpl::createWithFullScreen("Puzzle Game");
 		glview = GLViewImpl::create("My Game");
 		//glview->setFrameSize(384, 512);//ipad test frame size
-		glview->setFrameSize(360, 640);
+		glview->setFrameSize(1080, 1920);
         director->setOpenGLView(glview);
     }
 	//for multi platform
@@ -48,16 +49,20 @@ bool AppDelegate::applicationDidFinishLaunching() {
 		CCLOG("iPad");
 		glview->setDesignResolutionSize(1536, 2048, ResolutionPolicy::SHOW_ALL);
 	}
-	if (abs(frameRatio - 1.77) < 0.01)
+	else if (abs(frameRatio - 1.77) < 0.01)
 	{
 		CCLOG("phone");
 		glview->setDesignResolutionSize(1080, 1920, ResolutionPolicy::SHOW_ALL);
 	}
-	if (abs(frameRatio - 1.5) < 0.01)
+	else if (abs(frameRatio - 1.5) < 0.01)
 	{
 		CCLOG("iPhone 4");
 		glview->setDesignResolutionSize(1080, 1920, ResolutionPolicy::SHOW_ALL);
 	}
+    else
+    {
+        glview->setDesignResolutionSize(1080, 1920, ResolutionPolicy::SHOW_ALL);
+    }
 
 	
 
@@ -83,7 +88,7 @@ void AppDelegate::applicationDidEnterBackground() {
     Director::getInstance()->stopAnimation();
 
     // if you use SimpleAudioEngine, it must be pause
-    // SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+    SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
 }
 
 // this function will be called when the app is active again
@@ -91,5 +96,5 @@ void AppDelegate::applicationWillEnterForeground() {
     Director::getInstance()->startAnimation();
 
     // if you use SimpleAudioEngine, it must resume here
-    // SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
+    SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
 }
