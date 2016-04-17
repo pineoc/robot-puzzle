@@ -53,6 +53,9 @@ public:
 	//ending pop up
 	void popUp();
 
+	//lets rock
+	void letsrock();
+
 	//sound stop
 	void soundStop();
 

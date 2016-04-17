@@ -38,7 +38,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 		//glview = GLViewImpl::createWithFullScreen("Puzzle Game");
 		glview = GLViewImpl::create("My Game");
 		//glview->setFrameSize(384, 512);//ipad test frame size
-		glview->setFrameSize(1080, 1920);
+		glview->setFrameSize(360, 640);
         director->setOpenGLView(glview);
     }
 	//for multi platform
@@ -67,7 +67,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	
 
     // turn on display FPS
-    director->setDisplayStats(true);
+    //director->setDisplayStats(true);
 
     // set FPS. the default value is 1.0/60 if you don't call this
     director->setAnimationInterval(1.0 / 60);

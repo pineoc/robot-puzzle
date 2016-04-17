@@ -19,6 +19,8 @@ public:
 
 	void goHomeBtnListener(cocos2d::Ref* pSender, cocos2d::ui::Widget::TouchEventType type);
 
+	void delayedMusicStart(float dt);
+
     // implement the "static create()" method manually
     CREATE_FUNC(finish);
 

@@ -283,7 +283,10 @@ void menuController::btnListenerResLayout(Ref * pSender, Widget::TouchEventType 
 			}
 			else
 			{
-				Scene* s = TransitionFade::create(TRANSITION_FADE_TIME, finish::createScene());
+				//sound let's rock and roll
+				soundController sc;
+				sc.letsrock();
+				Scene* s = TransitionFade::create(TRANSITION_FADE_TIME + 2.0f, finish::createScene());
 				Director::getInstance()->replaceScene(s);
 			}
 			break;
@@ -436,3 +439,4 @@ void menuController::btnsListener(Ref* pSender, Widget::TouchEventType type)
 		}
 	}
 }
+

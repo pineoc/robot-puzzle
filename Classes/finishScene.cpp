@@ -33,7 +33,7 @@ bool finish::init()
         return false;
     }
 	soundController sc;
-	sc.soundStop();
+	//sc.soundStop();
 
 	/*background image*/
     Size visibleSize = Director::getInstance()->getVisibleSize();
@@ -49,11 +49,12 @@ bool finish::init()
 	this->addChild(backgroundSprite, BACKGROUND_Z);
 
 	{
-		auto act1 = EaseSineInOut::create(MoveBy::create(3.0f, Vec2(visibleSize.width - backgroundSprite->getContentSize().width, 0)));
-		auto act2 = EaseSineInOut::create(MoveTo::create(3.0f, Vec2(0, visibleSize.height)));
-		auto act3 = EaseSineInOut::create(MoveTo::create(2.0f, Vec2(-backgroundSprite->getContentSize().width / 3 + 100, visibleSize.height)));
+		auto delay = DelayTime::create(3.0f);
+		auto act1 = EaseSineInOut::create(MoveBy::create(5.0f, Vec2(visibleSize.width - backgroundSprite->getContentSize().width, 0)));
+		auto act2 = EaseSineInOut::create(MoveTo::create(5.0f, Vec2(0, visibleSize.height)));
+		auto act3 = EaseSineInOut::create(MoveTo::create(3.0f, Vec2(-backgroundSprite->getContentSize().width / 3 + 100, visibleSize.height)));
 		auto actF = CallFunc::create(CC_CALLBACK_0(finish::showBtn, this));
-		auto actS = Sequence::create(act1, act2, act3, actF, NULL);
+		auto actS = Sequence::create(delay, act1, act2, act3, actF, NULL);
 		backgroundSprite->runAction(actS);
 	}
 
@@ -72,7 +73,7 @@ bool finish::init()
 		goHomeBtn->runAction(actR);
 	}
 
-	sc.gameEnding();
+	this->scheduleOnce(schedule_selector(finish::delayedMusicStart), 3.0f);
 
     return true;
 }
@@ -89,5 +90,11 @@ void finish::goHomeBtnListener(cocos2d::Ref * pSender, cocos2d::ui::Widget::Touc
 	sc.backgroundSoundStop();
 	Scene* s = TransitionFade::create(TRANSITION_FADE_TIME, Splash::createScene());
 	Director::getInstance()->replaceScene(s);
+}
+
+void finish::delayedMusicStart(float dt)
+{
+	soundController sc;
+	sc.gameEnding();
 }
 

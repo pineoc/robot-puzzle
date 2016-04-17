@@ -178,8 +178,14 @@ void soundController::gameEnding()
 		return;
 	auto audio = SimpleAudioEngine::getInstance();
 
+	audio->playBackgroundMusic("sound/ending.mp3", true);
 
-	audio->playBackgroundMusic("sound/ending.mp3", true);	
+	//ending nar
+	if (UserDefault::getInstance()->getBoolForKey("kor"))
+		SimpleAudioEngine::getInstance()->playEffect("sound/ending_nar_k.mp3");
+	else
+		SimpleAudioEngine::getInstance()->playEffect("sound/ending_nar_e.mp3");
+
 }
 
 //puzzle opening door
@@ -250,6 +256,16 @@ void soundController::popUp()
 		return;
 	auto audio = SimpleAudioEngine::getInstance();
 	audio->playEffect("sound/tada.mp3");
+}
+
+void soundController::letsrock()
+{
+	if (UserDefault::getInstance()->getBoolForKey("sound") == false)
+		return;
+	if(UserDefault::getInstance()->getBoolForKey("kor"))
+		SimpleAudioEngine::getInstance()->playEffect("sound/rock_and_roll_k.mp3");
+	else 
+		SimpleAudioEngine::getInstance()->playEffect("sound/rock_and_roll_e.mp3");
 }
 
 void soundController::soundStop()
