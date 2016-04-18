@@ -89,7 +89,7 @@ void soundController::puzzlePickUp()
 {
 	if (UserDefault::getInstance()->getBoolForKey("sound") == false)
 		return;
-	auto audio = SimpleAudioEngine::getInstance();
+	//auto audio = SimpleAudioEngine::getInstance();
 	//no sound
 }
 //puzzle - wrong location

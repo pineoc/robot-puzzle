@@ -58,3 +58,4 @@ Resources
 .cocos-project.json
 CMakeLists.txt
 *.apk
+bin
