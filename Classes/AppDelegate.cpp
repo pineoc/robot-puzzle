@@ -4,6 +4,11 @@
 USING_NS_CC;
 using namespace CocosDenshion;
 
+static cocos2d::Size designResolutionSize = cocos2d::Size(1080, 1920);
+static cocos2d::Size smallResolutionSize = cocos2d::Size(360, 640);
+static cocos2d::Size mediumResolutionSize = cocos2d::Size(750, 1334);
+static cocos2d::Size largeResolutionSize = cocos2d::Size(1080, 1920);
+
 AppDelegate::AppDelegate() {
 
 }
@@ -35,15 +40,14 @@ bool AppDelegate::applicationDidFinishLaunching() {
     auto director = Director::getInstance();
     auto glview = director->getOpenGLView();
     if(!glview) {
-		//glview = GLViewImpl::createWithFullScreen("Puzzle Game");
-		glview = GLViewImpl::create("My Game");
-		//glview->setFrameSize(384, 512);//ipad test frame size
-		glview->setFrameSize(360, 640);
+		//glview = GLViewImpl::createWithFullScreen("robotGeneral");
+		glview = GLViewImpl::create("robotGeneral");
+		glview->setFrameSize(1080, 1920);
         director->setOpenGLView(glview);
     }
 	//for multi platform
 	auto frameRatio = glview->getFrameSize().height / glview->getFrameSize().width;
-
+    
 	if (abs(frameRatio - 1.33) < 0.01)
 	{
 		CCLOG("iPad");
@@ -58,12 +62,13 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	{
 		CCLOG("iPhone 4");
 		glview->setDesignResolutionSize(1080, 1920, ResolutionPolicy::SHOW_ALL);
+        
 	}
     else
     {
+        CCLOG("other ratio");
         glview->setDesignResolutionSize(1080, 1920, ResolutionPolicy::SHOW_ALL);
     }
-
 	
 
     // turn on display FPS

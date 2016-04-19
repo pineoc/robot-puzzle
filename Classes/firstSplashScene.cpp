@@ -77,7 +77,7 @@ bool firstSplash::init()
 	monster = Sprite::create("splash/monster.png");
 	monster->setAnchorPoint(Vec2(1.0, 1.0));
 	monster->setPosition(Vec2(visibleSize.width + 500, visibleSize.height + 200));
-	this->addChild(monster, 2);
+	this->addChild(monster, 3);
 
 	earth = Sprite::create("splash/earth.png");
 	earth->setAnchorPoint(Vec2(0.0, 0.0));
