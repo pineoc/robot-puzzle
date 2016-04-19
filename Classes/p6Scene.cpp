@@ -141,7 +141,7 @@ bool sixthPuzzle::init()
 	//check for language change
 	this->schedule(schedule_selector(sixthPuzzle::checkLanguageChange), 0.5f);
 	
-	this->setKeypadEnabled(true);
+	//this->setKeyboardEnabled(true);
 
     return true;
 }
@@ -165,7 +165,7 @@ void sixthPuzzle::showCompleteSprite(float dt){
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Sprite* spriteComplete = Sprite::create("p6/result.png");
 	spriteComplete->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 5.0f));
-	spriteComplete->setZOrder(PARTNER_Z + 1);
+	spriteComplete->setLocalZOrder(PARTNER_Z + 1);
 	spriteComplete->setOpacity(0);
 	this->addChild(spriteComplete);
 
@@ -175,7 +175,7 @@ void sixthPuzzle::showCompleteSprite(float dt){
 	//particle
 	ParticleSystem* finishParticle = ParticleFire::create();
 	finishParticle->retain();
-	finishParticle->setZOrder(PARTICLE_Z);
+	finishParticle->setLocalZOrder(PARTICLE_Z);
 	finishParticle->setTexture(Director::getInstance()->getTextureCache()->addImage("fire.png"));
 	finishParticle->setAnchorPoint(Vec2(0.5, 0.5));
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();

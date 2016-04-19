@@ -41,6 +41,12 @@ bool Splash::init()
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
 	Sprite* backgroundSprite = Sprite::create("splash/background.jpg");
+    
+    //for ipad resolution image
+    if(abs(visibleSize.height / visibleSize.width - 1.33) < 0.01)
+    {
+        backgroundSprite = Sprite::create("splash/background-ipad.jpg");
+    }
 
 	// position the sprite on the center of the screen
 	backgroundSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));

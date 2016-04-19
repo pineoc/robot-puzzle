@@ -128,7 +128,7 @@ bool option::init()
 	this->addChild(backBtn);
 
 	//set key event enable
-	this->setKeypadEnabled(true);
+	//this->setKeypadEnabled(true);
 
 	return true;
 }

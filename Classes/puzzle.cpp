@@ -19,7 +19,7 @@ puzzle::puzzle(float puzzleX, float puzzleY,
 	spriteSize = spritePuzzle->getContentSize();
 	spritePuzzle->setPosition(Vec2(puzzleX, puzzleY));
 	spritePuzzle->setScale(0.9f);
-	spritePuzzle->setZOrder(PUZZLE_Z);//PUZZLE_Z
+	spritePuzzle->setLocalZOrder(PUZZLE_Z);//PUZZLE_Z
 
 	createPosition = Vec2(puzzleX,puzzleY);
 	//create spritePartner
@@ -119,7 +119,7 @@ void puzzle::onTouchMoved(Touch *touch, Event *unused_event){
 			//particle
 			ParticleSystem* correctParticle = ParticleFireworks::create();
 			correctParticle->retain();
-			correctParticle->setZOrder(PUZZLE_Z);
+            correctParticle->setLocalZOrder(PUZZLE_Z);
 			correctParticle->setTexture(Director::getInstance()->getTextureCache()->addImage("star.png"));
 			correctParticle->setAnchorPoint(Vec2(0.5, 0.5));
 			correctParticle->setPosition(Vec2(spritePuzzle->getContentSize().width / 2, spritePuzzle->getContentSize().height / 2));

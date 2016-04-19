@@ -13,7 +13,7 @@ partner::partner(Vec2 position, Size puzzleSize)
 	float y = puzzleSize.height/partnerPuzzle->getContentSize().height;
 	partnerPuzzle->setScaleX(x);
 	partnerPuzzle->setScaleY(y);
-	partnerPuzzle->setZOrder(PARTNER_Z);
+	partnerPuzzle->setLocalZOrder(PARTNER_Z);
 
 }
 

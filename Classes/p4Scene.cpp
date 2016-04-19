@@ -125,7 +125,7 @@ bool fourthPuzzle::init()
 	//check for language change
 	this->schedule(schedule_selector(fourthPuzzle::checkLanguageChange), 0.5f);
 
-	this->setKeypadEnabled(true);
+	//this->setKeypadEnabled(true);
 
     return true;
 }
@@ -150,7 +150,7 @@ void fourthPuzzle::showCompleteSprite(float dt){
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Sprite* spriteComplete = Sprite::create("p4/result.png");
 	spriteComplete->setPosition(Vec2(visibleSize.width / 2 - 6.0f, visibleSize.height / 2 - 102.0f));
-	spriteComplete->setZOrder(PARTNER_Z + 1);
+	spriteComplete->setLocalZOrder(PARTNER_Z + 1);
 	spriteComplete->setOpacity(0);
 	this->addChild(spriteComplete);
 
@@ -160,7 +160,7 @@ void fourthPuzzle::showCompleteSprite(float dt){
 	//particle
 	ParticleSystem* finishParticle = ParticleFire::create();
 	finishParticle->retain();
-	finishParticle->setZOrder(PARTICLE_Z);
+	finishParticle->setLocalZOrder(PARTICLE_Z);
 	finishParticle->setTexture(Director::getInstance()->getTextureCache()->addImage("fire.png"));
 	finishParticle->setAnchorPoint(Vec2(0.5, 0.5));
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();

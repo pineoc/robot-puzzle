@@ -155,11 +155,11 @@ void soundController::gameOpening(int num)
 }
 void soundController::openingEffectSound(char* soundName)
 {
-	if (soundName == "monster")
+    if (!strncmp(soundName, "monster", 7))
 	{//monster sound
 		SimpleAudioEngine::getInstance()->playEffect("sound/op_monster.mp3");
 	}
-	else if (soundName == "siren")
+	else if (!strncmp(soundName, "siren", 5))
 	{//siren sound
 		SimpleAudioEngine::getInstance()->playEffect("sound/op_siren.mp3");
 	}

@@ -22,7 +22,7 @@ menuController::menuController(int _sceneNum)
 	baseLayout = Layout::create();
 	baseLayout->setAnchorPoint(Vec2(0.5, 0.5));
 	baseLayout->setPosition(Vec2(visibleSize.width / 2, visibleSize.height - 205));
-	baseLayout->setSize(Size(visibleSize.width, 410));
+	baseLayout->setContentSize(Size(1080, 410));
 
 	//background sprite setup
 	layoutBackgroundSpr = Sprite::create("menu1.png");
@@ -45,7 +45,7 @@ menuController::menuController(int _sceneNum)
 	scrollview->setAnchorPoint(Vec2());
 	scrollview->setPosition(Vec2(200, 35));
 	scrollview->setDirection(ScrollView::Direction::HORIZONTAL);
-	scrollview->setSize(Size(700, 195));
+	scrollview->setContentSize(Size(700, 195));
 	scrollview->setInnerContainerSize(Size(1440, 195));
 	scrollview->setTouchEnabled(false);
 	scrollview->setScrollBarEnabled(false);
@@ -142,10 +142,10 @@ menuController::menuController(int _sceneNum)
 
 	//game result popup layout
 	resultBaseLayout = Layout::create();
-	resultBaseLayout->setSize(visibleSize);
+	resultBaseLayout->setContentSize(visibleSize);
 	resultBaseLayout->setPosition(Vec2());
 	resultBaseLayout->setAnchorPoint(Vec2());
-	resultBaseLayout->setBackGroundColorType(LayoutBackGroundColorType::SOLID);
+    resultBaseLayout->setBackGroundColorType(cocos2d::ui::Layout::BackGroundColorType::SOLID);
 	resultBaseLayout->setBackGroundColor(Color3B::BLACK);
 	resultBaseLayout->setBackGroundColorOpacity(255 * POPUPLAYOUT_OPACITY_PERCENT);
 	resultBaseLayout->setEnabled(false);
@@ -173,7 +173,7 @@ menuController::menuController(int _sceneNum)
 	}
 	else
 	{
-		char* reward_str_arr[3] = {"ereward1.png", "ereward2.png", "ereward3.png" };
+		string reward_str_arr[3] = {"ereward1.png", "ereward2.png", "ereward3.png" };
 		Sprite* resultSpr = Sprite::create(reward_str_arr[RandomHelper::random_int(0,2)]);
 		resultSpr->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2 + 100));
 		resultBaseLayout->addChild(resultSpr, 1);
@@ -302,7 +302,7 @@ void menuController::popUpResultLayout()
 	soundController sc;
 	sc.popUp();
 
-	resultBaseLayout->setZOrder(20);
+	resultBaseLayout->setLocalZOrder(20);
 	resultBaseLayout->setEnabled(true);
 }
 

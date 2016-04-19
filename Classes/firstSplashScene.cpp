@@ -46,6 +46,12 @@ bool firstSplash::init()
 	double h = visibleSize.height;
 
 	Sprite* backgroundSprite = Sprite::create("splash/splash1.png");
+    
+    //for ipad resolution image
+    if(abs(visibleSize.height / visibleSize.width - 1.33) < 0.01)
+    {
+        backgroundSprite->setScale(visibleSize.width / 1080.0);
+    }
 
 	// position the sprite on the center of the screen
 	backgroundSprite->setPosition(Vec2(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));

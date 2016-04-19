@@ -24,11 +24,11 @@ void gate::createBackGr()
 	layoutBackGr = Layout::create();
 	layoutBackGr->setAnchorPoint(Vec2());
 	layoutBackGr->setPosition(Vec2());
-	layoutBackGr->setSize(visibleSize);
-	layoutBackGr->setBackGroundColorType(LayoutBackGroundColorType::SOLID);
+	layoutBackGr->setContentSize(visibleSize);
+    layoutBackGr->setBackGroundColorType(cocos2d::ui::Layout::BackGroundColorType::SOLID);
 	layoutBackGr->setBackGroundColor(Color3B::BLACK);
 	layoutBackGr->setBackGroundColorOpacity(255 * POPUPLAYOUT_OPACITY_PERCENT);
-	layoutBackGr->setZOrder(GATELAYOUT_Z);
+	layoutBackGr->setLocalZOrder(GATELAYOUT_Z);
 
 	DelayTime* delay = DelayTime::create(5.0f);
 	CallFunc* remove = CallFunc::create(CC_CALLBACK_0(gate::deleteLayout,this));

@@ -1,9 +1,6 @@
 ﻿#include "p2Scene.h"
 #include "p3Scene.h"
 
-#include <cstdlib>
-#include <ctime>
-
 USING_NS_CC;
 using namespace ui;
 
@@ -37,10 +34,6 @@ bool secondPuzzle::init()
 	sc.soundStop();
 
 	goalCount = 6;
-	//rand number for arm and hand
-	//num==1 : right arm, left hand
-	//num==0 : left arm, right hand
-	srand((unsigned int)time(NULL));
 	int num = cocos2d::RandomHelper::random_int(0, 1);
 
 	gameController::getInstance()->initPuzzleCount();
@@ -103,12 +96,12 @@ bool secondPuzzle::init()
 		//set other images
 		Sprite* p1 = Sprite::create("p2/right_arm.png");
 		p1->setPosition(Vec2(w + 179.0f, h + 92.0f));
-		p1->setZOrder(PUZZLE_Z);
+		p1->setLocalZOrder(PUZZLE_Z);
 		this->addChild(p1);
 
 		Sprite* p2 = Sprite::create("p2/left_hand.png");
 		p2->setPosition(Vec2(w - 255.0f, h - 72.0f));
-		p2->setZOrder(PUZZLE_Z);
+		p2->setLocalZOrder(PUZZLE_Z);
 		this->addChild(p2);
 
 
@@ -133,12 +126,12 @@ bool secondPuzzle::init()
 		//set other images
 		Sprite* p1 = Sprite::create("p2/left_arm.png");
 		p1->setPosition(Vec2(w - 174.0f, h + 92.0f));
-		p1->setZOrder(PUZZLE_Z);
+		p1->setLocalZOrder(PUZZLE_Z);
 		this->addChild(p1);
 
 		Sprite* p2 = Sprite::create("p2/right_hand.png");
 		p2->setPosition(Vec2(w + 257.0f, h - 72.0f));
-		p2->setZOrder(PUZZLE_Z);
+		p2->setLocalZOrder(PUZZLE_Z);
 		this->addChild(p2);
 	}
 
@@ -183,7 +176,7 @@ bool secondPuzzle::init()
 	//check for language change
 	this->schedule(schedule_selector(secondPuzzle::checkLanguageChange), 0.5f);
 
-	this->setKeypadEnabled(true);
+	//this->setKeypadEnabled(true);
 
 	return true;
 }
@@ -209,7 +202,7 @@ void secondPuzzle::showCompleteSprite(float dt) {
 	Size visibleSize = Director::getInstance()->getVisibleSize();
 	Sprite* spriteComplete = Sprite::create("p2/result.png");
 	spriteComplete->setPosition(Vec2(visibleSize.width / 2 - 6.0f, visibleSize.height / 2 - 102.0f));
-	spriteComplete->setZOrder(PARTNER_Z + 1);
+	spriteComplete->setLocalZOrder(PARTNER_Z + 1);
 	spriteComplete->setOpacity(0);
 	this->addChild(spriteComplete);
 
@@ -225,7 +218,7 @@ void secondPuzzle::showCompleteSprite(float dt) {
 	//particle
 	ParticleSystem* finishParticle = ParticleFire::create();
 	finishParticle->retain();
-	finishParticle->setZOrder(PARTICLE_Z);
+	finishParticle->setLocalZOrder(PARTICLE_Z);
 	finishParticle->setTexture(Director::getInstance()->getTextureCache()->addImage("fire.png"));
 	finishParticle->setAnchorPoint(Vec2(0.5, 0.5));
 	Vec2 origin = Director::getInstance()->getVisibleOrigin();
