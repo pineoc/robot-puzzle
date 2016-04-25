@@ -42,7 +42,11 @@ bool AppDelegate::applicationDidFinishLaunching() {
     if(!glview) {
 		//glview = GLViewImpl::createWithFullScreen("robotGeneral");
 		glview = GLViewImpl::create("robotGeneral");
+#if (CC_PLATFORM_WIN32 == CC_TARGET_PLATFORM)
+		glview->setFrameSize(360, 640);
+#else
 		glview->setFrameSize(1080, 1920);
+#endif
         director->setOpenGLView(glview);
     }
 	//for multi platform

@@ -39,7 +39,7 @@ bool finish::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    Sprite* backgroundSprite = Sprite::create("finish/finish.jpg");
+    Sprite* backgroundSprite = Sprite::create("finish/finish.png");
 
     // position the sprite on the center of the screen
 	backgroundSprite->setPosition(Vec2(0, visibleSize.height));
@@ -51,10 +51,8 @@ bool finish::init()
 	{
 		auto delay = DelayTime::create(3.0f);
 		auto act1 = EaseSineInOut::create(MoveBy::create(5.0f, Vec2(visibleSize.width - backgroundSprite->getContentSize().width, 0)));
-		auto act2 = EaseSineInOut::create(MoveTo::create(5.0f, Vec2(0, visibleSize.height)));
-		auto act3 = EaseSineInOut::create(MoveTo::create(3.0f, Vec2(-backgroundSprite->getContentSize().width / 3 + 100, visibleSize.height)));
 		auto actF = CallFunc::create(CC_CALLBACK_0(finish::showBtn, this));
-		auto actS = Sequence::create(delay, act1, act2, act3, actF, NULL);
+		auto actS = Sequence::create(delay, act1, actF, NULL);
 		backgroundSprite->runAction(actS);
 	}
 
