@@ -56,10 +56,17 @@ void soundController::initAudio()
 	audio->preloadEffect("sound/tada.mp3");	//each game finish
 
 	//correct eff
-	audio->preloadEffect("sound/good_k.mp3");	//good
-	audio->preloadEffect("sound/excellent_k.mp3");	//welldone
-	audio->preloadEffect("sound/good_e.mp3");	//good
-	audio->preloadEffect("sound/excellent_e.mp3");	//welldone
+	audio->preloadEffect("sound/correct_e1.mp3");	//good
+	audio->preloadEffect("sound/correct_e2.mp3");	//good
+    audio->preloadEffect("sound/correct_e3.mp3");	//good
+    audio->preloadEffect("sound/correct_e4.mp3");	//good
+    audio->preloadEffect("sound/correct_e5.mp3");	//good
+    
+    audio->preloadEffect("sound/correct_k1.mp3");	//good
+    audio->preloadEffect("sound/correct_k2.mp3");	//good
+    audio->preloadEffect("sound/correct_k3.mp3");	//good
+    audio->preloadEffect("sound/correct_k4.mp3");	//good
+    audio->preloadEffect("sound/correct_k5.mp3");	//good
 
 	//splashScene sound
 	audio->preloadEffect("sound/start_k.mp3");
@@ -109,12 +116,23 @@ void soundController::puzzleCorrect()
 	auto audio = SimpleAudioEngine::getInstance();
 	isKorea = UserDefault::getInstance()->getBoolForKey("kor");
 	if (isKorea)
-	{//random good or excellent sound
-		RandomHelper::random_int(0,1) ? audio->playEffect("sound/good_k.mp3") : audio->playEffect("sound/excellent_k.mp3");
+	{
+        //random good or excellent sound
+        //TODO: file naming should change
+        //-> correct_k1.mp3, correct_k2.mp3, correct_k3.mp3 ...
+        int randNum = RandomHelper::random_int(1,5);
+        String* file_str = String::createWithFormat("sound/correct_k%d.mp3", randNum);
+        audio->playEffect(file_str->getCString());
+		//RandomHelper::random_int(0,1) ? audio->playEffect("sound/good_k.mp3") : audio->playEffect("sound/excellent_k.mp3");
 	}
 	else
 	{
-		RandomHelper::random_int(0, 1) ? audio->playEffect("sound/good_e.mp3") : audio->playEffect("sound/excellent_e.mp3");
+        //TODO: file naming should change
+        //-> correct_e1.mp3, correct_e2.mp3, correct_e3.mp3 ...
+        int randNum = RandomHelper::random_int(1,5);
+        String* file_str = String::createWithFormat("sound/correct_e%d.mp3", randNum);
+        audio->playEffect(file_str->getCString());
+		//RandomHelper::random_int(0, 1) ? audio->playEffect("sound/good_e.mp3") : audio->playEffect("sound/excellent_e.mp3");
 	}
 }
 //game opening scene
@@ -125,12 +143,13 @@ void soundController::gameOpening(int num)
 	auto audio = SimpleAudioEngine::getInstance();
 	isKorea = UserDefault::getInstance()->getBoolForKey("kor");
 
-	//opening background sound start
-	//udio->playBackgroundMusic("sound/opening_back.wav", true);
+    
 
 	switch (num)
 	{
 	case 1:
+            //meteor effect
+            audio->playEffect("sound/meteor.mp3");
 		if (isKorea)
 			audio->playEffect("sound/op1_k.mp3");
 		else
