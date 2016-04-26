@@ -39,20 +39,22 @@ bool finish::init()
     Size visibleSize = Director::getInstance()->getVisibleSize();
     Vec2 origin = Director::getInstance()->getVisibleOrigin();
 
-    Sprite* backgroundSprite = Sprite::create("finish/finish.png");
+    Sprite* backgroundSprite = Sprite::create("finish/finish1.jpg");
 
     // position the sprite on the center of the screen
 	backgroundSprite->setPosition(Vec2(0, visibleSize.height));
 	backgroundSprite->setAnchorPoint(Vec2(0, 1.0));
+    backgroundSprite->setTag(1);
 
     // add the sprite as a child to this layer
 	this->addChild(backgroundSprite, BACKGROUND_Z);
 
 	{
 		auto delay = DelayTime::create(3.0f);
-		auto act1 = EaseSineInOut::create(MoveBy::create(5.0f, Vec2(visibleSize.width - backgroundSprite->getContentSize().width, 0)));
+		auto act1 = EaseSineInOut::create(MoveBy::create(10.0f, Vec2(visibleSize.width - backgroundSprite->getContentSize().width, 0)));
+        auto delay2 = DelayTime::create(2.0f);
 		auto actF = CallFunc::create(CC_CALLBACK_0(finish::showBtn, this));
-		auto actS = Sequence::create(delay, act1, actF, NULL);
+		auto actS = Sequence::create(delay, act1, delay2, actF, NULL);
 		backgroundSprite->runAction(actS);
 	}
 
@@ -61,6 +63,7 @@ bool finish::init()
 	goHomeBtn->addTouchEventListener(CC_CALLBACK_2(finish::goHomeBtnListener, this));
 	goHomeBtn->setTouchEnabled(false);
 	goHomeBtn->setVisible(false);
+    goHomeBtn->setOpacity(255 * 0.8);
 	this->addChild(goHomeBtn, 3);
 
 	{
@@ -72,6 +75,12 @@ bool finish::init()
 	}
 
 	this->scheduleOnce(schedule_selector(finish::delayedMusicStart), 3.0f);
+    
+    //second background image add
+    Sprite* backgroundSpr2 = Sprite::create("finish/finish2.jpg");
+    backgroundSpr2->setPosition(Vec2(visibleSize.width / 2, visibleSize.height / 2));
+    backgroundSpr2->setTag(2);
+    this->addChild(backgroundSpr2, BACKGROUND_Z - 1);
 
     return true;
 }
@@ -80,6 +89,18 @@ void finish::showBtn()
 {
 	goHomeBtn->setTouchEnabled(true);
 	goHomeBtn->setVisible(true);
+    
+    //background1 fadeout
+    auto backgroundSpr1 = (Sprite*)this->getChildByTag(1);
+    backgroundSpr1->runAction(FadeOut::create(1.5));
+    
+    auto backgroundSpr2 = (Sprite*)this->getChildByTag(2);
+    auto act1 = MoveBy::create(2.5, Vec2(150, 0));
+    auto act2 = act1->reverse();
+    auto act3 = act2->clone();
+    auto act4 = act1->clone();
+    auto actR = Sequence::create(act1, act2, act3, act4, NULL);
+    backgroundSpr2->runAction(RepeatForever::create(actR));
 }
 
 void finish::goHomeBtnListener(cocos2d::Ref * pSender, cocos2d::ui::Widget::TouchEventType type)

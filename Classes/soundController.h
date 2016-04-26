@@ -61,6 +61,9 @@ public:
 
 	//background sound stop
 	void backgroundSoundStop();
+    
+    void backgroundSoundPause();
+    void backgroundSoundResume();
 };
 
 #endif // __SOUNDCONTROLLER_H__

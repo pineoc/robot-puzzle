@@ -17,7 +17,7 @@ void soundController::initAudio()
 	auto audio = SimpleAudioEngine::getInstance();
 
 	//opening background
-	audio->setBackgroundMusicVolume(0.5);
+	audio->setBackgroundMusicVolume(0.2);
 	//audio->preloadBackgroundMusic("sound/opening_back.wav");
 
 	//opening
@@ -32,7 +32,7 @@ void soundController::initAudio()
 	audio->preloadBackgroundMusic("sound/game_back.wav");
 
 	//puzzle sound
-	audio->preloadEffect("sound/wrong.wav");			//wrong
+	audio->preloadEffect("sound/wrong.mp3");			//wrong
 
 	//narations
 	//korea narations
@@ -57,16 +57,15 @@ void soundController::initAudio()
 
 	//correct eff
 	audio->preloadEffect("sound/correct_e1.mp3");	//good
-	audio->preloadEffect("sound/correct_e2.mp3");	//good
-    audio->preloadEffect("sound/correct_e3.mp3");	//good
-    audio->preloadEffect("sound/correct_e4.mp3");	//good
-    audio->preloadEffect("sound/correct_e5.mp3");	//good
+	audio->preloadEffect("sound/correct_e2.mp3");
+    audio->preloadEffect("sound/correct_e3.mp3");
+    audio->preloadEffect("sound/correct_e4.mp3");
+    audio->preloadEffect("sound/correct_e5.mp3");
+    audio->preloadEffect("sound/correct_e6.mp3");
     
     audio->preloadEffect("sound/correct_k1.mp3");	//good
-    audio->preloadEffect("sound/correct_k2.mp3");	//good
-    audio->preloadEffect("sound/correct_k3.mp3");	//good
-    audio->preloadEffect("sound/correct_k4.mp3");	//good
-    audio->preloadEffect("sound/correct_k5.mp3");	//good
+    audio->preloadEffect("sound/correct_k2.mp3");
+    audio->preloadEffect("sound/correct_k3.mp3");
 
 	//splashScene sound
 	audio->preloadEffect("sound/start_k.mp3");
@@ -106,7 +105,7 @@ void soundController::puzzleWrong()
 		return;
 	auto audio = SimpleAudioEngine::getInstance();
 
-	audio->playEffect("sound/wrong.wav");
+	audio->playEffect("sound/wrong.mp3");
 }
 //puzzle - correct location
 void soundController::puzzleCorrect()
@@ -120,7 +119,7 @@ void soundController::puzzleCorrect()
         //random good or excellent sound
         //TODO: file naming should change
         //-> correct_k1.mp3, correct_k2.mp3, correct_k3.mp3 ...
-        int randNum = RandomHelper::random_int(1,5);
+        int randNum = RandomHelper::random_int(1,3);
         String* file_str = String::createWithFormat("sound/correct_k%d.mp3", randNum);
         audio->playEffect(file_str->getCString());
 		//RandomHelper::random_int(0,1) ? audio->playEffect("sound/good_k.mp3") : audio->playEffect("sound/excellent_k.mp3");
@@ -129,7 +128,7 @@ void soundController::puzzleCorrect()
 	{
         //TODO: file naming should change
         //-> correct_e1.mp3, correct_e2.mp3, correct_e3.mp3 ...
-        int randNum = RandomHelper::random_int(1,5);
+        int randNum = RandomHelper::random_int(1,6);
         String* file_str = String::createWithFormat("sound/correct_e%d.mp3", randNum);
         audio->playEffect(file_str->getCString());
 		//RandomHelper::random_int(0, 1) ? audio->playEffect("sound/good_e.mp3") : audio->playEffect("sound/excellent_e.mp3");
@@ -295,4 +294,14 @@ void soundController::soundStop()
 void soundController::backgroundSoundStop()
 {
 	SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+}
+
+void soundController::backgroundSoundPause()
+{
+    SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
+}
+
+void soundController::backgroundSoundResume()
+{
+    SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
 }

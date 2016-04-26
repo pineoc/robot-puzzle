@@ -14,10 +14,7 @@ public:
     static cocos2d::Scene* createScene();
 
     // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
-    virtual bool init();    
-
-	//key touch event listener
-	void onKeyReleased(cocos2d::EventKeyboard::KeyCode keycode, cocos2d::Event* e);
+    virtual bool init();
 
 	//button funcs
 	void backBtnsListener(Ref* pSender, Widget::TouchEventType type);

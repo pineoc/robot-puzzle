@@ -34,7 +34,7 @@ bool option::init()
 	//stop sound in option page
 	soundController sc;
 	sc.soundStop();
-	sc.backgroundSoundStop();
+    sc.backgroundSoundPause();
 
 	/*background image*/
     Size visibleSize = Director::getInstance()->getVisibleSize();
@@ -83,7 +83,7 @@ bool option::init()
 	}
 	//set position
 	langBtn_kor->setAnchorPoint(Vec2(0.5, 0.5));
-	langBtn_kor->setPosition(Vec2(3 * w / 4 - 100, h * 2 / 3 + 210.0f));
+	langBtn_kor->setPosition(Vec2(3 * w / 4 - 95, h * 2 / 3 + 210.0f));
 	langBtn_kor->setTag(1);
 	//add listener
 	langBtn_kor->addTouchEventListener(CC_CALLBACK_2(option::langBtnsListener, this));
@@ -106,16 +106,25 @@ bool option::init()
 
 	//set position
 	langBtn_eng->setAnchorPoint(Vec2(0.5, 0.5));
-	langBtn_eng->setPosition(Vec2(3 * w / 4 + 100, h * 2 / 3 + 210.0f));
+	langBtn_eng->setPosition(Vec2(3 * w / 4 + 95, h * 2 / 3 + 210.0f));
 	langBtn_eng->setTag(2);
 	//add listener
 	langBtn_eng->addTouchEventListener(CC_CALLBACK_2(option::langBtnsListener, this));
 	this->addChild(langBtn_eng);
+    
+    //if iPad, buttons repositioning
+    if(abs(visibleSize.height / visibleSize.width - 1.33) < 0.01 )
+    {
+        langBtn_eng->runAction(MoveBy::create(0, Vec2(-100, -20)));
+        langBtn_kor->runAction(MoveBy::create(0, Vec2(-100, -20)));
+        soundBtn->runAction(MoveBy::create(0, Vec2(-100, -20)));
+    }
+    
 
 	//describe label
 	descLabel = LabelTTF::create("", "Arial", 35, Size::ZERO, TextHAlignment::LEFT);
 	descLabel->setColor(Color3B::BLACK);
-	descLabel->setPosition(Vec2(w / 2 - 50, h / 2 - 50));
+	descLabel->setPosition(Vec2(w / 2, h / 2 - 50));
 	descLabel->setAnchorPoint(Vec2(0.5, 0.5));
 	descLabelSetting();
 	this->addChild(descLabel, 1);
@@ -133,18 +142,12 @@ bool option::init()
 	return true;
 }
 
-void option::onKeyReleased(cocos2d::EventKeyboard::KeyCode keycode, cocos2d::Event* e)
-{
-	if (EventKeyboard::KeyCode::KEY_BACK == keycode)
-	{//back button
-		Director::getInstance()->popScene();
-	}
-}
-
 void option::backBtnsListener(Ref* pSender, Widget::TouchEventType type)
 {	// go to back
 	if (Widget::TouchEventType::ENDED == type)
 	{
+        soundController sc;
+        sc.backgroundSoundResume();
 		Director::getInstance()->popScene();
 	}
 		
@@ -203,15 +206,23 @@ void option::langBtnsListener(Ref* pSender, Widget::TouchEventType type)
 
 void option::descLabelSetting()
 {
+    /*background image*/
+    Size visibleSize = Director::getInstance()->getVisibleSize();
+    
+    float w = visibleSize.width;
+    float h = visibleSize.height;
+    
 	if (UserDefault::getInstance()->getBoolForKey("kor"))
 	{
-		std::string str = "장군로봇의 탄생의 비밀은 로봇을 좋아하는 어린이들을 위해 \n김호남 선생님이 그린 그림책, 로봇박사 테오의 두번째 이야기입니다.\n지구의 수호자, 장군로봇!\n어린이 여러분이 직접 장군로봇을 만들고 \n우주괴물로 부터 지구를 지켜주세요!";
+		std::string str = "장군로봇의 탄생의 비밀은 로봇을 좋아하는 어린이들을 위해 \n김호남 선생님이 그린 그림책, \n로봇박사 테오의 두번째 이야기입니다.\n지구의 수호자, 장군로봇!\n어린이 여러분이 직접 장군로봇을 만들고 \n우주괴물로 부터 지구를 지켜주세요!";
 		descLabel->setString(str);
+        descLabel->runAction(MoveTo::create(0.0f, Vec2(w / 2 - 10, h / 2 - 60)));
 	}
 	else
 	{
 		std::string str = "The Secret of the birth of general Robot is\nHonam Kim\'s second story of the Dr. Robot Teo Series.\nGeneral Robot, the guardian of the Earth!\nPlease build general Robot and protect our earth \nfrom the space monster!";
 		descLabel->setString(str);
+        descLabel->runAction(MoveTo::create(0.0f, Vec2(w / 2 + 5, h / 2 - 50)));
 	}
 
 }
