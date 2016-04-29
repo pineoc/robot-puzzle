@@ -90,14 +90,7 @@ void soundController::splashSound()
 	else
 		audio->playEffect("sound/start_e.mp3");
 }
-//puzzle - pick up
-void soundController::puzzlePickUp()
-{
-	if (UserDefault::getInstance()->getBoolForKey("sound") == false)
-		return;
-	//auto audio = SimpleAudioEngine::getInstance();
-	//no sound
-}
+
 //puzzle - wrong location
 void soundController::puzzleWrong()
 {

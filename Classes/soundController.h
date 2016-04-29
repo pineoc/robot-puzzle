@@ -30,9 +30,6 @@ public:
 	//game background sound start
 	void startGameBackgroundSound();
 
-	//puzzle - pick up
-	void puzzlePickUp();
-
 	//puzzle - wrong location
 	void puzzleWrong();
 
