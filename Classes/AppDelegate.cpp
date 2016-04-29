@@ -65,7 +65,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
 	else if (abs(frameRatio - 1.5) < 0.01)
 	{
 		CCLOG("iPhone 4");
-		glview->setDesignResolutionSize(1080, 1920, ResolutionPolicy::SHOW_ALL);
+		glview->setDesignResolutionSize(1080, 1920, ResolutionPolicy::EXACT_FIT);
         
 	}
     else
